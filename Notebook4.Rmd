@@ -158,8 +158,6 @@ Describe this plot:
 
 ``` {r}
 #wi,  leaf water vapor, mole fraction
-
-
 wi=ei/press_bar
 
 #wa, ambient water vapor, mole fraction
