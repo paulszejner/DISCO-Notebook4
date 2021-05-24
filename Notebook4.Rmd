@@ -15,7 +15,7 @@ The following activities with R code and comments should further your experience
 You will need to download or clone the R project from https://github.com/paulszejner/Notebook4.git
 then, each of you will be able to set your working directory to proceed with this exercises. Once you open the ```Notebook 4.Rproj```  you can open the ```Notebook 4.Rmd``` file to proceed with the activity.
 
-In this exercise, you will model the oxygen isotopes in cellulose. However, this exercise is intended for you to evaluate the sensitivity of the different variables. For example, what happens to the cellulose oxygen isotopes if we vary the relative humidity ```relH```,  the source water ```water```, the stomatal conductance```gs``` and the percentage of exchange during the cellulose sinthesys```F_0```
+In this exercise, you will model the oxygen isotopes in cellulose ```d18O_cellulose```. However, this exercise is intended for you to evaluate the sensitivity of the different variables. For example, what happens to the cellulose oxygen isotopes if we vary the relative humidity ```relH```,  the source water ```water```, the stomatal conductance```gs``` and the percentage of exchange during the cellulose sinthesys```F_0```
 
 
 ## PART 1: Variables to analize its sensitivity
@@ -93,8 +93,7 @@ Describe this relationship:
 # g, total leaf conductance to water vapor (mol m-2 s-1) 
 # this section is important becasue we are adding a new variable which we willl modify and add an other dimention to the sensitivity analysis,
 
-gs <- seq(0.01,0.5,length.out = 5)
-
+gs <- c(0.01,0.25, 0.5)
 
 #Total Conductance in mol
 g = 1/(1/gs + 1/br) # or 1/(rs+rb)
@@ -105,7 +104,7 @@ E_v_gs <- list()
 W_v_gs <- list() # dont know if we will use this
 
 #this for loop will calculate the leaf transpiration and the W_v_gs for the 5 different gs
-for(sto in 1:5){
+for(sto in 1:3){
   E_v_gs[[sto]]=((ei-ea_v)/press_bar)*g[sto] #(vpd*gs)=E
   W_v_gs[[sto]] <- ((ei-ea_v)/press_bar) # this is VPD? need to check on the units.
   }
@@ -129,8 +128,8 @@ Describe this plot:
 plot(W_v_gs[[1]],E_v_gs[[1]],type="l", xlim = range(W_v_gs), range(E_v_gs),
      ylab="E, mol m-2 s-1", 
      xlab="mole fraction of water vapor deficit")
-lines(W_v_gs[[3]],E_v_gs[[3]], lwd=3)
-lines(W_v_gs[[5]],E_v_gs[[5]], lwd=6)
+lines(W_v_gs[[2]],E_v_gs[[2]], lwd=3)
+lines(W_v_gs[[3]],E_v_gs[[3]], lwd=6)
 
 legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
 ```
@@ -144,8 +143,8 @@ Describe this plot:
 
 ``` {r}
 plot(RH_SOURCE[,1],E_v_gs[[1]],type="l", xlim = c(10,90), range(E_v_gs), ylab="E, mol m-2 s-1", xlab="rel Humidity")
-lines(RH_SOURCE[,1],E_v_gs[[3]], lwd=3)
-lines(RH_SOURCE[,1],E_v_gs[[5]], lwd=6)
+lines(RH_SOURCE[,1],E_v_gs[[2]], lwd=3)
+lines(RH_SOURCE[,1],E_v_gs[[3]], lwd=6)
 legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
 ```
 Describe this plot:  
@@ -165,7 +164,7 @@ wa_v= ea_v/press_bar #wa, ambient water vapor, mole fraction
 # this list contains 5 diferent combinations of gs for many RH and Source waters.
 
 ws_v_gs <- list()
-for(sto in 1:5){
+for(sto in 1:3){
   ws_v_gs[[sto]] =((gs[[sto]]*wi)-E_v_gs[[sto]]*(1-wi/2))/(gs[[sto]] - E_v_gs[[sto]]/2)
 
 }
@@ -176,8 +175,8 @@ for(sto in 1:5){
 ###  
 
 plot(ws_v_gs[[1]],E_v_gs[[1]],type="l", xlim = c(0,0.05), ylim=c(0,0.015), ylab="E, mol m-2 s-1", xlab=" leaf surface water vapor, mole frac")
-lines(ws_v_gs[[3]],E_v_gs[[3]], lwd=3)
-lines(ws_v_gs[[5]],E_v_gs[[5]], lwd=6)
+lines(ws_v_gs[[2]],E_v_gs[[2]], lwd=3)
+lines(ws_v_gs[[3]],E_v_gs[[3]], lwd=6)
 
 legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
 ```
@@ -192,13 +191,13 @@ Describe this plot:
 ``` {r}
 # es vapor pressure at leaf surface (kPa)
 esl_v_gs <- list()
-for(sto in 1:5){
+for(sto in 1:3){
   esl_v_gs[[sto]]=ws_v_gs[[sto]]*press_bar
   }
 
 plot(esl_v_gs[[1]],E_v_gs[[1]],type="l", xlim = c(0,3), ylim=c(0,0.015), ylab="E, mol m-2 s-1", xlab=" leaf surface water vapor, mole frac")
-lines(esl_v_gs[[3]],E_v_gs[[3]], lwd=3)
-lines(esl_v_gs[[5]],E_v_gs[[5]], lwd=6)
+lines(esl_v_gs[[2]],E_v_gs[[2]], lwd=3)
+lines(esl_v_gs[[3]],E_v_gs[[3]], lwd=6)
 
 legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
 ```
@@ -210,8 +209,7 @@ Describe this plot:
 -  
 -  
 
-to this point we  have  all the components to estimate what will be the magnitud of the isotopic enrichment at the leaf level, because we already have calculations for internal leaf vapor pressure (kPa)```ei```,vapor pressure at leaf surface (kPa) ```esl_v_gs```, ambient vapor pressure (kPa)```ea_v```  under different Stomatal conductances ```gs```, and different relative humidities```relH``` and, source waters ```water```.
-
+Because we already have calculations for internal leaf vapor pressure (kPa)```ei```, vapor pressure at leaf surface (kPa) ```esl_v_gs```, ambient vapor pressure (kPa)```ea_v```  under different Stomatal conductances ```gs```, and different relative humidities```relH``` and, source waters ```water```. Thus, we have all the components to estimate the magnitude of the isotopic enrichment at the leaf level. 
 
 ``` {r}
 # a*  **equilibrium fractionation at leaf temperature  
@@ -229,7 +227,7 @@ Ratm= rsmow*(1+water_vapor/1000)
 #### Leaf water enrichment  with diferent RH, Soueces and gs
 
 Rleaf_v_gs <- list()
-for(sto in 1:5){
+for(sto in 1:3){
   Rleaf_v_gs[[sto]] <- alpha_star*((ak*Rsource*
                               ((ei-esl_v_gs[[sto]])/ei))+
                              (akb*Rsource*(esl_v_gs[[sto]]-ea_v)/ei)+
@@ -240,8 +238,8 @@ for(sto in 1:5){
 
 ``` {r}
 plot(esl_v_gs[[1]][1:17],Rleaf_v_gs[[1]][1:17],type="p", xlim = c(0,4), ylab="leaf water GC", xlab="vapor pressure at leaf surface (kPa)")
-points(esl_v_gs[[3]][1:17],Rleaf_v_gs[[3]][1:17], lwd=3)
-points(esl_v_gs[[5]][1:17],Rleaf_v_gs[[5]][1:17], lwd=6)
+points(esl_v_gs[[2]][1:17],Rleaf_v_gs[[2]][1:17], lwd=3)
+points(esl_v_gs[[3]][1:17],Rleaf_v_gs[[3]][1:17], lwd=6)
 
 legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
 
@@ -255,18 +253,18 @@ Describe this plot:
 -  
 
 ``` {r}
-#d18O leaf with CG so 5 Stomatal conductances  
+#d18O leaf with CG so 3 Stomatal conductances  
 #### Leaf water enrichment  with diferent RH, Soueces and GS
 d18OL_gs <- list()
-for(sto in 1:5){
+for(sto in 1:3){
   d18OL_gs[[sto]]=((Rleaf_v_gs[[sto]]/rsmow)-1)*1000 
 }
 ```
 
 ```{r}
 plot(esl_v_gs[[1]][1:17],d18OL_gs[[1]][1:17],type="p", xlim = c(0,4), ylab="leaf water GC", xlab="vapor pressure at leaf surface (kPa)")
-points(esl_v_gs[[3]][1:17],d18OL_gs[[3]][1:17], lwd=3)
-points(esl_v_gs[[5]][1:17],d18OL_gs[[5]][1:17], lwd=6)
+points(esl_v_gs[[2]][1:17],d18OL_gs[[2]][1:17], lwd=3)
+points(esl_v_gs[[3]][1:17],d18OL_gs[[3]][1:17], lwd=6)
 
 legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
 ```
@@ -275,43 +273,37 @@ legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
 ## Plot with different source waters
 # [1:13] is all RHs and  with source water of -25
 plot(RH_v[1:17], d18OL_gs[[1]][1:17], type="l", ylim = c(-30,10))
-lines(RH_v[1:17], d18OL_gs[[3]][1:17], lwd=3)
-lines(RH_v[1:17], d18OL_gs[[5]][1:17], lwd=6)
+lines(RH_v[1:17], d18OL_gs[[2]][1:17], lwd=3)
+lines(RH_v[1:17], d18OL_gs[[3]][1:17], lwd=6)
 
 legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
 ```
 
 
 ``` {r}
-#### Leaf water enrichment  with diferent RH, Soueces and GS
 
 #Craig_Gordon model with different PEX
 ## on to the cellulose synthesis
 
 F_0 <- c(0.33,0.42,0.55) # variable percentage of Exchage during Cellulose Synthesis
 # here a double loop
-d18Oc_F_0_gs <- list()
-for(sto in 1:5){
+d18O_cellulose <- list()
+for(sto in 1:3){
   d18Oc_F_0 <- list()
   for (pe in 1:3){
     d18Oc_F_0[[pe]] <- F_0[[pe]]*(Source_18O + epsilon_c) + (1 - F_0[[pe]]) * (d18OL_gs[[sto]]+ epsilon_c) 
     }
-d18Oc_F_0_gs[[sto]] <- d18Oc_F_0
+d18O_cellulose[[sto]] <- d18Oc_F_0
 }
 
-str(d18Oc_F_0_gs)  # here we see we just generate a list of 5 stomatal conductance variations and in each of those 3 diferent outputs using different Percentage of exchange during cellulose sinthesisi.
+str(d18O_cellulose)  # here we see we just generate a list of 3 stomatal conductance variations and in each of those 3 diferent outputs using different Percentage of exchange during cellulose sinthesisi.
 
 ```
 
-## PART 3: Plotting results
+## PART 3: Estimate the  slope between  diferent variables  and the Isotopic effect estimated in cellulose 
+in this ffinal step you will need to estimate the diferent sensitivities the ```d18O_cellulose``` is exposed to  under diferent environments and diferent factors. and you will need to arrive to the conclusion which  of the factors  analized in this exercise is the most sensitive  and why. 
+
 
 ```{r}
 
 ```
-
-## PART 2: leaf water isotopic enrichment  
-
-Now that we have our source water and estimate the water vapor, then, we can focus on what will happen to this water at the leaf during transpiration.  
-
-The leaf water isotopic enrichment can be estimated using the Craig Gordon model of leaf water enrichment. This is because isotope values in the water inside the leaf are exposed to evaporation. The isotopic values of the reminding water inside the leaf will have a different isotopic value from the source value. This process will be highly dependent on the relative humidity, and we can apply the Craig Gordon model to estimate the isotopic values at the leaf level under certain relative humidity temperatures and stomatal conductance.  
-
