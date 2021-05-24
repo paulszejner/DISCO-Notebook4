@@ -303,9 +303,127 @@ str(d18O_cellulose)  # here we see we just generate a list of 3 stomatal conduct
 Remember that each vector on these elements  of the list are al the  combinations we had at the  start of this exercise. where ```RH_SOURCE``` is the main structre for all 17 different Realtive humidietieson ```relH``` the 16 different source waters ```water``` provides 272 values on each vector from the list.
 
 ## PART 3: Estimate the  slope between  diferent variables  and the Isotopic effect estimated in cellulose 
-in this ffinal step you will need to estimate the diferent sensitivities the ```d18O_cellulose``` is exposed to  under diferent environments and diferent factors. and you will need to arrive to the conclusion which  of the factors  analized in this exercise is the most sensitive  and why. 
+In this final step you will need to estimate the diferent sensitivities the ```d18O_cellulose``` is exposed to  under diferent environments and diferent factors. and you will need to arrive to the conclusion which  of the factors  analized in this exercise is the most sensitive  and why. 
 
 
 ```{r}
 
+## set the fraction of the vector we liket to plot  
+source1 <- RH_SOURCE[,2]==-25 # in this case we select the  positions  that  have a sorce water of -25 
+source2 <- RH_SOURCE[,2]==1# in this case we select the  positions  that  have a sorce water of 1 
+
+
+plot(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.55"]][["gs=0.01"]][source2], xlim =range(RH_SOURCE[,1]), ylim =range(unlist(d18O_cellulose)),  pch=19) 
+  points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.55"]][["gs=0.25"]][source2], pch=2)
+  points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.55"]][["gs=0.5"]][source2])
+  
+  
+  points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.33"]][["gs=0.01"]][source2],  pch=19, col="red" )
+  points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.33"]][["gs=0.25"]][source2], pch=2, col="red" )
+  points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.33"]][["gs=0.5"]][source2], col="red" )
+
+  points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][source2],  pch=19, col="blue" )
+  points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.42"]][["gs=0.25"]][source2], pch=2, col="blue" )
+  points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.42"]][["gs=0.5"]][source2], col="blue" )
+  
+  
+
+
+  points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.55"]][["gs=0.01"]][source1],  pch=19, col="red" )
+  points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.55"]][["gs=0.25"]][source1], pch=2)
+  points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.55"]][["gs=0.5"]][source1])
+  
+  
+  points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.33"]][["gs=0.01"]][source1],  pch=19, col="red" )
+  points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.33"]][["gs=0.25"]][source1], pch=2, col="red" )
+  points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.33"]][["gs=0.5"]][source1], col="red" )
+
+  points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][source1],  pch=19, col="blue" )
+  points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.42"]][["gs=0.25"]][source1], pch=2, col="blue" )
+  points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.42"]][["gs=0.5"]][source1], col="blue" )
+  
+  
 ```
+
+
+
+
+```{r}
+RH1 <- RH_SOURCE[,1]== 10 # in this case we select the  positions  that  have a sorce water of -25 
+RH2 <- RH_SOURCE[,1]==90# in this case we select the  positions  that  have a sorce water of 1 
+
+
+plot(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.55"]][["gs=0.01"]][RH2], xlim =range(RH_SOURCE[,2]), ylim =range(unlist(d18O_cellulose)),  pch=19)
+  points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.55"]][["gs=0.25"]][RH2], pch=2)
+  points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.55"]][["gs=0.5"]][RH2])
+  
+  
+  points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.33"]][["gs=0.01"]][RH2],  pch=19, col="red" )
+  points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.33"]][["gs=0.25"]][RH2], pch=2, col="red" )
+  points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.33"]][["gs=0.5"]][RH2], col="red" )
+
+  points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][RH2],  pch=19, col="blue" )
+  points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.42"]][["gs=0.25"]][RH2], pch=2, col="blue" )
+  points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.42"]][["gs=0.5"]][RH2], col="blue" )
+  
+  
+
+
+  points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.55"]][["gs=0.01"]][RH1],  pch=19, col="red" )
+  points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.55"]][["gs=0.25"]][RH1], pch=2)
+  points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.55"]][["gs=0.5"]][RH1])
+  
+  
+  points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.33"]][["gs=0.01"]][RH1],  pch=19, col="red" )
+  points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.33"]][["gs=0.25"]][RH1], pch=2, col="red" )
+  points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.33"]][["gs=0.5"]][RH1], col="red" )
+
+  points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][RH1],  pch=19, col="blue" )
+  points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.42"]][["gs=0.25"]][RH1], pch=2, col="blue" )
+  points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.42"]][["gs=0.5"]][RH1], col="blue" )
+  
+  
+
+
+
+```
+
+in this final step  we will  plor aall in figure with all the values  estimated in this excersice
+a 3 by 3 panel  using heat maps of the  RH,Source vectors
+
+
+```{r}
+#generation of matrices 17 different Realtive by 16 different waters
+
+d18O_cellulose_fo0.55_gs0.01 <- matrix (d18O_cellulose[["fo=0.55"]][["gs=0.01"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
+d18O_cellulose_fo0.55_gs0.25 <- matrix (d18O_cellulose[["fo=0.55"]][["gs=0.25"]], nrow = 17, ncol = 16, byrow = F)
+d18O_cellulose_fo0.55_gs0.5 <- matrix (d18O_cellulose[["fo=0.55"]][["gs=0.5"]], nrow = 17, ncol = 16, byrow = F)
+
+d18O_cellulose_fo0.33_gs0.01 <- matrix (d18O_cellulose[["fo=0.33"]][["gs=0.01"]], nrow = 17, ncol = 16, byrow = F)
+d18O_cellulose_fo0.33_gs0.25 <- matrix (d18O_cellulose[["fo=0.33"]][["gs=0.25"]], nrow = 17, ncol = 16, byrow = F)
+d18O_cellulose_fo0.33_gs0.5 <- matrix (d18O_cellulose[["fo=0.33"]][["gs=0.5"]], nrow = 17, ncol = 16, byrow = F)
+
+d18O_cellulose_fo0.42_gs0.01 <-matrix ( d18O_cellulose[["fo=0.42"]][["gs=0.01"]], nrow = 17, ncol = 16, byrow = F)
+d18O_cellulose_fo0.42_gs0.25 <- matrix (d18O_cellulose[["fo=0.42"]][["gs=0.25"]], nrow = 17, ncol = 16, byrow = F)
+d18O_cellulose_fo0.42_gs0.5 <- matrix (d18O_cellulose[["fo=0.42"]][["gs=0.5"]], nrow = 17, ncol = 16, byrow = F)
+
+COLIS <- colorRampPalette(colors = c("red", "blue", "black"))
+
+
+```
+
+```{r}
+layout(mat = matrix(1:9,nrow = 3, ncol = 3, byrow = T), widths = 1, heights = 1, respect = T)
+par(mar=c(4,4,0.1,0.1))
+image(x = water, y = relH, z = t(d18O_cellulose_fo0.33_gs0.01),col = COLIS(10))
+image(x = water, y = relH, z = t(d18O_cellulose_fo0.33_gs0.25),col = COLIS(10))
+image(x = water, y = relH, z = t(d18O_cellulose_fo0.33_gs0.5),col = COLIS(10))
+image(x = water, y = relH, z = t(d18O_cellulose_fo0.42_gs0.01),col = COLIS(10))
+image(x = water, y = relH, z = t(d18O_cellulose_fo0.42_gs0.25),col = COLIS(10))
+image(x = water, y = relH, z = t(d18O_cellulose_fo0.42_gs0.5),col = COLIS(10))
+image(x = water, y = relH, z = t(d18O_cellulose_fo0.55_gs0.01),col = COLIS(10))
+image(x = water, y = relH, z = t(d18O_cellulose_fo0.55_gs0.25),col = COLIS(10))
+image(x = water, y = relH, z = t(d18O_cellulose_fo0.55_gs0.5),col = COLIS(10))
+
+```
+
