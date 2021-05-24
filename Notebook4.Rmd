@@ -395,17 +395,17 @@ a 3 by 3 panel  using heat maps of the  RH,Source vectors
 ```{r}
 #generation of matrices 17 different Realtive by 16 different waters
 
-d18O_cellulose_fo0.55_gs0.01 <- matrix (d18O_cellulose[["fo=0.55"]][["gs=0.01"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
-d18O_cellulose_fo0.55_gs0.25 <- matrix (d18O_cellulose[["fo=0.55"]][["gs=0.25"]], nrow = 17, ncol = 16, byrow = F)
-d18O_cellulose_fo0.55_gs0.5 <- matrix (d18O_cellulose[["fo=0.55"]][["gs=0.5"]], nrow = 17, ncol = 16, byrow = F)
+d18O__fo0.55_gs0.01 <- matrix (d18O_cellulose[["fo=0.55"]][["gs=0.01"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
+d18O__fo0.55_gs0.25 <- matrix (d18O_cellulose[["fo=0.55"]][["gs=0.25"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
+d18O__fo0.55_gs0.5 <- matrix (d18O_cellulose[["fo=0.55"]][["gs=0.5"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
 
-d18O_cellulose_fo0.33_gs0.01 <- matrix (d18O_cellulose[["fo=0.33"]][["gs=0.01"]], nrow = 17, ncol = 16, byrow = F)
-d18O_cellulose_fo0.33_gs0.25 <- matrix (d18O_cellulose[["fo=0.33"]][["gs=0.25"]], nrow = 17, ncol = 16, byrow = F)
-d18O_cellulose_fo0.33_gs0.5 <- matrix (d18O_cellulose[["fo=0.33"]][["gs=0.5"]], nrow = 17, ncol = 16, byrow = F)
+d18O__fo0.33_gs0.01 <- matrix (d18O_cellulose[["fo=0.33"]][["gs=0.01"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
+d18O__fo0.33_gs0.25 <- matrix (d18O_cellulose[["fo=0.33"]][["gs=0.25"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
+d18O__fo0.33_gs0.5 <- matrix (d18O_cellulose[["fo=0.33"]][["gs=0.5"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
 
-d18O_cellulose_fo0.42_gs0.01 <-matrix ( d18O_cellulose[["fo=0.42"]][["gs=0.01"]], nrow = 17, ncol = 16, byrow = F)
-d18O_cellulose_fo0.42_gs0.25 <- matrix (d18O_cellulose[["fo=0.42"]][["gs=0.25"]], nrow = 17, ncol = 16, byrow = F)
-d18O_cellulose_fo0.42_gs0.5 <- matrix (d18O_cellulose[["fo=0.42"]][["gs=0.5"]], nrow = 17, ncol = 16, byrow = F)
+d18O__fo0.42_gs0.01 <-matrix ( d18O_cellulose[["fo=0.42"]][["gs=0.01"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
+d18O__fo0.42_gs0.25 <- matrix (d18O_cellulose[["fo=0.42"]][["gs=0.25"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
+d18O__fo0.42_gs0.5 <- matrix (d18O_cellulose[["fo=0.42"]][["gs=0.5"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
 
 COLIS <- colorRampPalette(colors = c("red", "blue", "black"))
 
@@ -413,17 +413,24 @@ COLIS <- colorRampPalette(colors = c("red", "blue", "black"))
 ```
 
 ```{r}
+
+col_panel <- COLIS(10)
+range_limits <- range(unlist(d18O_cellulose))
+
 layout(mat = matrix(1:9,nrow = 3, ncol = 3, byrow = T), widths = 1, heights = 1, respect = T)
 par(mar=c(4,4,0.1,0.1))
-image(x = water, y = relH, z = t(d18O_cellulose_fo0.33_gs0.01),col = COLIS(10))
-image(x = water, y = relH, z = t(d18O_cellulose_fo0.33_gs0.25),col = COLIS(10))
-image(x = water, y = relH, z = t(d18O_cellulose_fo0.33_gs0.5),col = COLIS(10))
-image(x = water, y = relH, z = t(d18O_cellulose_fo0.42_gs0.01),col = COLIS(10))
-image(x = water, y = relH, z = t(d18O_cellulose_fo0.42_gs0.25),col = COLIS(10))
-image(x = water, y = relH, z = t(d18O_cellulose_fo0.42_gs0.5),col = COLIS(10))
-image(x = water, y = relH, z = t(d18O_cellulose_fo0.55_gs0.01),col = COLIS(10))
-image(x = water, y = relH, z = t(d18O_cellulose_fo0.55_gs0.25),col = COLIS(10))
-image(x = water, y = relH, z = t(d18O_cellulose_fo0.55_gs0.5),col = COLIS(10))
+
+image(x = water, y = relH, z = t(d18O__fo0.33_gs0.01),col = col_panel, zlim = range_limits)
+image(x = water, y = relH, z = t(d18O__fo0.33_gs0.25),col = col_panel, zlim = range_limits)
+image(x = water, y = relH, z = t(d18O__fo0.33_gs0.5),col = col_panel, zlim = range_limits)
+image(x = water, y = relH, z = t(d18O__fo0.42_gs0.01),col = col_panel, zlim = range_limits)
+image(x = water, y = relH, z = t(d18O__fo0.42_gs0.25),col = col_panel, zlim = range_limits)
+image(x = water, y = relH, z = t(d18O__fo0.42_gs0.5),col = col_panel, zlim = range_limits)
+image(x = water, y = relH, z = t(d18O__fo0.55_gs0.01),col = col_panel, zlim = range_limits)
+image(x = water, y = relH, z = t(d18O__fo0.55_gs0.25),col = col_panel, zlim = range_limits)
+image(x = water, y = relH, z = t(d18O__fo0.55_gs0.5),col = col_panel, zlim = range_limits)
+
+
 
 ```
 
