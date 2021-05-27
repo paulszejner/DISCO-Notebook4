@@ -8,11 +8,11 @@ output: html_notebook
 
 
 
-## Instructions:
+### Instructions:
 
 The following activities with R code and comments should further your experience using tree rings and Oxygen isotopes in cellulose using the R environment. This exercise relies upon multiples estimations to conduct a sensitivity analysis of how different factors affect the oxygen isotopes in the cellulose that we can measure in tree rings. The following calculations, like Notebook 2, will be relying on the use of the Craig Gordon model and the Roden model.
 
-You will need to download or clone the R project from https://github.com/paulszejner/Notebook4.git
+You will need to download or clone the R project from https://github.com/paulszejner/DISCO-Notebook4.git
 then, each of you will be able to set your working directory to proceed with this exercises. Once you open the ```Notebook 4.Rproj```  you can open the ```Notebook 4.Rmd``` file to proceed with the activity.
 
 In this exercise, you will model the oxygen isotopes in cellulose ```d18O_cellulose```. However, this exercise is intended for you to evaluate the sensitivity of the different variables. For example, what happens to the cellulose oxygen isotopes if we vary the relative humidity ```relH```,  the source water ```water```, the stomatal conductance```gs``` and the percentage of exchange during the cellulose sinthesys```F_0```
@@ -20,7 +20,7 @@ In this exercise, you will model the oxygen isotopes in cellulose ```d18O_cellul
 
 ## PART 1: Variables to analize its sensitivity
 
-Here you will create a vector of Relative Humidity that will go from 10% to 90% ```relH```  
+Here you will create a vector of relative humidity that will go from 10% to 90% ```relH```  
 The Source water will vary from -20 to 5 and will create a vector called ```water```
 After setting the range of conditions in which the model will run, we will produce all the combinations for each condition
 and will create a 2 column object with all Relative humidities  for each source water we have. ```RH_SOURCE```
