@@ -325,14 +325,10 @@ plot(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.55"]][["gs=0.01"]][source2], x
   points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][source2],  pch=19, col="blue" )
   points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.42"]][["gs=0.25"]][source2], pch=2, col="blue" )
   points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.42"]][["gs=0.5"]][source2], col="blue" )
-  
-  
-
 
   points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.55"]][["gs=0.01"]][source1],  pch=19, col="red" )
   points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.55"]][["gs=0.25"]][source1], pch=2)
   points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.55"]][["gs=0.5"]][source1])
-  
   
   points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.33"]][["gs=0.01"]][source1],  pch=19, col="red" )
   points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.33"]][["gs=0.25"]][source1], pch=2, col="red" )
@@ -366,8 +362,6 @@ plot(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.55"]][["gs=0.01"]][RH2], xlim =ran
   points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.42"]][["gs=0.25"]][RH2], pch=2, col="blue" )
   points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.42"]][["gs=0.5"]][RH2], col="blue" )
   
-  
-
 
   points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.55"]][["gs=0.01"]][RH1],  pch=19, col="red" )
   points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.55"]][["gs=0.25"]][RH1], pch=2)
@@ -433,4 +427,22 @@ image(x = water, y = relH, z = t(d18O__fo0.55_gs0.5),col = col_panel, zlim = ran
 
 
 ```
+
+### Exercise
+Considering the slopes between the d18O in cellulose and ```relH``` and ```water``` and the hypothetical range of variability on a given environment, what variable is most likely to be influencing the cellulose values throughout the life span of a tree?  Take into consideration the seasonal and interannual variability.
+
+Case 1: The source water ranges from -10 to -5, and the relative humidity fluctuates between 20 to 70%. Here we will be assuming that the average gs is 0.01 and a 42% exchange.
+
+Case 2: The source water varies from -10 to -8, and the relative humidity fluctuates between 80% to 90%. Here we will be assuming that the average gs is 0.01, and a 42% exchange.
+
+
+Question xx: what is the most important variable in each of the cases? Can you say how much the source influences the cellulose and how much the relative humidity affects the outcome in d18O in cellulose?
+
+Question xx: is there a significant difference between the d18O in cellulose when gs varies from 0.01 to 0.5? 
+ 
+ 
+
+
+
+
 
