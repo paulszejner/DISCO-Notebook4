@@ -257,8 +257,6 @@ plot(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.55"]][["gs=0.01"]][source2], x
   points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][source1],  pch=19, col="blue" )
   points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.42"]][["gs=0.25"]][source1], pch=2, col="blue" )
   points(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.42"]][["gs=0.5"]][source1], col="blue" )
-  
-  
 ```
 
 
@@ -296,8 +294,6 @@ plot(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.55"]][["gs=0.01"]][RH2], xlim =ran
   points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][RH1],  pch=19, col="blue" )
   points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.42"]][["gs=0.25"]][RH1], pch=2, col="blue" )
   points(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.42"]][["gs=0.5"]][RH1], col="blue" )
-  
-  
 ```
 
 In this final step, we will plot all in one figure panel with all the values estimated. For example, the following plot is a three-by-three panel using heat maps of the  RH, Source vectors with the variable colors showing the isotopic ratio of cellulose.
@@ -320,8 +316,6 @@ d18O__fo0.42_gs0.25 <- matrix (d18O_cellulose[["fo=0.42"]][["gs=0.25"]], nrow = 
 d18O__fo0.42_gs0.5 <- matrix (d18O_cellulose[["fo=0.42"]][["gs=0.5"]], nrow = 17, ncol = 16, byrow = F, dimnames = list(as.character(relH),as.character(water)))
 
 COLIS <- colorRampPalette(colors = c("red", "blue", "black"))
-
-
 ```
 
 ```{r}
@@ -346,23 +340,24 @@ image(x = water, y = relH, z = t(d18O__fo0.55_gs0.5),col = col_panel, zlim = c(0
 source("col_bar.R")
 par(mar=c(4,4,3,0))
 color.bar_h(col_panel, min = 0, max = 60, nticks = 11, title = "d18O cellulose") 
-
 ```
 
 ### Exercise
 Considering the slopes between the d18O in cellulose and ```relH``` and ```water``` and the hypothetical range of variability on a given environment, what variable is most likely to be influencing the cellulose values throughout the life span of a tree?  Take into consideration the seasonal and interannual variability, and the environemntal characteristics provided in the following Case 1 and Case 2.
 
-Case 1: The source water ranges from -10 to -5, and the relative humidity fluctuates between 20 to 70%. Here we will be assuming that the average gs is 0.01 and a 42% exchange.
+Case 1: The source water ranges from -10 to -5, and the relative humidity fluctuates between 20 to 70%. Here we will be assuming that the average gs is 0.01 and a 42% exchange.  
+
 ```{r}
-# hint. Imagine a  box that covers the rage given. Then you can precisely estimate the potential rage in d18O by using the slopes between the variables and d18O in cellulose and calculate the range of variation between the given range of environmental conditions.
+#hint. Imagine a  box that covers the rage given. Then you can precisely estimate the potential rage in d18O by using the slopes between the variables and d18O in cellulose and calculate the range of variation between the given range of environmental conditions.
 
-
+solpes <- 
 ```
 
 Case 2: The source water varies from -10 to -8, and the relative humidity fluctuates between 80% to 90%. Here we will be assuming that the average gs is 0.01, and a 42% exchange.
 
 ```{r}
 
+solpes <- 
 ```
 
 Question 1: what is the most important variable in each of the cases? Can you say how much the source influences the cellulose and how much the relative humidity affects the outcome in d18O in cellulose?
