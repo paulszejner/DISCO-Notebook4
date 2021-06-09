@@ -17,249 +17,193 @@ In this exercise, you will model the oxygen isotopes in cellulose ```d18O_cellul
 
 ## PART 1: Variables
 
-* First create a vector [```relH``` ] of relative humidity ranging from 10% to 90%.   
-* Second, create a vector [```water```] of Source water ranging from -20 permill to 5 permill.  
-* Third, create a 2 column object [```RH_SOURCE```] combining  ```relH```  and ```water``` that correspond to all possible combination of relative humidity and source water 18O. 
+* First, create a vector [```relH``` ] of relative humidity ranging from 10% to 90%.   
+* Second, create a vector [```water```] of Source water ranging from -25 permill to 5 permill.  
+* Third, create a 2 column object [```RH_SOURCE```] combining  ```relH```  and ```water``` that correspond to all possible combinations of relative humidity and source water 18O. 
 
 
 ```{r}
-#library(dplyr)
 
 relH <- seq(10, 90, by=5) # this is the vector of 17 different Relative humidities
 water <-seq( -25, 5,by = 2) # this is the vector with  16 source water isotopic values.
 
-RH_SOURCE <- merge(relH, water) # here we merge the two variables tofacilitate the calculations on each row of this object.
+RH_SOURCE <- merge(relH, water) # here we merge the two variables to facilitate the calculations for each row of this object.
 
-#Subset source water and RH combivations
+#Subset source  RH and source water 18O combinations:
+
+RH <- RH_SOURCE[,1]
 Source_18O <- RH_SOURCE[,2]
-Relative_humidity <- RH_SOURCE[,1]
 ```
 
-Plot RH and Source water in order to visualize all the possible RH-Source water combinations. Example: for RH= 20% there are 16 Source water values ranging from
--25 to 5 permill.
+Plot RH and Source water 18O in order to visualize all the possible RH-Source water 18O combinations.   
+Example: for RH= 20% there are 16 Source water 18O values ranging from -25 to 5 permill.
+
 ```{r}
-plot(Relative_humidity, Source_18O)
+plot(RH, Source_18O)
 ```
 
-These RH-Source water combinations will be used as input for tree ring cellulose model. In addition, other variables such as stomatal conductances ```gs``` and   percentage of  isotope exchange during cellulose synthesis ```F_0``` will also be varied.
+These RH-Source water combinations will be used as input for tree ring cellulose model. In addition, other variables such as stomatal conductance ```gs``` and   percentage of  isotope exchange during cellulose synthesis ```F_0``` will also be varied.
 
 ## PART 2: Modeling the Oxygen Isotopes in the tree ring cellulose
-The leaf water enrichment and cellulose 18O will be predicted  using an extensive range of variability of the four critical factors in the model: source water, RH, gs and F_0.
+The leaf water enrichment and cellulose 18O will be predicted using a wide range of variability of two environmental variables (source water, RH) and two model parameters (gs and F_0).
 
+### Varying Relative Humidity (RH) and Source water d18O:
+
+The first part of the  model will berun with a combination of RH and source water 18O as follows:
 ```{r}
-# Constants -----------------
-br <-1 # boundary layer resistance, considered reasonable value between 0.02 to 3    ak <- 1.0285	# alpha_kappa, Kinetic Fractionation 
-akb <- 1.0189	# alpha_kappa_beta, Kinetic Fractionation boundary layer
-rsmow <- 0.0020052 # Oxygen Isotope ratio from STANDARD	SMOV
-epsilon_s <-27 # Autotrophic fractionation Sucrose	
-epsilon_c <-27 # Autotrophic fractionation Cellulose
-press_bar <-77 # barometric	pressure  (mmbar) This need to be changed for the pressure level
-Ta <- 25 # In this exercise, we are using a constant temperature, air temp. (°C)  Assumption that Tleaf= Tair
+# Constants
+br <-1 # boundary layer conductance. (mol m-2 s-1), considered reasonable value between 0.02 to 3 in Roden paper boundary layer resistance.
+ak <- 1.0285	#  Fractionation factor the liquid–vapor equilibrium fractionation factor and varies with temperature according to the equations of Majoube (1971).
+akb <- 1.0189	#  Fractionation factor associated with diffusion in the boundary layer.
+Stomatal_conductance <- 0.5 # stomatal conductance to water vapor.
+# NOTE: stomatal conductance can be fixed or varies with respect to VPD.
+press_bar <- 77 # barometric	pressure  (mmbar)  
+Ta <- 25 # In this exercise, we are using a constant temperature, air temp. (°C) with the assumption that Tleaf= Tair
 ```
 
-First, we estimate the ambiant vapor pressure as function of Source water and RH:
+First, we estimate the the isotopic value of the water vapor:
 ``` {r}
 water_vapor <-Source_18O +(-1*(1.137*(1000000/((Ta+273.15)^2))-0.4156*((1000/(Ta+273.15))-2.0667))) 
+``` 
 
-# "es" is the saturation vapor pressure (kPa) with air temp in this case at 25
-es=(101325*exp((((-0.1299*(1-(373.16/(273.15 + Ta)))-0.6445)*
+Second, we estimate the vapor pressure e~i~ in intercellular air space (Kpa) as follows:
+``` {r}
+# ei is the saturation vapor pressure (kPa) with air temp, in this case at 25
+ei=(101325*exp((((-0.1299*(1-(373.16/(273.15 + Ta)))-0.6445)*
                    (1-(373.16/(273.15 + Ta)))-1.976)*(1-(373.16/(273.15 + Ta)))+13.3185)*(1-(373.16/(273.15 + Ta)))))/1000
+``` 
 
-# ea_v is the ambient vapor pressure (kPa)
-RH_v <- RH_SOURCE[,1]
-ea_v =(RH_v/100)*es
+Third, we estimate the vapor pressure e~a~ in bulk air (Kpa) as follows:
+``` {r}
+# ea is the ambient vapor pressure (kPa)
+ea =(RH/100)*es
 ```
 
-Plot and describe the relationship between the Relative humidity and the ambient vapor pressure (kPa):
+Question 1: Plot and describe the relationship between the Relative humidity (RH) and the ambient vapor pressure (e~a~):
+
 ``` {r}
-plot(RH_SOURCE[,1],ea_v, xlab = "relative humidity",ylab = "ambient vapor pressure (kPa)" )
+plot(RH,ea, xlab = "RH (%)",ylab = "ea (kPa)" )
 ```
 
+### Varying stomatal conductance:
 
+In this next part of the model, the stomatal conductance (gs) will be varied using 3 values from 0.01-0.5:
 ``` {r}
-# ei,  internal leaf vapor pressure (kPa) is es. ei=es,  because we assume that the vapor is saturated inside the leaf.
- ei=es
-
-# g, total leaf conductance to water vapor (mol m-2 s-1) 
-# this section is important becasue we are adding a new variable which we willl modify and add an other dimention to the sensitivity analysis,
-
 gs <- c(0.01,0.25, 0.5)
 
-#Total Conductance in mol
+# The total conductance includes stomatal conductance to water vapor and boundary layer conductance:
 g = 1/(1/gs + 1/br) # or 1/(rs+rb)
 
-# E_v_gs leaf transpiration (mol m-2 s-1) # barbour 2004
-# this list contains 5 diferent combinations of gs  on a 16 different temperatures  for many RH and Source water.
-E_v_gs <- list()
-W_v_gs <- list() # dont know if we will use this
-
-#this for loop will calculate the leaf transpiration and the W_v_gs for the 5 different gs
-for(sto in 1:3){
-  E_v_gs[[sto]]=((ei-ea_v)/press_bar)*g[sto] #(vpd*gs)=E
-  W_v_gs[[sto]] <- ((ei-ea_v)/press_bar) # this is VPD? need to check on the units.
-  }
-# check the  structure of this new object.
-str(E_v_gs)### list of model output based on 5 stomatal conductances,
+# E leaf transpiration (mol m-2 s-1) # Barbour 2004
+# This list contains 3 different combinations of gs for many RH and Source water combination.
+E <- list()
+# This for loop will calculate the leaf transpiration E
+for (sto in 1:3){E[[sto]]=((ei-ea)/press_bar)*g[sto] }
 ```
 
+Check the structure of this new object E based n 3 stomatal conductance values:
+```{r}
+str(E) 
+```
 
-
+Plot the relationship between the Relative humidity (RH) and leaf transpiration (E):
 ``` {r}
-plot(W_v_gs[[1]],E_v_gs[[1]],type="l", xlim = range(W_v_gs), range(E_v_gs),
-     ylab="E, mol m-2 s-1", 
-     xlab="mole fraction of water vapor deficit")
-lines(W_v_gs[[2]],E_v_gs[[2]], lwd=3)
-lines(W_v_gs[[3]],E_v_gs[[3]], lwd=6)
-
+plot(RH,E[[1]],type="l", xlim = c(10,90), range(E), ylab="E (mol m-2 s-1)", xlab="RH (%)")
+lines(RH,E[[2]], lwd=3)
+lines(RH,E[[3]], lwd=6)
 legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
 ```
 
+Question 2: Describe the relationship between RH and E under three different stomatal conductance values. How do the slopes differ?
 
+Calculate the leaf water enrichment:
 ``` {r}
-plot(RH_SOURCE[,1],E_v_gs[[1]],type="l", xlim = c(10,90), range(E_v_gs), ylab="leaf transpiration, mol m-2 s-1", xlab="rel Humidity")
-lines(RH_SOURCE[,1],E_v_gs[[2]], lwd=3)
-lines(RH_SOURCE[,1],E_v_gs[[3]], lwd=6)
-legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
-```
-We have three different stomatal conductances ```gs```, and in this graphic, we can see different slopes between relative humidity and the estimated leaf transpiration flux on other gs. 
+# Convert  vapor pressures to mole fraction as follows:
+wi=ei/press_bar 
+wa= ea/press_bar 
 
-Describe this relationship between the relative humidity and leaf transpiration (mol m-2 s-1) under three different stomatal conductance values: 
--  
--  
--  
+# Calculate leaf surface water vapor (ws) mole fraction: 
+# this list contains 3 different combinations of gs for many RH and Source waters.
+ws <- list()
+for(sto in 1:3){ws[[sto]] =((gs[[sto]]*wi)-E[[sto]]*(1-wi/2))/(gs[[sto]] - E[[sto]]/2)}
 
-``` {r}
-wi=ei/press_bar #wi,  leaf water vapor, mole fraction
-wa_v= ea_v/press_bar #wa, ambient water vapor, mole fraction
+# Calculate vapor pressure at leaf surface (es)
+es<- list()
+for(sto in 1:3){es[[sto]]=ws[[sto]]*press_bar}
 
+# Calculate the temperature dependent equilibrium fractionation factor alpha*
+alpha_star =exp((1.137*1000/(273.15+temperature)^2)-(0.4156/(273.15+temperature))-0.0020667)
 
-# ws_v_gs, leaf surface water vapor, mole frac Roden 2000, Ball (1987),
-# this list contains 5 diferent combinations of gs for many RH and Source waters.
-
-ws_v_gs <- list()
-for(sto in 1:3){
-  ws_v_gs[[sto]] =((gs[[sto]]*wi)-E_v_gs[[sto]]*(1-wi/2))/(gs[[sto]] - E_v_gs[[sto]]/2)
-
-}
-```
-
-
-``` {r}
-###  
-
-plot(ws_v_gs[[1]],E_v_gs[[1]],type="l", xlim = c(0,0.05), ylim=c(0,0.015), ylab="E, mol m-2 s-1", xlab=" leaf surface water vapor, mole frac")
-lines(ws_v_gs[[2]],E_v_gs[[2]], lwd=3)
-lines(ws_v_gs[[3]],E_v_gs[[3]], lwd=6)
-
-legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
-```
-
-Describe this plot:  
--  
--  
--  
--  
--  
--  
-``` {r}
-# es vapor pressure at leaf surface (kPa)
-esl_v_gs <- list()
-for(sto in 1:3){
-  esl_v_gs[[sto]]=ws_v_gs[[sto]]*press_bar
-  }
-
-plot(esl_v_gs[[1]],E_v_gs[[1]],type="l", xlim = c(0,3), ylim=c(0,0.015), ylab="E, mol m-2 s-1", xlab=" leaf surface water vapor, mole frac")
-lines(esl_v_gs[[2]],E_v_gs[[2]], lwd=3)
-lines(esl_v_gs[[3]],E_v_gs[[3]], lwd=6)
-
-legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
-```
-
-Because we already have calculations for internal leaf vapor pressure (kPa)```ei```, vapor pressure at leaf surface (kPa) ```esl_v_gs```, ambient vapor pressure (kPa)```ea_v```  under different Stomatal conductances ```gs```, and different relative humidities```relH``` and, source waters ```water```. Thus, we have all the components to estimate the magnitude of the isotopic enrichment at the leaf level. 
-
-``` {r}
-# a*  **equilibrium fractionation at leaf temperature  
-# The equilibrium fractionation factor, a* is temperature dependent 
-# (see Majoube, 1971, J. Chim. Phys. 58:1423-1436), thus,
-alpha_star =exp((1.137*1000/(273.15+Ta)^2)-(0.4156/(273.15+Ta))-0.0020667)
-
-#R source O  isotope ratio, source water conversion to R notation
+# Convert Source water 18O to R notation
 Rsource= rsmow*(1+Source_18O/1000)
 
-#Ratm  Oxy  isotope ratio, atmosph  water vapor
+# Convert water vapor 18O to R notation
 Ratm= rsmow*(1+water_vapor/1000)
-
-#R leaf model Oxyg  isotope ratio, leaf water GC
-#### Leaf water enrichment  with diferent RH, Soueces and gs
-
-Rleaf_v_gs <- list()
-for(sto in 1:3){
-  Rleaf_v_gs[[sto]] <- alpha_star*((ak*Rsource*
-                              ((ei-esl_v_gs[[sto]])/ei))+
-                             (akb*Rsource*(esl_v_gs[[sto]]-ea_v)/ei)+
-                             (Ratm*ea_v/ei))
-  }
 ```
 
-
-
+Now, estimate R leaf for all combinations of RHm Source water 18O and gs:
 ``` {r}
-#d18O leaf with CG so 3 Stomatal conductances  
-#### Leaf water enrichment  with diferent RH, Soueces and GS
-d18OL_gs <- list()
+
+Rleaf<- list()
+
 for(sto in 1:3){
-  d18OL_gs[[sto]]=((Rleaf_v_gs[[sto]]/rsmow)-1)*1000 
+  Rleaf[[sto]] <- alpha_star*((ak*Rsource*((ei-es[[sto]])/ei))+
+                              (akb*Rsource*((es[[sto]]-ea)/ei))+
+                              (Ratm*(ea/ei)))
+                              }
+```
+
+Convert leaf water enrichment to permill values as follows:
+``` {r}
+
+d18Oleaf <- list()
+
+for(sto in 1:3){
+  d18Oleaf[[sto]]=((Rleaf[[sto]]/rsmow)-1)*1000 
 }
 ```
 
-```{r}
-plot(esl_v_gs[[1]][1:17],d18OL_gs[[1]][1:17],type="p", xlim = c(0,4), ylab="leaf water GC", xlab="vapor pressure at leaf surface (kPa)")
-points(esl_v_gs[[2]][1:17],d18OL_gs[[2]][1:17], lwd=3)
-points(esl_v_gs[[3]][1:17],d18OL_gs[[3]][1:17], lwd=6)
+Plot leaf water enrichment with varying source water 18O:
+``` {r}
+
+# Example: [1:13] is all RHs and  with source water of -25 permill
+
+plot(RH[1:17],  d18Oleaf [[1]][1:17], type="l", ylim = c(-30,10))
+lines(RH[1:17], d18Oleaf [[2]][1:17], lwd=3)
+lines(RH[1:17], d18Oleaf [[3]][1:17], lwd=6)
 
 legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
 ```
-Describe this plot Recall the  range of source water  and  now we can observe the effects depending on the amount of water at the leaf surface:  
--  
--  
--  
--  
-``` {r}
-## Plot with different source waters
-# [1:13] is all RHs and  with source water of -25
-plot(RH_v[1:17], d18OL_gs[[1]][1:17], type="l", ylim = c(-30,10))
-lines(RH_v[1:17], d18OL_gs[[2]][1:17], lwd=3)
-lines(RH_v[1:17], d18OL_gs[[3]][1:17], lwd=6)
 
-legend("topright", legend = c("gs=0.01","gs=0.25","gs=0.5" ), lwd = c(1,3,6))
-```
-Describe this plot, remember the range of source water and observe the effects on the leaf water enrichment depending on the environmental relative humidity:  
--  
--  
--  
--  
+Question 3: Describe how leaf water enrichment depend on RH. Does this relationship (slope) vary depending on gs values?
+
+#### Varying the proportion of exchanges with local water F_0:
+The proportion (F_0) of carbohydrate d18O signal from leaf carbohydrate that exchanges with local water during formation of tree-ring or leaf cellulose will be varied to estimate cellulose d18O as follows:
 
 ``` {r}
-
-# Craig_Gordon model with different PEX
-## on to the cellulose synthesis
-
-F_0 <- c(0.33,0.42,0.55) # variable percentage of Exchage during Cellulose Synthesis
+F_0 <- c(0.33,0.42,0.55) # variable percentage of Exchange during Cellulose Synthesis
+epsilon_o <-  27 # Biological fractionation factor for oxygen in going from sugars to cellulose
 # here a double loop
+
 d18O_cellulose <- list()
 for(sto in 1:3){
   d18Oc_F_0 <- list()
-  for (pe in 1:3){ # variable percentage of Exchage during Cellulose Synthesis
-    d18Oc_F_0[[pe]] <- F_0[[pe]]*(Source_18O + epsilon_c) + (1 - F_0[[pe]]) * (d18OL_gs[[sto]]+ epsilon_c) 
+  for (pe in 1:3){ # variable percentage of Exchange during Cellulose Synthesis
+    d18Oc_F_0[[pe]] <- F_0[[pe]]*(Source_18O + epsilon_o) + (1 - F_0[[pe]]) * (d18Oleaf[[sto]]+ epsilon_o) 
   }
   names(d18Oc_F_0) <- c("gs=0.01","gs=0.25","gs=0.5" )
 d18O_cellulose[[sto]] <- d18Oc_F_0
 }
 names(d18O_cellulose) <- c("fo=0.33","fo=0.42","fo=0.55" )
-str(d18O_cellulose)  # here we see we just generate a list of 3 stomatal conductance variations and in each of those 3 diferent outputs using different Percentage of exchange during cellulose sinthesisi.
-
 ```
-Remember that each vector on these elements  of the list are al the  combinations we had at the  start of this exercise. where ```RH_SOURCE``` is the main structre for all 17 different Realtive humidietieson ```relH``` the 16 different source waters ```water``` provides 272 values on each vector from the list.
+
+Check the structure of the d18O_cellulose object. We generated a list of 3 stomatal conductance variations and for each stomatal conductance value, three different Percentage of exchange during cellulose sythesis.
+``` {r}
+str(d18O_cellulose)
+```
+
+Each vector  of the list corresponds to the suite of combinations we had at the start of this exercise where ```RH_SOURCE``` is the main structure for all 17 different Relative humidity values ```RH```and the 16 different source waters d18O ```water``` 
+provides 272 values on each vector from the list.
 
 ## PART 3: Estimate the  slope between  diferent variables  and the Isotopic effect estimated in cellulose 
 In this final step, you will estimate the different sensitivities the ```d18O_cellulose``` is exposed to under different environments and different factors, and you will need to conclude what factors analyzed in this exercise are the most sensitive and why. 

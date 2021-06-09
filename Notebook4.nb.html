@@ -230,41 +230,45 @@ pre code {
 <div id="part-1-variables" class="section level2">
 <h2>PART 1: Variables</h2>
 <ul>
-<li>First create a vector [<code>relH</code> ] of relative humidity ranging from 10% to 90%.<br />
+<li>First, create a vector [<code>relH</code> ] of relative humidity ranging from 10% to 90%.<br />
 </li>
-<li>Second, create a vector [<code>water</code>] of Source water ranging from -20 permill to 5 permill.<br />
+<li>Second, create a vector [<code>water</code>] of Source water ranging from -25 permill to 5 permill.<br />
 </li>
-<li>Third, create a 2 column object [<code>RH_SOURCE</code>] combining <code>relH</code> and <code>water</code> that correspond to all possible combination of relative humidity and source water 18O.</li>
+<li>Third, create a 2 column object [<code>RH_SOURCE</code>] combining <code>relH</code> and <code>water</code> that correspond to all possible combinations of relative humidity and source water 18O.</li>
 </ul>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2xpYnJhcnkoZHBseXIpXG5cbnJlbEggPC0gc2VxKDEwLCA5MCwgYnk9NSkgIyB0aGlzIGlzIHRoZSB2ZWN0b3Igb2YgMTcgZGlmZmVyZW50IFJlbGF0aXZlIGh1bWlkaXRpZXNcbndhdGVyIDwtc2VxKCAtMjUsIDUsYnkgPSAyKSAjIHRoaXMgaXMgdGhlIHZlY3RvciB3aXRoICAxNiBzb3VyY2Ugd2F0ZXIgaXNvdG9waWMgdmFsdWVzLlxuXG5SSF9TT1VSQ0UgPC0gbWVyZ2UocmVsSCwgd2F0ZXIpICMgaGVyZSB3ZSBtZXJnZSB0aGUgdHdvIHZhcmlhYmxlcyB0b2ZhY2lsaXRhdGUgdGhlIGNhbGN1bGF0aW9ucyBvbiBlYWNoIHJvdyBvZiB0aGlzIG9iamVjdC5cblxuI1N1YnNldCBzb3VyY2Ugd2F0ZXIgYW5kIFJIIGNvbWJpdmF0aW9uc1xuU291cmNlXzE4TyA8LSBSSF9TT1VSQ0VbLDJdXG5SZWxhdGl2ZV9odW1pZGl0eSA8LSBSSF9TT1VSQ0VbLDFdXG5gYGAifQ== -->
-<pre class="r"><code>#library(dplyr)
-
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5yZWxIIDwtIHNlcSgxMCwgOTAsIGJ5PTUpICMgdGhpcyBpcyB0aGUgdmVjdG9yIG9mIDE3IGRpZmZlcmVudCBSZWxhdGl2ZSBodW1pZGl0aWVzXG53YXRlciA8LXNlcSggLTI1LCA1LGJ5ID0gMikgIyB0aGlzIGlzIHRoZSB2ZWN0b3Igd2l0aCAgMTYgc291cmNlIHdhdGVyIGlzb3RvcGljIHZhbHVlcy5cblxuUkhfU09VUkNFIDwtIG1lcmdlKHJlbEgsIHdhdGVyKSAjIGhlcmUgd2UgbWVyZ2UgdGhlIHR3byB2YXJpYWJsZXMgdG8gZmFjaWxpdGF0ZSB0aGUgY2FsY3VsYXRpb25zIGZvciBlYWNoIHJvdyBvZiB0aGlzIG9iamVjdC5cblxuI1N1YnNldCBzb3VyY2UgIFJIIGFuZCBzb3VyY2Ugd2F0ZXIgMThPIGNvbWJpbmF0aW9uczpcblxuUkggPC0gUkhfU09VUkNFWywxXVxuU291cmNlXzE4TyA8LSBSSF9TT1VSQ0VbLDJdXG5gYGAifQ== -->
+<pre class="r"><code>
 relH &lt;- seq(10, 90, by=5) # this is the vector of 17 different Relative humidities
 water &lt;-seq( -25, 5,by = 2) # this is the vector with  16 source water isotopic values.
 
-RH_SOURCE &lt;- merge(relH, water) # here we merge the two variables tofacilitate the calculations on each row of this object.
+RH_SOURCE &lt;- merge(relH, water) # here we merge the two variables to facilitate the calculations for each row of this object.
 
-#Subset source water and RH combivations
-Source_18O &lt;- RH_SOURCE[,2]
-Relative_humidity &lt;- RH_SOURCE[,1]</code></pre>
+#Subset source  RH and source water 18O combinations:
+
+RH &lt;- RH_SOURCE[,1]
+Source_18O &lt;- RH_SOURCE[,2]</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Plot RH and Source water in order to visualize all the possible RH-Source water combinations. Example: for RH= 20% there are 16 Source water values ranging from -25 to 5 permill.</p>
+<p>Plot RH and Source water 18O in order to visualize all the possible RH-Source water 18O combinations.<br />
+Example: for RH= 20% there are 16 Source water 18O values ranging from -25 to 5 permill.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChSZWxhdGl2ZV9odW1pZGl0eSwgU291cmNlXzE4TylcbmBgYCJ9 -->
-<pre class="r"><code>plot(Relative_humidity, Source_18O)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChSSCwgU291cmNlXzE4TylcbmBgYCJ9 -->
+<pre class="r"><code>plot(RH, Source_18O)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>These RH-Source water combinations will be used as input for tree ring cellulose model. In addition, other variables such as stomatal conductances <code>gs</code> and percentage of isotope exchange during cellulose synthesis <code>F_0</code> will also be varied.</p>
+<p>These RH-Source water combinations will be used as input for tree ring cellulose model. In addition, other variables such as stomatal conductance <code>gs</code> and percentage of isotope exchange during cellulose synthesis <code>F_0</code> will also be varied.</p>
 </div>
 <div id="part-2-modeling-the-oxygen-isotopes-in-the-tree-ring-cellulose" class="section level2">
 <h2>PART 2: Modeling the Oxygen Isotopes in the tree ring cellulose</h2>
-<p>The leaf water enrichment and cellulose 18O will be predicted using an extensive range of variability of the four critical factors in the model: source water, RH, gs and F_0.</p>
+<p>The leaf water enrichment and cellulose 18O will be predicted using a wide range of variability of two environmental variables (source water, RH) and two model parameters (gs and F_0).</p>
+<div id="varying-relative-humidity-rh-and-source-water-d18o" class="section level3">
+<h3>Varying Relative Humidity (RH) and Source water d18O:</h3>
+<p>The first part of the model will berun with a combination of RH and source water 18O as follows:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDb25zdGFudHMgLS0tLS0tLS0tLS0tLS0tLS1cbmJyIDwtMSAjIGJvdW5kYXJ5IGxheWVyIHJlc2lzdGFuY2UsIGNvbnNpZGVyZWQgcmVhc29uYWJsZSB2YWx1ZSBiZXR3ZWVuIDAuMDIgdG8gMyAgICBhayA8LSAxLjAyODVcdCMgYWxwaGFfa2FwcGEsIEtpbmV0aWMgRnJhY3Rpb25hdGlvbiBcbmFrYiA8LSAxLjAxODlcdCMgYWxwaGFfa2FwcGFfYmV0YSwgS2luZXRpYyBGcmFjdGlvbmF0aW9uIGJvdW5kYXJ5IGxheWVyXG5yc21vdyA8LSAwLjAwMjAwNTIgIyBPeHlnZW4gSXNvdG9wZSByYXRpbyBmcm9tIFNUQU5EQVJEXHRTTU9WXG5lcHNpbG9uX3MgPC0yNyAjIEF1dG90cm9waGljIGZyYWN0aW9uYXRpb24gU3Vjcm9zZVx0XG5lcHNpbG9uX2MgPC0yNyAjIEF1dG90cm9waGljIGZyYWN0aW9uYXRpb24gQ2VsbHVsb3NlXG5wcmVzc19iYXIgPC03NyAjIGJhcm9tZXRyaWNcdHByZXNzdXJlICAobW1iYXIpIFRoaXMgbmVlZCB0byBiZSBjaGFuZ2VkIGZvciB0aGUgcHJlc3N1cmUgbGV2ZWxcblRhIDwtIDI1ICMgSW4gdGhpcyBleGVyY2lzZSwgd2UgYXJlIHVzaW5nIGEgY29uc3RhbnQgdGVtcGVyYXR1cmUsIGFpciB0ZW1wLiAowrBDKSAgQXNzdW1wdGlvbiB0aGF0IFRsZWFmPSBUYWlyXG5gYGAifQ== -->
@@ -279,253 +283,187 @@ Ta &lt;- 25 # In this exercise, we are using a constant temperature, air temp. (
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>First, we estimate the ambiant vapor pressure as function of Source water and RH:</p>
+<p>First, we estimate the the isotopic value of the water vapor:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2F0ZXJfdmFwb3IgPC1Tb3VyY2VfMThPICsoLTEqKDEuMTM3KigxMDAwMDAwLygoVGErMjczLjE1KV4yKSktMC40MTU2KigoMTAwMC8oVGErMjczLjE1KSktMi4wNjY3KSkpIFxuXG4jIFwiZXNcIiBpcyB0aGUgc2F0dXJhdGlvbiB2YXBvciBwcmVzc3VyZSAoa1BhKSB3aXRoIGFpciB0ZW1wIGluIHRoaXMgY2FzZSBhdCAyNVxuZXM9KDEwMTMyNSpleHAoKCgoLTAuMTI5OSooMS0oMzczLjE2LygyNzMuMTUgKyBUYSkpKS0wLjY0NDUpKlxuICAgICAgICAgICAgICAgICAgICgxLSgzNzMuMTYvKDI3My4xNSArIFRhKSkpLTEuOTc2KSooMS0oMzczLjE2LygyNzMuMTUgKyBUYSkpKSsxMy4zMTg1KSooMS0oMzczLjE2LygyNzMuMTUgKyBUYSkpKSkpLzEwMDBcblxuIyBlYV92IGlzIHRoZSBhbWJpZW50IHZhcG9yIHByZXNzdXJlIChrUGEpXG5SSF92IDwtIFJIX1NPVVJDRVssMV1cbmVhX3YgPShSSF92LzEwMCkqZXNcbmBgYCJ9 -->
-<pre class="r"><code>water_vapor &lt;-Source_18O +(-1*(1.137*(1000000/((Ta+273.15)^2))-0.4156*((1000/(Ta+273.15))-2.0667))) 
-
-# &quot;es&quot; is the saturation vapor pressure (kPa) with air temp in this case at 25
-es=(101325*exp((((-0.1299*(1-(373.16/(273.15 + Ta)))-0.6445)*
-                   (1-(373.16/(273.15 + Ta)))-1.976)*(1-(373.16/(273.15 + Ta)))+13.3185)*(1-(373.16/(273.15 + Ta)))))/1000
-
-# ea_v is the ambient vapor pressure (kPa)
-RH_v &lt;- RH_SOURCE[,1]
-ea_v =(RH_v/100)*es</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2F0ZXJfdmFwb3IgPC1Tb3VyY2VfMThPICsoLTEqKDEuMTM3KigxMDAwMDAwLygoVGErMjczLjE1KV4yKSktMC40MTU2KigoMTAwMC8oVGErMjczLjE1KSktMi4wNjY3KSkpIFxuYGBgIn0= -->
+<pre class="r"><code>water_vapor &lt;-Source_18O +(-1*(1.137*(1000000/((Ta+273.15)^2))-0.4156*((1000/(Ta+273.15))-2.0667))) </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Plot and describe the relationship between the Relative humidity and the ambient vapor pressure (kPa):</p>
+<p>Second, we estimate the vapor pressure e<sub>i</sub> in intercellular air space (Kpa) as follows:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChSSF9TT1VSQ0VbLDFdLGVhX3YsIHhsYWIgPSBcInJlbGF0aXZlIGh1bWlkaXR5XCIseWxhYiA9IFwiYW1iaWVudCB2YXBvciBwcmVzc3VyZSAoa1BhKVwiIClcbmBgYCJ9 -->
-<pre class="r"><code>plot(RH_SOURCE[,1],ea_v, xlab = &quot;relative humidity&quot;,ylab = &quot;ambient vapor pressure (kPa)&quot; )</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBlaSBpcyB0aGUgc2F0dXJhdGlvbiB2YXBvciBwcmVzc3VyZSAoa1BhKSB3aXRoIGFpciB0ZW1wLCBpbiB0aGlzIGNhc2UgYXQgMjVcbmVpPSgxMDEzMjUqZXhwKCgoKC0wLjEyOTkqKDEtKDM3My4xNi8oMjczLjE1ICsgVGEpKSktMC42NDQ1KSpcbiAgICAgICAgICAgICAgICAgICAoMS0oMzczLjE2LygyNzMuMTUgKyBUYSkpKS0xLjk3NikqKDEtKDM3My4xNi8oMjczLjE1ICsgVGEpKSkrMTMuMzE4NSkqKDEtKDM3My4xNi8oMjczLjE1ICsgVGEpKSkpKS8xMDAwXG5gYGAifQ== -->
+<pre class="r"><code># ei is the saturation vapor pressure (kPa) with air temp, in this case at 25
+ei=(101325*exp((((-0.1299*(1-(373.16/(273.15 + Ta)))-0.6445)*
+                   (1-(373.16/(273.15 + Ta)))-1.976)*(1-(373.16/(273.15 + Ta)))+13.3185)*(1-(373.16/(273.15 + Ta)))))/1000</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Third, we estimate the vapor pressure e<sub>a</sub> in bulk air (Kpa) as follows:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBlaSwgIGludGVybmFsIGxlYWYgdmFwb3IgcHJlc3N1cmUgKGtQYSkgaXMgZXMuIGVpPWVzLCAgYmVjYXVzZSB3ZSBhc3N1bWUgdGhhdCB0aGUgdmFwb3IgaXMgc2F0dXJhdGVkIGluc2lkZSB0aGUgbGVhZi5cbiBlaT1lc1xuXG4jIGcsIHRvdGFsIGxlYWYgY29uZHVjdGFuY2UgdG8gd2F0ZXIgdmFwb3IgKG1vbCBtLTIgcy0xKSBcbiMgdGhpcyBzZWN0aW9uIGlzIGltcG9ydGFudCBiZWNhc3VlIHdlIGFyZSBhZGRpbmcgYSBuZXcgdmFyaWFibGUgd2hpY2ggd2Ugd2lsbGwgbW9kaWZ5IGFuZCBhZGQgYW4gb3RoZXIgZGltZW50aW9uIHRvIHRoZSBzZW5zaXRpdml0eSBhbmFseXNpcyxcblxuZ3MgPC0gYygwLjAxLDAuMjUsIDAuNSlcblxuI1RvdGFsIENvbmR1Y3RhbmNlIGluIG1vbFxuZyA9IDEvKDEvZ3MgKyAxL2JyKSAjIG9yIDEvKHJzK3JiKVxuXG4jIEVfdl9ncyBsZWFmIHRyYW5zcGlyYXRpb24gKG1vbCBtLTIgcy0xKSAjIGJhcmJvdXIgMjAwNFxuIyB0aGlzIGxpc3QgY29udGFpbnMgNSBkaWZlcmVudCBjb21iaW5hdGlvbnMgb2YgZ3MgIG9uIGEgMTYgZGlmZmVyZW50IHRlbXBlcmF0dXJlcyAgZm9yIG1hbnkgUkggYW5kIFNvdXJjZSB3YXRlci5cbkVfdl9ncyA8LSBsaXN0KClcbldfdl9ncyA8LSBsaXN0KCkgIyBkb250IGtub3cgaWYgd2Ugd2lsbCB1c2UgdGhpc1xuXG4jdGhpcyBmb3IgbG9vcCB3aWxsIGNhbGN1bGF0ZSB0aGUgbGVhZiB0cmFuc3BpcmF0aW9uIGFuZCB0aGUgV192X2dzIGZvciB0aGUgNSBkaWZmZXJlbnQgZ3NcbmZvcihzdG8gaW4gMTozKXtcbiAgRV92X2dzW1tzdG9dXT0oKGVpLWVhX3YpL3ByZXNzX2JhcikqZ1tzdG9dICModnBkKmdzKT1FXG4gIFdfdl9nc1tbc3RvXV0gPC0gKChlaS1lYV92KS9wcmVzc19iYXIpICMgdGhpcyBpcyBWUEQ/IG5lZWQgdG8gY2hlY2sgb24gdGhlIHVuaXRzLlxuICB9XG4jIGNoZWNrIHRoZSAgc3RydWN0dXJlIG9mIHRoaXMgbmV3IG9iamVjdC5cbnN0cihFX3ZfZ3MpIyMjIGxpc3Qgb2YgbW9kZWwgb3V0cHV0IGJhc2VkIG9uIDUgc3RvbWF0YWwgY29uZHVjdGFuY2VzLFxuYGBgIn0= -->
-<pre class="r"><code># ei,  internal leaf vapor pressure (kPa) is es. ei=es,  because we assume that the vapor is saturated inside the leaf.
- ei=es
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBlYSBpcyB0aGUgYW1iaWVudCB2YXBvciBwcmVzc3VyZSAoa1BhKVxuZWEgPShSSC8xMDApKmVzXG5gYGAifQ== -->
+<pre class="r"><code># ea is the ambient vapor pressure (kPa)
+ea =(RH/100)*es</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 1: Plot and describe the relationship between the Relative humidity (RH) and the ambient vapor pressure (e<sub>a</sub>):</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChSSCxlYSwgeGxhYiA9IFwiUkggKCUpXCIseWxhYiA9IFwiZWEgKGtQYSlcIiApXG5gYGAifQ== -->
+<pre class="r"><code>plot(RH,ea, xlab = &quot;RH (%)&quot;,ylab = &quot;ea (kPa)&quot; )</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="varying-stomatal-conductance" class="section level3">
+<h3>Varying stomatal conductance:</h3>
+<p>In this next part of the model, the stomatal conductance (gs) will be varied using 3 values from 0.01-0.5:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ3MgPC0gYygwLjAxLDAuMjUsIDAuNSlcblxuIyBUaGUgdG90YWwgY29uZHVjdGFuY2UgaW5jbHVkZXMgc3RvbWF0YWwgY29uZHVjdGFuY2UgdG8gd2F0ZXIgdmFwb3IgYW5kIGJvdW5kYXJ5IGxheWVyIGNvbmR1Y3RhbmNlOlxuZyA9IDEvKDEvZ3MgKyAxL2JyKSAjIG9yIDEvKHJzK3JiKVxuXG4jIEUgbGVhZiB0cmFuc3BpcmF0aW9uIChtb2wgbS0yIHMtMSkgIyBCYXJib3VyIDIwMDRcbiMgVGhpcyBsaXN0IGNvbnRhaW5zIDMgZGlmZmVyZW50IGNvbWJpbmF0aW9ucyBvZiBncyBmb3IgbWFueSBSSCBhbmQgU291cmNlIHdhdGVyIGNvbWJpbmF0aW9uLlxuRSA8LSBsaXN0KClcbiMgVGhpcyBmb3IgbG9vcCB3aWxsIGNhbGN1bGF0ZSB0aGUgbGVhZiB0cmFuc3BpcmF0aW9uIEVcbmZvciAoc3RvIGluIDE6Myl7RVtbc3RvXV09KChlaS1lYSkvcHJlc3NfYmFyKSpnW3N0b10gfVxuYGBgIn0= -->
+<pre class="r"><code>gs &lt;- c(0.01,0.25, 0.5)
 
-# g, total leaf conductance to water vapor (mol m-2 s-1) 
-# this section is important becasue we are adding a new variable which we willl modify and add an other dimention to the sensitivity analysis,
-
-gs &lt;- c(0.01,0.25, 0.5)
-
-#Total Conductance in mol
+# The total conductance includes stomatal conductance to water vapor and boundary layer conductance:
 g = 1/(1/gs + 1/br) # or 1/(rs+rb)
 
-# E_v_gs leaf transpiration (mol m-2 s-1) # barbour 2004
-# this list contains 5 diferent combinations of gs  on a 16 different temperatures  for many RH and Source water.
-E_v_gs &lt;- list()
-W_v_gs &lt;- list() # dont know if we will use this
-
-#this for loop will calculate the leaf transpiration and the W_v_gs for the 5 different gs
-for(sto in 1:3){
-  E_v_gs[[sto]]=((ei-ea_v)/press_bar)*g[sto] #(vpd*gs)=E
-  W_v_gs[[sto]] &lt;- ((ei-ea_v)/press_bar) # this is VPD? need to check on the units.
-  }
-# check the  structure of this new object.
-str(E_v_gs)### list of model output based on 5 stomatal conductances,</code></pre>
+# E leaf transpiration (mol m-2 s-1) # Barbour 2004
+# This list contains 3 different combinations of gs for many RH and Source water combination.
+E &lt;- list()
+# This for loop will calculate the leaf transpiration E
+for (sto in 1:3){E[[sto]]=((ei-ea)/press_bar)*g[sto] }</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Check the structure of this new object E based n 3 stomatal conductance values:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChXX3ZfZ3NbWzFdXSxFX3ZfZ3NbWzFdXSx0eXBlPVwibFwiLCB4bGltID0gcmFuZ2UoV192X2dzKSwgcmFuZ2UoRV92X2dzKSxcbiAgICAgeWxhYj1cIkUsIG1vbCBtLTIgcy0xXCIsIFxuICAgICB4bGFiPVwibW9sZSBmcmFjdGlvbiBvZiB3YXRlciB2YXBvciBkZWZpY2l0XCIpXG5saW5lcyhXX3ZfZ3NbWzJdXSxFX3ZfZ3NbWzJdXSwgbHdkPTMpXG5saW5lcyhXX3ZfZ3NbWzNdXSxFX3ZfZ3NbWzNdXSwgbHdkPTYpXG5cbmxlZ2VuZChcInRvcHJpZ2h0XCIsIGxlZ2VuZCA9IGMoXCJncz0wLjAxXCIsXCJncz0wLjI1XCIsXCJncz0wLjVcIiApLCBsd2QgPSBjKDEsMyw2KSlcbmBgYCJ9 -->
-<pre class="r"><code>plot(W_v_gs[[1]],E_v_gs[[1]],type=&quot;l&quot;, xlim = range(W_v_gs), range(E_v_gs),
-     ylab=&quot;E, mol m-2 s-1&quot;, 
-     xlab=&quot;mole fraction of water vapor deficit&quot;)
-lines(W_v_gs[[2]],E_v_gs[[2]], lwd=3)
-lines(W_v_gs[[3]],E_v_gs[[3]], lwd=6)
-
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyKEUpIFxuYGBgIn0= -->
+<pre class="r"><code>str(E) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Plot the relationship between the Relative humidity (RH) and leaf transpiration (E):</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChSSCxFW1sxXV0sdHlwZT1cImxcIiwgeGxpbSA9IGMoMTAsOTApLCByYW5nZShFKSwgeWxhYj1cIkUgKG1vbCBtLTIgcy0xKVwiLCB4bGFiPVwiUkggKCUpXCIpXG5saW5lcyhSSCxFW1syXV0sIGx3ZD0zKVxubGluZXMoUkgsRVtbM11dLCBsd2Q9NilcbmxlZ2VuZChcInRvcHJpZ2h0XCIsIGxlZ2VuZCA9IGMoXCJncz0wLjAxXCIsXCJncz0wLjI1XCIsXCJncz0wLjVcIiApLCBsd2QgPSBjKDEsMyw2KSlcbmBgYCJ9 -->
+<pre class="r"><code>plot(RH,E[[1]],type=&quot;l&quot;, xlim = c(10,90), range(E), ylab=&quot;E (mol m-2 s-1)&quot;, xlab=&quot;RH (%)&quot;)
+lines(RH,E[[2]], lwd=3)
+lines(RH,E[[3]], lwd=6)
 legend(&quot;topright&quot;, legend = c(&quot;gs=0.01&quot;,&quot;gs=0.25&quot;,&quot;gs=0.5&quot; ), lwd = c(1,3,6))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Question 2: Describe the relationship between RH and E under three different stomatal conductance values. How do the slopes differ?</p>
+<p>Calculate the leaf water enrichment:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChSSF9TT1VSQ0VbLDFdLEVfdl9nc1tbMV1dLHR5cGU9XCJsXCIsIHhsaW0gPSBjKDEwLDkwKSwgcmFuZ2UoRV92X2dzKSwgeWxhYj1cImxlYWYgdHJhbnNwaXJhdGlvbiwgbW9sIG0tMiBzLTFcIiwgeGxhYj1cInJlbCBIdW1pZGl0eVwiKVxubGluZXMoUkhfU09VUkNFWywxXSxFX3ZfZ3NbWzJdXSwgbHdkPTMpXG5saW5lcyhSSF9TT1VSQ0VbLDFdLEVfdl9nc1tbM11dLCBsd2Q9NilcbmxlZ2VuZChcInRvcHJpZ2h0XCIsIGxlZ2VuZCA9IGMoXCJncz0wLjAxXCIsXCJncz0wLjI1XCIsXCJncz0wLjVcIiApLCBsd2QgPSBjKDEsMyw2KSlcbmBgYCJ9 -->
-<pre class="r"><code>plot(RH_SOURCE[,1],E_v_gs[[1]],type=&quot;l&quot;, xlim = c(10,90), range(E_v_gs), ylab=&quot;leaf transpiration, mol m-2 s-1&quot;, xlab=&quot;rel Humidity&quot;)
-lines(RH_SOURCE[,1],E_v_gs[[2]], lwd=3)
-lines(RH_SOURCE[,1],E_v_gs[[3]], lwd=6)
-legend(&quot;topright&quot;, legend = c(&quot;gs=0.01&quot;,&quot;gs=0.25&quot;,&quot;gs=0.5&quot; ), lwd = c(1,3,6))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We have three different stomatal conductances <code>gs</code>, and in this graphic, we can see different slopes between relative humidity and the estimated leaf transpiration flux on other gs.</p>
-</div>
-<div id="describe-this-relationship-between-the-relative-humidity-and-leaf-transpiration-mol-m-2-s-1-under-three-different-stomatal-conductance-values" class="section level2">
-<h2>Describe this relationship between the relative humidity and leaf transpiration (mol m-2 s-1) under three different stomatal conductance values:</h2>
-<ul>
-<li></li>
-<li></li>
-</ul>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2k9ZWkvcHJlc3NfYmFyICN3aSwgIGxlYWYgd2F0ZXIgdmFwb3IsIG1vbGUgZnJhY3Rpb25cbndhX3Y9IGVhX3YvcHJlc3NfYmFyICN3YSwgYW1iaWVudCB3YXRlciB2YXBvciwgbW9sZSBmcmFjdGlvblxuXG5cbiMgd3Nfdl9ncywgbGVhZiBzdXJmYWNlIHdhdGVyIHZhcG9yLCBtb2xlIGZyYWMgUm9kZW4gMjAwMCwgQmFsbCAoMTk4NyksXG4jIHRoaXMgbGlzdCBjb250YWlucyA1IGRpZmVyZW50IGNvbWJpbmF0aW9ucyBvZiBncyBmb3IgbWFueSBSSCBhbmQgU291cmNlIHdhdGVycy5cblxud3Nfdl9ncyA8LSBsaXN0KClcbmZvcihzdG8gaW4gMTozKXtcbiAgd3Nfdl9nc1tbc3RvXV0gPSgoZ3NbW3N0b11dKndpKS1FX3ZfZ3NbW3N0b11dKigxLXdpLzIpKS8oZ3NbW3N0b11dIC0gRV92X2dzW1tzdG9dXS8yKVxuXG59XG5gYGAifQ== -->
-<pre class="r"><code>wi=ei/press_bar #wi,  leaf water vapor, mole fraction
-wa_v= ea_v/press_bar #wa, ambient water vapor, mole fraction
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDb252ZXJ0ICB2YXBvciBwcmVzc3VyZXMgdG8gbW9sZSBmcmFjdGlvbiBhcyBmb2xsb3dzOlxud2k9ZWkvcHJlc3NfYmFyIFxud2E9IGVhL3ByZXNzX2JhciBcblxuIyBDYWxjdWxhdGUgbGVhZiBzdXJmYWNlIHdhdGVyIHZhcG9yICh3cykgbW9sZSBmcmFjdGlvbjogXG4jIHRoaXMgbGlzdCBjb250YWlucyAzIGRpZmZlcmVudCBjb21iaW5hdGlvbnMgb2YgZ3MgZm9yIG1hbnkgUkggYW5kIFNvdXJjZSB3YXRlcnMuXG53cyA8LSBsaXN0KClcbmZvcihzdG8gaW4gMTozKXt3c1tbc3RvXV0gPSgoZ3NbW3N0b11dKndpKS1FW1tzdG9dXSooMS13aS8yKSkvKGdzW1tzdG9dXSAtIEVbW3N0b11dLzIpfVxuXG4jIENhbGN1bGF0ZSB2YXBvciBwcmVzc3VyZSBhdCBsZWFmIHN1cmZhY2UgKGVzKVxuZXM8LSBsaXN0KClcbmZvcihzdG8gaW4gMTozKXtlc1tbc3RvXV09d3NbW3N0b11dKnByZXNzX2Jhcn1cblxuIyBDYWxjdWxhdGUgdGhlIHRlbXBlcmF0dXJlIGRlcGVuZGVudCBlcXVpbGlicml1bSBmcmFjdGlvbmF0aW9uIGZhY3RvciBhbHBoYSpcbmFscGhhX3N0YXIgPWV4cCgoMS4xMzcqMTAwMC8oMjczLjE1K3RlbXBlcmF0dXJlKV4yKS0oMC40MTU2LygyNzMuMTUrdGVtcGVyYXR1cmUpKS0wLjAwMjA2NjcpXG5cbiMgQ29udmVydCBTb3VyY2Ugd2F0ZXIgMThPIHRvIFIgbm90YXRpb25cblJzb3VyY2U9IHJzbW93KigxK1NvdXJjZV8xOE8vMTAwMClcblxuIyBDb252ZXJ0IHdhdGVyIHZhcG9yIDE4TyB0byBSIG5vdGF0aW9uXG5SYXRtPSByc21vdyooMSt3YXRlcl92YXBvci8xMDAwKVxuYGBgIn0= -->
+<pre class="r"><code># Convert  vapor pressures to mole fraction as follows:
+wi=ei/press_bar 
+wa= ea/press_bar 
 
+# Calculate leaf surface water vapor (ws) mole fraction: 
+# this list contains 3 different combinations of gs for many RH and Source waters.
+ws &lt;- list()
+for(sto in 1:3){ws[[sto]] =((gs[[sto]]*wi)-E[[sto]]*(1-wi/2))/(gs[[sto]] - E[[sto]]/2)}
 
-# ws_v_gs, leaf surface water vapor, mole frac Roden 2000, Ball (1987),
-# this list contains 5 diferent combinations of gs for many RH and Source waters.
+# Calculate vapor pressure at leaf surface (es)
+es&lt;- list()
+for(sto in 1:3){es[[sto]]=ws[[sto]]*press_bar}
 
-ws_v_gs &lt;- list()
-for(sto in 1:3){
-  ws_v_gs[[sto]] =((gs[[sto]]*wi)-E_v_gs[[sto]]*(1-wi/2))/(gs[[sto]] - E_v_gs[[sto]]/2)
+# Calculate the temperature dependent equilibrium fractionation factor alpha*
+alpha_star =exp((1.137*1000/(273.15+temperature)^2)-(0.4156/(273.15+temperature))-0.0020667)
 
-}</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMjICBcblxucGxvdCh3c192X2dzW1sxXV0sRV92X2dzW1sxXV0sdHlwZT1cImxcIiwgeGxpbSA9IGMoMCwwLjA1KSwgeWxpbT1jKDAsMC4wMTUpLCB5bGFiPVwiRSwgbW9sIG0tMiBzLTFcIiwgeGxhYj1cIiBsZWFmIHN1cmZhY2Ugd2F0ZXIgdmFwb3IsIG1vbGUgZnJhY1wiKVxubGluZXMod3Nfdl9nc1tbMl1dLEVfdl9nc1tbMl1dLCBsd2Q9MylcbmxpbmVzKHdzX3ZfZ3NbWzNdXSxFX3ZfZ3NbWzNdXSwgbHdkPTYpXG5cbmxlZ2VuZChcInRvcHJpZ2h0XCIsIGxlZ2VuZCA9IGMoXCJncz0wLjAxXCIsXCJncz0wLjI1XCIsXCJncz0wLjVcIiApLCBsd2QgPSBjKDEsMyw2KSlcbmBgYCJ9 -->
-<pre class="r"><code>###  
-
-plot(ws_v_gs[[1]],E_v_gs[[1]],type=&quot;l&quot;, xlim = c(0,0.05), ylim=c(0,0.015), ylab=&quot;E, mol m-2 s-1&quot;, xlab=&quot; leaf surface water vapor, mole frac&quot;)
-lines(ws_v_gs[[2]],E_v_gs[[2]], lwd=3)
-lines(ws_v_gs[[3]],E_v_gs[[3]], lwd=6)
-
-legend(&quot;topright&quot;, legend = c(&quot;gs=0.01&quot;,&quot;gs=0.25&quot;,&quot;gs=0.5&quot; ), lwd = c(1,3,6))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="describe-this-plot" class="section level2">
-<h2>Describe this plot:</h2>
-<ul>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBlcyB2YXBvciBwcmVzc3VyZSBhdCBsZWFmIHN1cmZhY2UgKGtQYSlcbmVzbF92X2dzIDwtIGxpc3QoKVxuZm9yKHN0byBpbiAxOjMpe1xuICBlc2xfdl9nc1tbc3RvXV09d3Nfdl9nc1tbc3RvXV0qcHJlc3NfYmFyXG4gIH1cblxucGxvdChlc2xfdl9nc1tbMV1dLEVfdl9nc1tbMV1dLHR5cGU9XCJsXCIsIHhsaW0gPSBjKDAsMyksIHlsaW09YygwLDAuMDE1KSwgeWxhYj1cIkUsIG1vbCBtLTIgcy0xXCIsIHhsYWI9XCIgbGVhZiBzdXJmYWNlIHdhdGVyIHZhcG9yLCBtb2xlIGZyYWNcIilcbmxpbmVzKGVzbF92X2dzW1syXV0sRV92X2dzW1syXV0sIGx3ZD0zKVxubGluZXMoZXNsX3ZfZ3NbWzNdXSxFX3ZfZ3NbWzNdXSwgbHdkPTYpXG5cbmxlZ2VuZChcInRvcHJpZ2h0XCIsIGxlZ2VuZCA9IGMoXCJncz0wLjAxXCIsXCJncz0wLjI1XCIsXCJncz0wLjVcIiApLCBsd2QgPSBjKDEsMyw2KSlcbmBgYCJ9 -->
-<pre class="r"><code># es vapor pressure at leaf surface (kPa)
-esl_v_gs &lt;- list()
-for(sto in 1:3){
-  esl_v_gs[[sto]]=ws_v_gs[[sto]]*press_bar
-  }
-
-plot(esl_v_gs[[1]],E_v_gs[[1]],type=&quot;l&quot;, xlim = c(0,3), ylim=c(0,0.015), ylab=&quot;E, mol m-2 s-1&quot;, xlab=&quot; leaf surface water vapor, mole frac&quot;)
-lines(esl_v_gs[[2]],E_v_gs[[2]], lwd=3)
-lines(esl_v_gs[[3]],E_v_gs[[3]], lwd=6)
-
-legend(&quot;topright&quot;, legend = c(&quot;gs=0.01&quot;,&quot;gs=0.25&quot;,&quot;gs=0.5&quot; ), lwd = c(1,3,6))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Because we already have calculations for internal leaf vapor pressure (kPa)<code>ei</code>, vapor pressure at leaf surface (kPa) <code>esl_v_gs</code>, ambient vapor pressure (kPa)<code>ea_v</code> under different Stomatal conductances <code>gs</code>, and different relative humidities<code>relH</code> and, source waters <code>water</code>. Thus, we have all the components to estimate the magnitude of the isotopic enrichment at the leaf level.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBhKiAgKiplcXVpbGlicml1bSBmcmFjdGlvbmF0aW9uIGF0IGxlYWYgdGVtcGVyYXR1cmUgIFxuIyBUaGUgZXF1aWxpYnJpdW0gZnJhY3Rpb25hdGlvbiBmYWN0b3IsIGEqIGlzIHRlbXBlcmF0dXJlIGRlcGVuZGVudCBcbiMgKHNlZSBNYWpvdWJlLCAxOTcxLCBKLiBDaGltLiBQaHlzLiA1ODoxNDIzLTE0MzYpLCB0aHVzLFxuYWxwaGFfc3RhciA9ZXhwKCgxLjEzNyoxMDAwLygyNzMuMTUrVGEpXjIpLSgwLjQxNTYvKDI3My4xNStUYSkpLTAuMDAyMDY2NylcblxuI1Igc291cmNlIE8gIGlzb3RvcGUgcmF0aW8sIHNvdXJjZSB3YXRlciBjb252ZXJzaW9uIHRvIFIgbm90YXRpb25cblJzb3VyY2U9IHJzbW93KigxK1NvdXJjZV8xOE8vMTAwMClcblxuI1JhdG0gIE94eSAgaXNvdG9wZSByYXRpbywgYXRtb3NwaCAgd2F0ZXIgdmFwb3JcblJhdG09IHJzbW93KigxK3dhdGVyX3ZhcG9yLzEwMDApXG5cbiNSIGxlYWYgbW9kZWwgT3h5ZyAgaXNvdG9wZSByYXRpbywgbGVhZiB3YXRlciBHQ1xuIyMjIyBMZWFmIHdhdGVyIGVucmljaG1lbnQgIHdpdGggZGlmZXJlbnQgUkgsIFNvdWVjZXMgYW5kIGdzXG5cblJsZWFmX3ZfZ3MgPC0gbGlzdCgpXG5mb3Ioc3RvIGluIDE6Myl7XG4gIFJsZWFmX3ZfZ3NbW3N0b11dIDwtIGFscGhhX3N0YXIqKChhaypSc291cmNlKlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKChlaS1lc2xfdl9nc1tbc3RvXV0pL2VpKSkrXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIChha2IqUnNvdXJjZSooZXNsX3ZfZ3NbW3N0b11dLWVhX3YpL2VpKStcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKFJhdG0qZWFfdi9laSkpXG4gIH1cbmBgYCJ9 -->
-<pre class="r"><code># a*  **equilibrium fractionation at leaf temperature  
-# The equilibrium fractionation factor, a* is temperature dependent 
-# (see Majoube, 1971, J. Chim. Phys. 58:1423-1436), thus,
-alpha_star =exp((1.137*1000/(273.15+Ta)^2)-(0.4156/(273.15+Ta))-0.0020667)
-
-#R source O  isotope ratio, source water conversion to R notation
+# Convert Source water 18O to R notation
 Rsource= rsmow*(1+Source_18O/1000)
 
-#Ratm  Oxy  isotope ratio, atmosph  water vapor
-Ratm= rsmow*(1+water_vapor/1000)
-
-#R leaf model Oxyg  isotope ratio, leaf water GC
-#### Leaf water enrichment  with diferent RH, Soueces and gs
-
-Rleaf_v_gs &lt;- list()
-for(sto in 1:3){
-  Rleaf_v_gs[[sto]] &lt;- alpha_star*((ak*Rsource*
-                              ((ei-esl_v_gs[[sto]])/ei))+
-                             (akb*Rsource*(esl_v_gs[[sto]]-ea_v)/ei)+
-                             (Ratm*ea_v/ei))
-  }</code></pre>
+# Convert water vapor 18O to R notation
+Ratm= rsmow*(1+water_vapor/1000)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Now, estimate R leaf for all combinations of RHm Source water 18O and gs:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2QxOE8gbGVhZiB3aXRoIENHIHNvIDMgU3RvbWF0YWwgY29uZHVjdGFuY2VzICBcbiMjIyMgTGVhZiB3YXRlciBlbnJpY2htZW50ICB3aXRoIGRpZmVyZW50IFJILCBTb3VlY2VzIGFuZCBHU1xuZDE4T0xfZ3MgPC0gbGlzdCgpXG5mb3Ioc3RvIGluIDE6Myl7XG4gIGQxOE9MX2dzW1tzdG9dXT0oKFJsZWFmX3ZfZ3NbW3N0b11dL3JzbW93KS0xKSoxMDAwIFxufVxuYGBgIn0= -->
-<pre class="r"><code>#d18O leaf with CG so 3 Stomatal conductances  
-#### Leaf water enrichment  with diferent RH, Soueces and GS
-d18OL_gs &lt;- list()
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5SbGVhZjwtIGxpc3QoKVxuXG5mb3Ioc3RvIGluIDE6Myl7XG4gIFJsZWFmW1tzdG9dXSA8LSBhbHBoYV9zdGFyKigoYWsqUnNvdXJjZSooKGVpLWVzW1tzdG9dXSkvZWkpKStcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIChha2IqUnNvdXJjZSooKGVzW1tzdG9dXS1lYSkvZWkpKStcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIChSYXRtKihlYS9laSkpKVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfVxuYGBgIn0= -->
+<pre class="r"><code>
+Rleaf&lt;- list()
+
 for(sto in 1:3){
-  d18OL_gs[[sto]]=((Rleaf_v_gs[[sto]]/rsmow)-1)*1000 
+  Rleaf[[sto]] &lt;- alpha_star*((ak*Rsource*((ei-es[[sto]])/ei))+
+                              (akb*Rsource*((es[[sto]]-ea)/ei))+
+                              (Ratm*(ea/ei)))
+                              }</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Convert leaf water enrichment to permill values as follows:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5kMThPbGVhZiA8LSBsaXN0KClcblxuZm9yKHN0byBpbiAxOjMpe1xuICBkMThPbGVhZltbc3RvXV09KChSbGVhZltbc3RvXV0vcnNtb3cpLTEpKjEwMDAgXG59XG5gYGAifQ== -->
+<pre class="r"><code>
+d18Oleaf &lt;- list()
+
+for(sto in 1:3){
+  d18Oleaf[[sto]]=((Rleaf[[sto]]/rsmow)-1)*1000 
 }</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Plot leaf water enrichment with varying source water 18O:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChlc2xfdl9nc1tbMV1dWzE6MTddLGQxOE9MX2dzW1sxXV1bMToxN10sdHlwZT1cInBcIiwgeGxpbSA9IGMoMCw0KSwgeWxhYj1cImxlYWYgd2F0ZXIgR0NcIiwgeGxhYj1cInZhcG9yIHByZXNzdXJlIGF0IGxlYWYgc3VyZmFjZSAoa1BhKVwiKVxucG9pbnRzKGVzbF92X2dzW1syXV1bMToxN10sZDE4T0xfZ3NbWzJdXVsxOjE3XSwgbHdkPTMpXG5wb2ludHMoZXNsX3ZfZ3NbWzNdXVsxOjE3XSxkMThPTF9nc1tbM11dWzE6MTddLCBsd2Q9NilcblxubGVnZW5kKFwidG9wcmlnaHRcIiwgbGVnZW5kID0gYyhcImdzPTAuMDFcIixcImdzPTAuMjVcIixcImdzPTAuNVwiICksIGx3ZCA9IGMoMSwzLDYpKVxuYGBgIn0= -->
-<pre class="r"><code>plot(esl_v_gs[[1]][1:17],d18OL_gs[[1]][1:17],type=&quot;p&quot;, xlim = c(0,4), ylab=&quot;leaf water GC&quot;, xlab=&quot;vapor pressure at leaf surface (kPa)&quot;)
-points(esl_v_gs[[2]][1:17],d18OL_gs[[2]][1:17], lwd=3)
-points(esl_v_gs[[3]][1:17],d18OL_gs[[3]][1:17], lwd=6)
-
-legend(&quot;topright&quot;, legend = c(&quot;gs=0.01&quot;,&quot;gs=0.25&quot;,&quot;gs=0.5&quot; ), lwd = c(1,3,6))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="describe-this-plot-recall-the-range-of-source-water-and-now-we-can-observe-the-effects-depending-on-the-amount-of-water-at-the-leaf-surface" class="section level2">
-<h2>Describe this plot Recall the range of source water and now we can observe the effects depending on the amount of water at the leaf surface:</h2>
-<ul>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyMgUGxvdCB3aXRoIGRpZmZlcmVudCBzb3VyY2Ugd2F0ZXJzXG4jIFsxOjEzXSBpcyBhbGwgUkhzIGFuZCAgd2l0aCBzb3VyY2Ugd2F0ZXIgb2YgLTI1XG5wbG90KFJIX3ZbMToxN10sIGQxOE9MX2dzW1sxXV1bMToxN10sIHR5cGU9XCJsXCIsIHlsaW0gPSBjKC0zMCwxMCkpXG5saW5lcyhSSF92WzE6MTddLCBkMThPTF9nc1tbMl1dWzE6MTddLCBsd2Q9MylcbmxpbmVzKFJIX3ZbMToxN10sIGQxOE9MX2dzW1szXV1bMToxN10sIGx3ZD02KVxuXG5sZWdlbmQoXCJ0b3ByaWdodFwiLCBsZWdlbmQgPSBjKFwiZ3M9MC4wMVwiLFwiZ3M9MC4yNVwiLFwiZ3M9MC41XCIgKSwgbHdkID0gYygxLDMsNikpXG5gYGAifQ== -->
-<pre class="r"><code>## Plot with different source waters
-# [1:13] is all RHs and  with source water of -25
-plot(RH_v[1:17], d18OL_gs[[1]][1:17], type=&quot;l&quot;, ylim = c(-30,10))
-lines(RH_v[1:17], d18OL_gs[[2]][1:17], lwd=3)
-lines(RH_v[1:17], d18OL_gs[[3]][1:17], lwd=6)
-
-legend(&quot;topright&quot;, legend = c(&quot;gs=0.01&quot;,&quot;gs=0.25&quot;,&quot;gs=0.5&quot; ), lwd = c(1,3,6))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-</div>
-<div id="describe-this-plot-remember-the-range-of-source-water-and-observe-the-effects-on-the-leaf-water-enrichment-depending-on-the-environmental-relative-humidity" class="section level2">
-<h2>Describe this plot, remember the range of source water and observe the effects on the leaf water enrichment depending on the environmental relative humidity:</h2>
-<ul>
-<li></li>
-<li></li>
-<li></li>
-</ul>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIENyYWlnX0dvcmRvbiBtb2RlbCB3aXRoIGRpZmZlcmVudCBQRVhcbiMjIG9uIHRvIHRoZSBjZWxsdWxvc2Ugc3ludGhlc2lzXG5cbkZfMCA8LSBjKDAuMzMsMC40MiwwLjU1KSAjIHZhcmlhYmxlIHBlcmNlbnRhZ2Ugb2YgRXhjaGFnZSBkdXJpbmcgQ2VsbHVsb3NlIFN5bnRoZXNpc1xuIyBoZXJlIGEgZG91YmxlIGxvb3BcbmQxOE9fY2VsbHVsb3NlIDwtIGxpc3QoKVxuZm9yKHN0byBpbiAxOjMpe1xuICBkMThPY19GXzAgPC0gbGlzdCgpXG4gIGZvciAocGUgaW4gMTozKXsgIyB2YXJpYWJsZSBwZXJjZW50YWdlIG9mIEV4Y2hhZ2UgZHVyaW5nIENlbGx1bG9zZSBTeW50aGVzaXNcbiAgICBkMThPY19GXzBbW3BlXV0gPC0gRl8wW1twZV1dKihTb3VyY2VfMThPICsgZXBzaWxvbl9jKSArICgxIC0gRl8wW1twZV1dKSAqIChkMThPTF9nc1tbc3RvXV0rIGVwc2lsb25fYykgXG4gIH1cbiAgbmFtZXMoZDE4T2NfRl8wKSA8LSBjKFwiZ3M9MC4wMVwiLFwiZ3M9MC4yNVwiLFwiZ3M9MC41XCIgKVxuZDE4T19jZWxsdWxvc2VbW3N0b11dIDwtIGQxOE9jX0ZfMFxufVxubmFtZXMoZDE4T19jZWxsdWxvc2UpIDwtIGMoXCJmbz0wLjMzXCIsXCJmbz0wLjQyXCIsXCJmbz0wLjU1XCIgKVxuc3RyKGQxOE9fY2VsbHVsb3NlKSAgIyBoZXJlIHdlIHNlZSB3ZSBqdXN0IGdlbmVyYXRlIGEgbGlzdCBvZiAzIHN0b21hdGFsIGNvbmR1Y3RhbmNlIHZhcmlhdGlvbnMgYW5kIGluIGVhY2ggb2YgdGhvc2UgMyBkaWZlcmVudCBvdXRwdXRzIHVzaW5nIGRpZmZlcmVudCBQZXJjZW50YWdlIG9mIGV4Y2hhbmdlIGR1cmluZyBjZWxsdWxvc2Ugc2ludGhlc2lzaS5cblxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIEV4YW1wbGU6IFsxOjEzXSBpcyBhbGwgUkhzIGFuZCAgd2l0aCBzb3VyY2Ugd2F0ZXIgb2YgLTI1IHBlcm1pbGxcblxucGxvdChSSFsxOjE3XSwgIGQxOE9sZWFmIFtbMV1dWzE6MTddLCB0eXBlPVwibFwiLCB5bGltID0gYygtMzAsMTApKVxubGluZXMoUkhbMToxN10sIGQxOE9sZWFmIFtbMl1dWzE6MTddLCBsd2Q9MylcbmxpbmVzKFJIWzE6MTddLCBkMThPbGVhZiBbWzNdXVsxOjE3XSwgbHdkPTYpXG5cbmxlZ2VuZChcInRvcHJpZ2h0XCIsIGxlZ2VuZCA9IGMoXCJncz0wLjAxXCIsXCJncz0wLjI1XCIsXCJncz0wLjVcIiApLCBsd2QgPSBjKDEsMyw2KSlcbmBgYCJ9 -->
 <pre class="r"><code>
-# Craig_Gordon model with different PEX
-## on to the cellulose synthesis
+# Example: [1:13] is all RHs and  with source water of -25 permill
 
-F_0 &lt;- c(0.33,0.42,0.55) # variable percentage of Exchage during Cellulose Synthesis
+plot(RH[1:17],  d18Oleaf [[1]][1:17], type=&quot;l&quot;, ylim = c(-30,10))
+lines(RH[1:17], d18Oleaf [[2]][1:17], lwd=3)
+lines(RH[1:17], d18Oleaf [[3]][1:17], lwd=6)
+
+legend(&quot;topright&quot;, legend = c(&quot;gs=0.01&quot;,&quot;gs=0.25&quot;,&quot;gs=0.5&quot; ), lwd = c(1,3,6))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Question 3: Describe how leaf water enrichment depend on RH. Does this relationship (slope) vary depending on gs values?</p>
+<div id="varying-the-proportion-of-exchanges-with-local-water-f_0" class="section level4">
+<h4>Varying the proportion of exchanges with local water F_0:</h4>
+<p>The proportion (F_0) of carbohydrate d18O signal from leaf carbohydrate that exchanges with local water during formation of tree-ring or leaf cellulose will be varied to estimate cellulose d18O as follows:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRl8wIDwtIGMoMC4zMywwLjQyLDAuNTUpICMgdmFyaWFibGUgcGVyY2VudGFnZSBvZiBFeGNoYW5nZSBkdXJpbmcgQ2VsbHVsb3NlIFN5bnRoZXNpc1xuZXBzaWxvbl9vIDwtICAyNyAjIEJpb2xvZ2ljYWwgZnJhY3Rpb25hdGlvbiBmYWN0b3IgZm9yIG94eWdlbiBpbiBnb2luZyBmcm9tIHN1Z2FycyB0byBjZWxsdWxvc2VcbiMgaGVyZSBhIGRvdWJsZSBsb29wXG5cbmQxOE9fY2VsbHVsb3NlIDwtIGxpc3QoKVxuZm9yKHN0byBpbiAxOjMpe1xuICBkMThPY19GXzAgPC0gbGlzdCgpXG4gIGZvciAocGUgaW4gMTozKXsgIyB2YXJpYWJsZSBwZXJjZW50YWdlIG9mIEV4Y2hhbmdlIGR1cmluZyBDZWxsdWxvc2UgU3ludGhlc2lzXG4gICAgZDE4T2NfRl8wW1twZV1dIDwtIEZfMFtbcGVdXSooU291cmNlXzE4TyArIGVwc2lsb25fbykgKyAoMSAtIEZfMFtbcGVdXSkgKiAoZDE4T2xlYWZbW3N0b11dKyBlcHNpbG9uX28pIFxuICB9XG4gIG5hbWVzKGQxOE9jX0ZfMCkgPC0gYyhcImdzPTAuMDFcIixcImdzPTAuMjVcIixcImdzPTAuNVwiIClcbmQxOE9fY2VsbHVsb3NlW1tzdG9dXSA8LSBkMThPY19GXzBcbn1cbm5hbWVzKGQxOE9fY2VsbHVsb3NlKSA8LSBjKFwiZm89MC4zM1wiLFwiZm89MC40MlwiLFwiZm89MC41NVwiIClcbmBgYCJ9 -->
+<pre class="r"><code>F_0 &lt;- c(0.33,0.42,0.55) # variable percentage of Exchange during Cellulose Synthesis
+epsilon_o &lt;-  27 # Biological fractionation factor for oxygen in going from sugars to cellulose
 # here a double loop
+
 d18O_cellulose &lt;- list()
 for(sto in 1:3){
   d18Oc_F_0 &lt;- list()
-  for (pe in 1:3){ # variable percentage of Exchage during Cellulose Synthesis
-    d18Oc_F_0[[pe]] &lt;- F_0[[pe]]*(Source_18O + epsilon_c) + (1 - F_0[[pe]]) * (d18OL_gs[[sto]]+ epsilon_c) 
+  for (pe in 1:3){ # variable percentage of Exchange during Cellulose Synthesis
+    d18Oc_F_0[[pe]] &lt;- F_0[[pe]]*(Source_18O + epsilon_o) + (1 - F_0[[pe]]) * (d18Oleaf[[sto]]+ epsilon_o) 
   }
   names(d18Oc_F_0) &lt;- c(&quot;gs=0.01&quot;,&quot;gs=0.25&quot;,&quot;gs=0.5&quot; )
 d18O_cellulose[[sto]] &lt;- d18Oc_F_0
 }
-names(d18O_cellulose) &lt;- c(&quot;fo=0.33&quot;,&quot;fo=0.42&quot;,&quot;fo=0.55&quot; )
-str(d18O_cellulose)  # here we see we just generate a list of 3 stomatal conductance variations and in each of those 3 diferent outputs using different Percentage of exchange during cellulose sinthesisi.
-</code></pre>
+names(d18O_cellulose) &lt;- c(&quot;fo=0.33&quot;,&quot;fo=0.42&quot;,&quot;fo=0.55&quot; )</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Remember that each vector on these elements of the list are al the combinations we had at the start of this exercise. where <code>RH_SOURCE</code> is the main structre for all 17 different Realtive humidietieson <code>relH</code> the 16 different source waters <code>water</code> provides 272 values on each vector from the list.</p>
+<p>Check the structure of the d18O_cellulose object. We generated a list of 3 stomatal conductance variations and for each stomatal conductance value, three different Percentage of exchange during cellulose sythesis.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyKGQxOE9fY2VsbHVsb3NlKVxuYGBgIn0= -->
+<pre class="r"><code>str(d18O_cellulose)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Each vector of the list corresponds to the suite of combinations we had at the start of this exercise where <code>RH_SOURCE</code> is the main structure for all 17 different Relative humidity values <code>RH</code>and the 16 different source waters d18O <code>water</code> provides 272 values on each vector from the list.</p>
+</div>
+</div>
 </div>
 <div id="part-3-estimate-the-slope-between-diferent-variables-and-the-isotopic-effect-estimated-in-cellulose" class="section level2">
 <h2>PART 3: Estimate the slope between diferent variables and the Isotopic effect estimated in cellulose</h2>
@@ -675,7 +613,7 @@ image(x = water, y = relH, z = t(d18O__fo0.55_gs0.5),col = col_panel, zlim = ran
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiU2Vuc2l0aXZpdHkgYW5hbHlzaXMgT3h5Z2VuIElzb3RvcGVzIGluIGNlbGx1bG9zZSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIyMjIyAgSXNvdG9wZSBEZW5kcm9jaHJvbm9sb2d5CiMjIyMjICBDT1VSU0U6IERJU0MsIExUUlIsIFVOSVZFUlNJVFkgT0YgQVJJWk9OQS4gSU5TVFJVQ1RPUlM6IFAuIFNaRUpORVIgJiBTLiBCRUxNRUNIRVJJCgojIyMgSW5zdHJ1Y3Rpb25zOgoKVGhlIGZvbGxvd2luZyBhY3Rpdml0aWVzIHNob3VsZCBmdXJ0aGVyIHlvdXIgZXhwZXJpZW5jZSB1bmRlcnN0YW5kaW5nIHRoZSBtZWNoYW5pc3RpYyBkcml2ZXJzIChwYXJhbWV0ZXJzLCB2YXJpYWJsZSkgb2YgdHJlZSByaW5nIDE4TyB2YXJpYWJpbGl0eSBpbiB0cmVlIHJpbmdzLiBUaGlzIGV4ZXJjaXNlIGNvbnNpc3RzIG9mIGEgc2Vuc2l0aXZpdHkgYW5hbHlzaXMgdG8gaW52ZXN0aWdhdGUgaG93IGRpZmZlcmVudCBlbnZpcm9ubWVudGFsIGZhY3RvcnMgYW5kIHBhcmFtZXRlcnMgYWZmZWN0IHRoZSB2YXJpYWJpbGl0eSBvZiAxOE8gaXNvdG9wZXMgaW4gdGhlIGNlbGx1bG9zZS4gVGhlIGZvbGxvd2luZyBjYWxjdWxhdGlvbnMsIGxpa2UgTm90ZWJvb2sgMiwgYXJlIGJhc2VkIG9uIHRoZSBDcmFpZyBHb3Jkb24gYW5kIHRoZSBSb2RlbiBtb2RlbHMuCgpZb3Ugd2lsbCBuZWVkIHRvIGRvd25sb2FkIG9yIGNsb25lIHRoZSBSIHByb2plY3QgZnJvbSBodHRwczovL2dpdGh1Yi5jb20vcGF1bHN6ZWpuZXIvRElTQ08tTm90ZWJvb2s0LmdpdAp0aGVuLCBlYWNoIG9mIHlvdSB3aWxsIGJlIGFibGUgdG8gc2V0IHlvdXIgd29ya2luZyBkaXJlY3RvcnkgdG8gcHJvY2VlZCB3aXRoIHRoaXMgZXhlcmNpc2VzLiBPbmNlIHlvdSBvcGVuIHRoZSBgYGBOb3RlYm9vayA0LlJwcm9qYGBgICB5b3UgY2FuIG9wZW4gdGhlIGBgYE5vdGVib29rIDQuUm1kYGBgIGZpbGUgdG8gcHJvY2VlZCB3aXRoIHRoZSBhY3Rpdml0eS4KCkluIHRoaXMgZXhlcmNpc2UsIHlvdSB3aWxsIG1vZGVsIHRoZSBveHlnZW4gaXNvdG9wZXMgaW4gY2VsbHVsb3NlIGBgYGQxOE9fY2VsbHVsb3NlYGBgLiBIb3dldmVyLCB0aGlzIGV4ZXJjaXNlIGlzIGludGVuZGVkIGZvciB5b3UgdG8gZXZhbHVhdGUgdGhlIHNlbnNpdGl2aXR5IG9mIHRoZSBkaWZmZXJlbnQgdmFyaWFibGVzLiBOYW1lbHksIGhvdyBjZWxsdWxvc2UgMThPIHdpbGwgdmFyeSBpZiB3ZSB2YXJ5IHRoZSByZWxhdGl2ZSBodW1pZGl0eSBgYGByZWxIYGBgLCAgdGhlIHNvdXJjZSB3YXRlciBgYGB3YXRlcmBgYCwgdGhlIHN0b21hdGFsIGNvbmR1Y3RhbmNlYGBgZ3NgYGAgYW5kIHRoZSBwZXJjZW50YWdlIG9mIGV4Y2hhbmdlIGR1cmluZyB0aGUgY2VsbHVsb3NlIHNpbnRoZXN5c2BgYEZfMGBgYAoKCiMjIFBBUlQgMTogVmFyaWFibGVzCgoqIEZpcnN0IGNyZWF0ZSBhIHZlY3RvciBbYGBgcmVsSGBgYCBdIG9mIHJlbGF0aXZlIGh1bWlkaXR5IHJhbmdpbmcgZnJvbSAxMCUgdG8gOTAlLiAgIAoqIFNlY29uZCwgY3JlYXRlIGEgdmVjdG9yIFtgYGB3YXRlcmBgYF0gb2YgU291cmNlIHdhdGVyIHJhbmdpbmcgZnJvbSAtMjAgcGVybWlsbCB0byA1IHBlcm1pbGwuICAKKiBUaGlyZCwgY3JlYXRlIGEgMiBjb2x1bW4gb2JqZWN0IFtgYGBSSF9TT1VSQ0VgYGBdIGNvbWJpbmluZyAgYGBgcmVsSGBgYCAgYW5kIGBgYHdhdGVyYGBgIHRoYXQgY29ycmVzcG9uZCB0byBhbGwgcG9zc2libGUgY29tYmluYXRpb24gb2YgcmVsYXRpdmUgaHVtaWRpdHkgYW5kIHNvdXJjZSB3YXRlciAxOE8uIAoKCmBgYHtyfQojbGlicmFyeShkcGx5cikKCnJlbEggPC0gc2VxKDEwLCA5MCwgYnk9NSkgIyB0aGlzIGlzIHRoZSB2ZWN0b3Igb2YgMTcgZGlmZmVyZW50IFJlbGF0aXZlIGh1bWlkaXRpZXMKd2F0ZXIgPC1zZXEoIC0yNSwgNSxieSA9IDIpICMgdGhpcyBpcyB0aGUgdmVjdG9yIHdpdGggIDE2IHNvdXJjZSB3YXRlciBpc290b3BpYyB2YWx1ZXMuCgpSSF9TT1VSQ0UgPC0gbWVyZ2UocmVsSCwgd2F0ZXIpICMgaGVyZSB3ZSBtZXJnZSB0aGUgdHdvIHZhcmlhYmxlcyB0b2ZhY2lsaXRhdGUgdGhlIGNhbGN1bGF0aW9ucyBvbiBlYWNoIHJvdyBvZiB0aGlzIG9iamVjdC4KCiNTdWJzZXQgc291cmNlIHdhdGVyIGFuZCBSSCBjb21iaXZhdGlvbnMKU291cmNlXzE4TyA8LSBSSF9TT1VSQ0VbLDJdClJlbGF0aXZlX2h1bWlkaXR5IDwtIFJIX1NPVVJDRVssMV0KYGBgCgpQbG90IFJIIGFuZCBTb3VyY2Ugd2F0ZXIgaW4gb3JkZXIgdG8gdmlzdWFsaXplIGFsbCB0aGUgcG9zc2libGUgUkgtU291cmNlIHdhdGVyIGNvbWJpbmF0aW9ucy4gRXhhbXBsZTogZm9yIFJIPSAyMCUgdGhlcmUgYXJlIDE2IFNvdXJjZSB3YXRlciB2YWx1ZXMgcmFuZ2luZyBmcm9tCi0yNSB0byA1IHBlcm1pbGwuCmBgYHtyfQpwbG90KFJlbGF0aXZlX2h1bWlkaXR5LCBTb3VyY2VfMThPKQpgYGAKClRoZXNlIFJILVNvdXJjZSB3YXRlciBjb21iaW5hdGlvbnMgd2lsbCBiZSB1c2VkIGFzIGlucHV0IGZvciB0cmVlIHJpbmcgY2VsbHVsb3NlIG1vZGVsLiBJbiBhZGRpdGlvbiwgb3RoZXIgdmFyaWFibGVzIHN1Y2ggYXMgc3RvbWF0YWwgY29uZHVjdGFuY2VzIGBgYGdzYGBgIGFuZCAgIHBlcmNlbnRhZ2Ugb2YgIGlzb3RvcGUgZXhjaGFuZ2UgZHVyaW5nIGNlbGx1bG9zZSBzeW50aGVzaXMgYGBgRl8wYGBgIHdpbGwgYWxzbyBiZSB2YXJpZWQuCgojIyBQQVJUIDI6IE1vZGVsaW5nIHRoZSBPeHlnZW4gSXNvdG9wZXMgaW4gdGhlIHRyZWUgcmluZyBjZWxsdWxvc2UKVGhlIGxlYWYgd2F0ZXIgZW5yaWNobWVudCBhbmQgY2VsbHVsb3NlIDE4TyB3aWxsIGJlIHByZWRpY3RlZCAgdXNpbmcgYW4gZXh0ZW5zaXZlIHJhbmdlIG9mIHZhcmlhYmlsaXR5IG9mIHRoZSBmb3VyIGNyaXRpY2FsIGZhY3RvcnMgaW4gdGhlIG1vZGVsOiBzb3VyY2Ugd2F0ZXIsIFJILCBncyBhbmQgRl8wLgoKYGBge3J9CiMgQ29uc3RhbnRzIC0tLS0tLS0tLS0tLS0tLS0tCmJyIDwtMSAjIGJvdW5kYXJ5IGxheWVyIHJlc2lzdGFuY2UsIGNvbnNpZGVyZWQgcmVhc29uYWJsZSB2YWx1ZSBiZXR3ZWVuIDAuMDIgdG8gMyAgICBhayA8LSAxLjAyODUJIyBhbHBoYV9rYXBwYSwgS2luZXRpYyBGcmFjdGlvbmF0aW9uIApha2IgPC0gMS4wMTg5CSMgYWxwaGFfa2FwcGFfYmV0YSwgS2luZXRpYyBGcmFjdGlvbmF0aW9uIGJvdW5kYXJ5IGxheWVyCnJzbW93IDwtIDAuMDAyMDA1MiAjIE94eWdlbiBJc290b3BlIHJhdGlvIGZyb20gU1RBTkRBUkQJU01PVgplcHNpbG9uX3MgPC0yNyAjIEF1dG90cm9waGljIGZyYWN0aW9uYXRpb24gU3Vjcm9zZQkKZXBzaWxvbl9jIDwtMjcgIyBBdXRvdHJvcGhpYyBmcmFjdGlvbmF0aW9uIENlbGx1bG9zZQpwcmVzc19iYXIgPC03NyAjIGJhcm9tZXRyaWMJcHJlc3N1cmUgIChtbWJhcikgVGhpcyBuZWVkIHRvIGJlIGNoYW5nZWQgZm9yIHRoZSBwcmVzc3VyZSBsZXZlbApUYSA8LSAyNSAjIEluIHRoaXMgZXhlcmNpc2UsIHdlIGFyZSB1c2luZyBhIGNvbnN0YW50IHRlbXBlcmF0dXJlLCBhaXIgdGVtcC4gKMKwQykgIEFzc3VtcHRpb24gdGhhdCBUbGVhZj0gVGFpcgpgYGAKCkZpcnN0LCB3ZSBlc3RpbWF0ZSB0aGUgYW1iaWFudCB2YXBvciBwcmVzc3VyZSBhcyBmdW5jdGlvbiBvZiBTb3VyY2Ugd2F0ZXIgYW5kIFJIOgpgYGAge3J9CndhdGVyX3ZhcG9yIDwtU291cmNlXzE4TyArKC0xKigxLjEzNyooMTAwMDAwMC8oKFRhKzI3My4xNSleMikpLTAuNDE1NiooKDEwMDAvKFRhKzI3My4xNSkpLTIuMDY2NykpKSAKCiMgImVzIiBpcyB0aGUgc2F0dXJhdGlvbiB2YXBvciBwcmVzc3VyZSAoa1BhKSB3aXRoIGFpciB0ZW1wIGluIHRoaXMgY2FzZSBhdCAyNQplcz0oMTAxMzI1KmV4cCgoKCgtMC4xMjk5KigxLSgzNzMuMTYvKDI3My4xNSArIFRhKSkpLTAuNjQ0NSkqCiAgICAgICAgICAgICAgICAgICAoMS0oMzczLjE2LygyNzMuMTUgKyBUYSkpKS0xLjk3NikqKDEtKDM3My4xNi8oMjczLjE1ICsgVGEpKSkrMTMuMzE4NSkqKDEtKDM3My4xNi8oMjczLjE1ICsgVGEpKSkpKS8xMDAwCgojIGVhX3YgaXMgdGhlIGFtYmllbnQgdmFwb3IgcHJlc3N1cmUgKGtQYSkKUkhfdiA8LSBSSF9TT1VSQ0VbLDFdCmVhX3YgPShSSF92LzEwMCkqZXMKYGBgCgpQbG90IGFuZCBkZXNjcmliZSB0aGUgcmVsYXRpb25zaGlwIGJldHdlZW4gdGhlIFJlbGF0aXZlIGh1bWlkaXR5IGFuZCB0aGUgYW1iaWVudCB2YXBvciBwcmVzc3VyZSAoa1BhKToKYGBgIHtyfQpwbG90KFJIX1NPVVJDRVssMV0sZWFfdiwgeGxhYiA9ICJyZWxhdGl2ZSBodW1pZGl0eSIseWxhYiA9ICJhbWJpZW50IHZhcG9yIHByZXNzdXJlIChrUGEpIiApCmBgYAoKCmBgYCB7cn0KIyBlaSwgIGludGVybmFsIGxlYWYgdmFwb3IgcHJlc3N1cmUgKGtQYSkgaXMgZXMuIGVpPWVzLCAgYmVjYXVzZSB3ZSBhc3N1bWUgdGhhdCB0aGUgdmFwb3IgaXMgc2F0dXJhdGVkIGluc2lkZSB0aGUgbGVhZi4KIGVpPWVzCgojIGcsIHRvdGFsIGxlYWYgY29uZHVjdGFuY2UgdG8gd2F0ZXIgdmFwb3IgKG1vbCBtLTIgcy0xKSAKIyB0aGlzIHNlY3Rpb24gaXMgaW1wb3J0YW50IGJlY2FzdWUgd2UgYXJlIGFkZGluZyBhIG5ldyB2YXJpYWJsZSB3aGljaCB3ZSB3aWxsbCBtb2RpZnkgYW5kIGFkZCBhbiBvdGhlciBkaW1lbnRpb24gdG8gdGhlIHNlbnNpdGl2aXR5IGFuYWx5c2lzLAoKZ3MgPC0gYygwLjAxLDAuMjUsIDAuNSkKCiNUb3RhbCBDb25kdWN0YW5jZSBpbiBtb2wKZyA9IDEvKDEvZ3MgKyAxL2JyKSAjIG9yIDEvKHJzK3JiKQoKIyBFX3ZfZ3MgbGVhZiB0cmFuc3BpcmF0aW9uIChtb2wgbS0yIHMtMSkgIyBiYXJib3VyIDIwMDQKIyB0aGlzIGxpc3QgY29udGFpbnMgNSBkaWZlcmVudCBjb21iaW5hdGlvbnMgb2YgZ3MgIG9uIGEgMTYgZGlmZmVyZW50IHRlbXBlcmF0dXJlcyAgZm9yIG1hbnkgUkggYW5kIFNvdXJjZSB3YXRlci4KRV92X2dzIDwtIGxpc3QoKQpXX3ZfZ3MgPC0gbGlzdCgpICMgZG9udCBrbm93IGlmIHdlIHdpbGwgdXNlIHRoaXMKCiN0aGlzIGZvciBsb29wIHdpbGwgY2FsY3VsYXRlIHRoZSBsZWFmIHRyYW5zcGlyYXRpb24gYW5kIHRoZSBXX3ZfZ3MgZm9yIHRoZSA1IGRpZmZlcmVudCBncwpmb3Ioc3RvIGluIDE6Myl7CiAgRV92X2dzW1tzdG9dXT0oKGVpLWVhX3YpL3ByZXNzX2JhcikqZ1tzdG9dICModnBkKmdzKT1FCiAgV192X2dzW1tzdG9dXSA8LSAoKGVpLWVhX3YpL3ByZXNzX2JhcikgIyB0aGlzIGlzIFZQRD8gbmVlZCB0byBjaGVjayBvbiB0aGUgdW5pdHMuCiAgfQojIGNoZWNrIHRoZSAgc3RydWN0dXJlIG9mIHRoaXMgbmV3IG9iamVjdC4Kc3RyKEVfdl9ncykjIyMgbGlzdCBvZiBtb2RlbCBvdXRwdXQgYmFzZWQgb24gNSBzdG9tYXRhbCBjb25kdWN0YW5jZXMsCmBgYAoKCgpgYGAge3J9CnBsb3QoV192X2dzW1sxXV0sRV92X2dzW1sxXV0sdHlwZT0ibCIsIHhsaW0gPSByYW5nZShXX3ZfZ3MpLCByYW5nZShFX3ZfZ3MpLAogICAgIHlsYWI9IkUsIG1vbCBtLTIgcy0xIiwgCiAgICAgeGxhYj0ibW9sZSBmcmFjdGlvbiBvZiB3YXRlciB2YXBvciBkZWZpY2l0IikKbGluZXMoV192X2dzW1syXV0sRV92X2dzW1syXV0sIGx3ZD0zKQpsaW5lcyhXX3ZfZ3NbWzNdXSxFX3ZfZ3NbWzNdXSwgbHdkPTYpCgpsZWdlbmQoInRvcHJpZ2h0IiwgbGVnZW5kID0gYygiZ3M9MC4wMSIsImdzPTAuMjUiLCJncz0wLjUiICksIGx3ZCA9IGMoMSwzLDYpKQpgYGAKCgpgYGAge3J9CnBsb3QoUkhfU09VUkNFWywxXSxFX3ZfZ3NbWzFdXSx0eXBlPSJsIiwgeGxpbSA9IGMoMTAsOTApLCByYW5nZShFX3ZfZ3MpLCB5bGFiPSJsZWFmIHRyYW5zcGlyYXRpb24sIG1vbCBtLTIgcy0xIiwgeGxhYj0icmVsIEh1bWlkaXR5IikKbGluZXMoUkhfU09VUkNFWywxXSxFX3ZfZ3NbWzJdXSwgbHdkPTMpCmxpbmVzKFJIX1NPVVJDRVssMV0sRV92X2dzW1szXV0sIGx3ZD02KQpsZWdlbmQoInRvcHJpZ2h0IiwgbGVnZW5kID0gYygiZ3M9MC4wMSIsImdzPTAuMjUiLCJncz0wLjUiICksIGx3ZCA9IGMoMSwzLDYpKQpgYGAKV2UgaGF2ZSB0aHJlZSBkaWZmZXJlbnQgc3RvbWF0YWwgY29uZHVjdGFuY2VzIGBgYGdzYGBgLCBhbmQgaW4gdGhpcyBncmFwaGljLCB3ZSBjYW4gc2VlIGRpZmZlcmVudCBzbG9wZXMgYmV0d2VlbiByZWxhdGl2ZSBodW1pZGl0eSBhbmQgdGhlIGVzdGltYXRlZCBsZWFmIHRyYW5zcGlyYXRpb24gZmx1eCBvbiBvdGhlciBncy4gCgpEZXNjcmliZSB0aGlzIHJlbGF0aW9uc2hpcCBiZXR3ZWVuIHRoZSByZWxhdGl2ZSBodW1pZGl0eSBhbmQgbGVhZiB0cmFuc3BpcmF0aW9uIChtb2wgbS0yIHMtMSkgdW5kZXIgdGhyZWUgZGlmZmVyZW50IHN0b21hdGFsIGNvbmR1Y3RhbmNlIHZhbHVlczogCi0gIAotICAKLSAgCgpgYGAge3J9CndpPWVpL3ByZXNzX2JhciAjd2ksICBsZWFmIHdhdGVyIHZhcG9yLCBtb2xlIGZyYWN0aW9uCndhX3Y9IGVhX3YvcHJlc3NfYmFyICN3YSwgYW1iaWVudCB3YXRlciB2YXBvciwgbW9sZSBmcmFjdGlvbgoKCiMgd3Nfdl9ncywgbGVhZiBzdXJmYWNlIHdhdGVyIHZhcG9yLCBtb2xlIGZyYWMgUm9kZW4gMjAwMCwgQmFsbCAoMTk4NyksCiMgdGhpcyBsaXN0IGNvbnRhaW5zIDUgZGlmZXJlbnQgY29tYmluYXRpb25zIG9mIGdzIGZvciBtYW55IFJIIGFuZCBTb3VyY2Ugd2F0ZXJzLgoKd3Nfdl9ncyA8LSBsaXN0KCkKZm9yKHN0byBpbiAxOjMpewogIHdzX3ZfZ3NbW3N0b11dID0oKGdzW1tzdG9dXSp3aSktRV92X2dzW1tzdG9dXSooMS13aS8yKSkvKGdzW1tzdG9dXSAtIEVfdl9nc1tbc3RvXV0vMikKCn0KYGBgCgoKYGBgIHtyfQojIyMgIAoKcGxvdCh3c192X2dzW1sxXV0sRV92X2dzW1sxXV0sdHlwZT0ibCIsIHhsaW0gPSBjKDAsMC4wNSksIHlsaW09YygwLDAuMDE1KSwgeWxhYj0iRSwgbW9sIG0tMiBzLTEiLCB4bGFiPSIgbGVhZiBzdXJmYWNlIHdhdGVyIHZhcG9yLCBtb2xlIGZyYWMiKQpsaW5lcyh3c192X2dzW1syXV0sRV92X2dzW1syXV0sIGx3ZD0zKQpsaW5lcyh3c192X2dzW1szXV0sRV92X2dzW1szXV0sIGx3ZD02KQoKbGVnZW5kKCJ0b3ByaWdodCIsIGxlZ2VuZCA9IGMoImdzPTAuMDEiLCJncz0wLjI1IiwiZ3M9MC41IiApLCBsd2QgPSBjKDEsMyw2KSkKYGBgCgpEZXNjcmliZSB0aGlzIHBsb3Q6ICAKLSAgCi0gIAotICAKLSAgCi0gIAotICAKYGBgIHtyfQojIGVzIHZhcG9yIHByZXNzdXJlIGF0IGxlYWYgc3VyZmFjZSAoa1BhKQplc2xfdl9ncyA8LSBsaXN0KCkKZm9yKHN0byBpbiAxOjMpewogIGVzbF92X2dzW1tzdG9dXT13c192X2dzW1tzdG9dXSpwcmVzc19iYXIKICB9CgpwbG90KGVzbF92X2dzW1sxXV0sRV92X2dzW1sxXV0sdHlwZT0ibCIsIHhsaW0gPSBjKDAsMyksIHlsaW09YygwLDAuMDE1KSwgeWxhYj0iRSwgbW9sIG0tMiBzLTEiLCB4bGFiPSIgbGVhZiBzdXJmYWNlIHdhdGVyIHZhcG9yLCBtb2xlIGZyYWMiKQpsaW5lcyhlc2xfdl9nc1tbMl1dLEVfdl9nc1tbMl1dLCBsd2Q9MykKbGluZXMoZXNsX3ZfZ3NbWzNdXSxFX3ZfZ3NbWzNdXSwgbHdkPTYpCgpsZWdlbmQoInRvcHJpZ2h0IiwgbGVnZW5kID0gYygiZ3M9MC4wMSIsImdzPTAuMjUiLCJncz0wLjUiICksIGx3ZCA9IGMoMSwzLDYpKQpgYGAKCkJlY2F1c2Ugd2UgYWxyZWFkeSBoYXZlIGNhbGN1bGF0aW9ucyBmb3IgaW50ZXJuYWwgbGVhZiB2YXBvciBwcmVzc3VyZSAoa1BhKWBgYGVpYGBgLCB2YXBvciBwcmVzc3VyZSBhdCBsZWFmIHN1cmZhY2UgKGtQYSkgYGBgZXNsX3ZfZ3NgYGAsIGFtYmllbnQgdmFwb3IgcHJlc3N1cmUgKGtQYSlgYGBlYV92YGBgICB1bmRlciBkaWZmZXJlbnQgU3RvbWF0YWwgY29uZHVjdGFuY2VzIGBgYGdzYGBgLCBhbmQgZGlmZmVyZW50IHJlbGF0aXZlIGh1bWlkaXRpZXNgYGByZWxIYGBgIGFuZCwgc291cmNlIHdhdGVycyBgYGB3YXRlcmBgYC4gVGh1cywgd2UgaGF2ZSBhbGwgdGhlIGNvbXBvbmVudHMgdG8gZXN0aW1hdGUgdGhlIG1hZ25pdHVkZSBvZiB0aGUgaXNvdG9waWMgZW5yaWNobWVudCBhdCB0aGUgbGVhZiBsZXZlbC4gCgpgYGAge3J9CiMgYSogICoqZXF1aWxpYnJpdW0gZnJhY3Rpb25hdGlvbiBhdCBsZWFmIHRlbXBlcmF0dXJlICAKIyBUaGUgZXF1aWxpYnJpdW0gZnJhY3Rpb25hdGlvbiBmYWN0b3IsIGEqIGlzIHRlbXBlcmF0dXJlIGRlcGVuZGVudCAKIyAoc2VlIE1ham91YmUsIDE5NzEsIEouIENoaW0uIFBoeXMuIDU4OjE0MjMtMTQzNiksIHRodXMsCmFscGhhX3N0YXIgPWV4cCgoMS4xMzcqMTAwMC8oMjczLjE1K1RhKV4yKS0oMC40MTU2LygyNzMuMTUrVGEpKS0wLjAwMjA2NjcpCgojUiBzb3VyY2UgTyAgaXNvdG9wZSByYXRpbywgc291cmNlIHdhdGVyIGNvbnZlcnNpb24gdG8gUiBub3RhdGlvbgpSc291cmNlPSByc21vdyooMStTb3VyY2VfMThPLzEwMDApCgojUmF0bSAgT3h5ICBpc290b3BlIHJhdGlvLCBhdG1vc3BoICB3YXRlciB2YXBvcgpSYXRtPSByc21vdyooMSt3YXRlcl92YXBvci8xMDAwKQoKI1IgbGVhZiBtb2RlbCBPeHlnICBpc290b3BlIHJhdGlvLCBsZWFmIHdhdGVyIEdDCiMjIyMgTGVhZiB3YXRlciBlbnJpY2htZW50ICB3aXRoIGRpZmVyZW50IFJILCBTb3VlY2VzIGFuZCBncwoKUmxlYWZfdl9ncyA8LSBsaXN0KCkKZm9yKHN0byBpbiAxOjMpewogIFJsZWFmX3ZfZ3NbW3N0b11dIDwtIGFscGhhX3N0YXIqKChhaypSc291cmNlKgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoKGVpLWVzbF92X2dzW1tzdG9dXSkvZWkpKSsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoYWtiKlJzb3VyY2UqKGVzbF92X2dzW1tzdG9dXS1lYV92KS9laSkrCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKFJhdG0qZWFfdi9laSkpCiAgfQpgYGAKCgoKYGBgIHtyfQojZDE4TyBsZWFmIHdpdGggQ0cgc28gMyBTdG9tYXRhbCBjb25kdWN0YW5jZXMgIAojIyMjIExlYWYgd2F0ZXIgZW5yaWNobWVudCAgd2l0aCBkaWZlcmVudCBSSCwgU291ZWNlcyBhbmQgR1MKZDE4T0xfZ3MgPC0gbGlzdCgpCmZvcihzdG8gaW4gMTozKXsKICBkMThPTF9nc1tbc3RvXV09KChSbGVhZl92X2dzW1tzdG9dXS9yc21vdyktMSkqMTAwMCAKfQpgYGAKCmBgYHtyfQpwbG90KGVzbF92X2dzW1sxXV1bMToxN10sZDE4T0xfZ3NbWzFdXVsxOjE3XSx0eXBlPSJwIiwgeGxpbSA9IGMoMCw0KSwgeWxhYj0ibGVhZiB3YXRlciBHQyIsIHhsYWI9InZhcG9yIHByZXNzdXJlIGF0IGxlYWYgc3VyZmFjZSAoa1BhKSIpCnBvaW50cyhlc2xfdl9nc1tbMl1dWzE6MTddLGQxOE9MX2dzW1syXV1bMToxN10sIGx3ZD0zKQpwb2ludHMoZXNsX3ZfZ3NbWzNdXVsxOjE3XSxkMThPTF9nc1tbM11dWzE6MTddLCBsd2Q9NikKCmxlZ2VuZCgidG9wcmlnaHQiLCBsZWdlbmQgPSBjKCJncz0wLjAxIiwiZ3M9MC4yNSIsImdzPTAuNSIgKSwgbHdkID0gYygxLDMsNikpCmBgYApEZXNjcmliZSB0aGlzIHBsb3QgUmVjYWxsIHRoZSAgcmFuZ2Ugb2Ygc291cmNlIHdhdGVyICBhbmQgIG5vdyB3ZSBjYW4gb2JzZXJ2ZSB0aGUgZWZmZWN0cyBkZXBlbmRpbmcgb24gdGhlIGFtb3VudCBvZiB3YXRlciBhdCB0aGUgbGVhZiBzdXJmYWNlOiAgCi0gIAotICAKLSAgCi0gIApgYGAge3J9CiMjIFBsb3Qgd2l0aCBkaWZmZXJlbnQgc291cmNlIHdhdGVycwojIFsxOjEzXSBpcyBhbGwgUkhzIGFuZCAgd2l0aCBzb3VyY2Ugd2F0ZXIgb2YgLTI1CnBsb3QoUkhfdlsxOjE3XSwgZDE4T0xfZ3NbWzFdXVsxOjE3XSwgdHlwZT0ibCIsIHlsaW0gPSBjKC0zMCwxMCkpCmxpbmVzKFJIX3ZbMToxN10sIGQxOE9MX2dzW1syXV1bMToxN10sIGx3ZD0zKQpsaW5lcyhSSF92WzE6MTddLCBkMThPTF9nc1tbM11dWzE6MTddLCBsd2Q9NikKCmxlZ2VuZCgidG9wcmlnaHQiLCBsZWdlbmQgPSBjKCJncz0wLjAxIiwiZ3M9MC4yNSIsImdzPTAuNSIgKSwgbHdkID0gYygxLDMsNikpCmBgYApEZXNjcmliZSB0aGlzIHBsb3QsIHJlbWVtYmVyIHRoZSByYW5nZSBvZiBzb3VyY2Ugd2F0ZXIgYW5kIG9ic2VydmUgdGhlIGVmZmVjdHMgb24gdGhlIGxlYWYgd2F0ZXIgZW5yaWNobWVudCBkZXBlbmRpbmcgb24gdGhlIGVudmlyb25tZW50YWwgcmVsYXRpdmUgaHVtaWRpdHk6ICAKLSAgCi0gIAotICAKLSAgCgpgYGAge3J9CgojIENyYWlnX0dvcmRvbiBtb2RlbCB3aXRoIGRpZmZlcmVudCBQRVgKIyMgb24gdG8gdGhlIGNlbGx1bG9zZSBzeW50aGVzaXMKCkZfMCA8LSBjKDAuMzMsMC40MiwwLjU1KSAjIHZhcmlhYmxlIHBlcmNlbnRhZ2Ugb2YgRXhjaGFnZSBkdXJpbmcgQ2VsbHVsb3NlIFN5bnRoZXNpcwojIGhlcmUgYSBkb3VibGUgbG9vcApkMThPX2NlbGx1bG9zZSA8LSBsaXN0KCkKZm9yKHN0byBpbiAxOjMpewogIGQxOE9jX0ZfMCA8LSBsaXN0KCkKICBmb3IgKHBlIGluIDE6Myl7ICMgdmFyaWFibGUgcGVyY2VudGFnZSBvZiBFeGNoYWdlIGR1cmluZyBDZWxsdWxvc2UgU3ludGhlc2lzCiAgICBkMThPY19GXzBbW3BlXV0gPC0gRl8wW1twZV1dKihTb3VyY2VfMThPICsgZXBzaWxvbl9jKSArICgxIC0gRl8wW1twZV1dKSAqIChkMThPTF9nc1tbc3RvXV0rIGVwc2lsb25fYykgCiAgfQogIG5hbWVzKGQxOE9jX0ZfMCkgPC0gYygiZ3M9MC4wMSIsImdzPTAuMjUiLCJncz0wLjUiICkKZDE4T19jZWxsdWxvc2VbW3N0b11dIDwtIGQxOE9jX0ZfMAp9Cm5hbWVzKGQxOE9fY2VsbHVsb3NlKSA8LSBjKCJmbz0wLjMzIiwiZm89MC40MiIsImZvPTAuNTUiICkKc3RyKGQxOE9fY2VsbHVsb3NlKSAgIyBoZXJlIHdlIHNlZSB3ZSBqdXN0IGdlbmVyYXRlIGEgbGlzdCBvZiAzIHN0b21hdGFsIGNvbmR1Y3RhbmNlIHZhcmlhdGlvbnMgYW5kIGluIGVhY2ggb2YgdGhvc2UgMyBkaWZlcmVudCBvdXRwdXRzIHVzaW5nIGRpZmZlcmVudCBQZXJjZW50YWdlIG9mIGV4Y2hhbmdlIGR1cmluZyBjZWxsdWxvc2Ugc2ludGhlc2lzaS4KCmBgYApSZW1lbWJlciB0aGF0IGVhY2ggdmVjdG9yIG9uIHRoZXNlIGVsZW1lbnRzICBvZiB0aGUgbGlzdCBhcmUgYWwgdGhlICBjb21iaW5hdGlvbnMgd2UgaGFkIGF0IHRoZSAgc3RhcnQgb2YgdGhpcyBleGVyY2lzZS4gd2hlcmUgYGBgUkhfU09VUkNFYGBgIGlzIHRoZSBtYWluIHN0cnVjdHJlIGZvciBhbGwgMTcgZGlmZmVyZW50IFJlYWx0aXZlIGh1bWlkaWV0aWVzb24gYGBgcmVsSGBgYCB0aGUgMTYgZGlmZmVyZW50IHNvdXJjZSB3YXRlcnMgYGBgd2F0ZXJgYGAgcHJvdmlkZXMgMjcyIHZhbHVlcyBvbiBlYWNoIHZlY3RvciBmcm9tIHRoZSBsaXN0LgoKIyMgUEFSVCAzOiBFc3RpbWF0ZSB0aGUgIHNsb3BlIGJldHdlZW4gIGRpZmVyZW50IHZhcmlhYmxlcyAgYW5kIHRoZSBJc290b3BpYyBlZmZlY3QgZXN0aW1hdGVkIGluIGNlbGx1bG9zZSAKSW4gdGhpcyBmaW5hbCBzdGVwLCB5b3Ugd2lsbCBlc3RpbWF0ZSB0aGUgZGlmZmVyZW50IHNlbnNpdGl2aXRpZXMgdGhlIGBgYGQxOE9fY2VsbHVsb3NlYGBgIGlzIGV4cG9zZWQgdG8gdW5kZXIgZGlmZmVyZW50IGVudmlyb25tZW50cyBhbmQgZGlmZmVyZW50IGZhY3RvcnMsIGFuZCB5b3Ugd2lsbCBuZWVkIHRvIGNvbmNsdWRlIHdoYXQgZmFjdG9ycyBhbmFseXplZCBpbiB0aGlzIGV4ZXJjaXNlIGFyZSB0aGUgbW9zdCBzZW5zaXRpdmUgYW5kIHdoeS4gCgpgYGB7cn0KCiMjIHNldCB0aGUgZnJhY3Rpb24gb2YgdGhlIHZlY3RvciB3ZSBsaWtldCB0byBwbG90ICAKc291cmNlMSA8LSBSSF9TT1VSQ0VbLDJdPT0tMjUgIyBpbiB0aGlzIGNhc2Ugd2Ugc2VsZWN0IHRoZSAgcG9zaXRpb25zICB0aGF0ICBoYXZlIGEgc29yY2Ugd2F0ZXIgb2YgLTI1IApzb3VyY2UyIDwtIFJIX1NPVVJDRVssMl09PTEjIGluIHRoaXMgY2FzZSB3ZSBzZWxlY3QgdGhlICBwb3NpdGlvbnMgIHRoYXQgIGhhdmUgYSBzb3JjZSB3YXRlciBvZiAxIAoKCnBsb3QoUkhfU09VUkNFWywxXVtzb3VyY2UyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNTUiXV1bWyJncz0wLjAxIl1dW3NvdXJjZTJdLCB4bGltID1yYW5nZShSSF9TT1VSQ0VbLDFdKSwgeWxpbSA9cmFuZ2UodW5saXN0KGQxOE9fY2VsbHVsb3NlKSksICBwY2g9MTksIHhsYWIgPSAiUkgiLCB5bGFiID0gImQxOE8iKSAKCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC4yNSJdXVtzb3VyY2UyXSwgcGNoPTIpCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC41Il1dW3NvdXJjZTJdKQogIAogIAogIHBvaW50cyhSSF9TT1VSQ0VbLDFdW3NvdXJjZTJdLGQxOE9fY2VsbHVsb3NlW1siZm89MC4zMyJdXVtbImdzPTAuMDEiXV1bc291cmNlMl0sICBwY2g9MTksIGNvbD0icmVkIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC4yNSJdXVtzb3VyY2UyXSwgcGNoPTIsIGNvbD0icmVkIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC41Il1dW3NvdXJjZTJdLCBjb2w9InJlZCIgKQoKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjAxIl1dW3NvdXJjZTJdLCAgcGNoPTE5LCBjb2w9ImJsdWUiICkKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjI1Il1dW3NvdXJjZTJdLCBwY2g9MiwgY29sPSJibHVlIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjQyIl1dW1siZ3M9MC41Il1dW3NvdXJjZTJdLCBjb2w9ImJsdWUiICkKCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC4wMSJdXVtzb3VyY2UxXSwgIHBjaD0xOSwgY29sPSJyZWQiICkKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNTUiXV1bWyJncz0wLjI1Il1dW3NvdXJjZTFdLCBwY2g9MikKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNTUiXV1bWyJncz0wLjUiXV1bc291cmNlMV0pCiAgCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC4wMSJdXVtzb3VyY2UxXSwgIHBjaD0xOSwgY29sPSJyZWQiICkKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuMzMiXV1bWyJncz0wLjI1Il1dW3NvdXJjZTFdLCBwY2g9MiwgY29sPSJyZWQiICkKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuMzMiXV1bWyJncz0wLjUiXV1bc291cmNlMV0sIGNvbD0icmVkIiApCgogIHBvaW50cyhSSF9TT1VSQ0VbLDFdW3NvdXJjZTFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC40MiJdXVtbImdzPTAuMDEiXV1bc291cmNlMV0sICBwY2g9MTksIGNvbD0iYmx1ZSIgKQogIHBvaW50cyhSSF9TT1VSQ0VbLDFdW3NvdXJjZTFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC40MiJdXVtbImdzPTAuMjUiXV1bc291cmNlMV0sIHBjaD0yLCBjb2w9ImJsdWUiICkKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjUiXV1bc291cmNlMV0sIGNvbD0iYmx1ZSIgKQogIAogIApgYGAKCgoKCmBgYHtyfQpSSDEgPC0gUkhfU09VUkNFWywxXT09IDEwICMgaW4gdGhpcyBjYXNlIHdlIHNlbGVjdCB0aGUgIHBvc2l0aW9ucyAgdGhhdCAgaGF2ZSBhIHNvcmNlIHdhdGVyIG9mIC0yNSAKUkgyIDwtIFJIX1NPVVJDRVssMV09PTkwIyBpbiB0aGlzIGNhc2Ugd2Ugc2VsZWN0IHRoZSAgcG9zaXRpb25zICB0aGF0ICBoYXZlIGEgc29yY2Ugd2F0ZXIgb2YgMSAKCgpwbG90KFJIX1NPVVJDRVssMl1bUkgyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNTUiXV1bWyJncz0wLjAxIl1dW1JIMl0sIHhsaW0gPXJhbmdlKFJIX1NPVVJDRVssMl0pLCB5bGltID1yYW5nZSh1bmxpc3QoZDE4T19jZWxsdWxvc2UpKSwgIHBjaD0xOSwgeGxhYiA9ICJTb3VyY2Ugd2F0ZXIiLCB5bGFiID0gImQxOE8iKSAKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDJdLGQxOE9fY2VsbHVsb3NlW1siZm89MC41NSJdXVtbImdzPTAuMjUiXV1bUkgyXSwgcGNoPTIpCiAgcG9pbnRzKFJIX1NPVVJDRVssMl1bUkgyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNTUiXV1bWyJncz0wLjUiXV1bUkgyXSkKICAKICAKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDJdLGQxOE9fY2VsbHVsb3NlW1siZm89MC4zMyJdXVtbImdzPTAuMDEiXV1bUkgyXSwgIHBjaD0xOSwgY29sPSJyZWQiICkKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDJdLGQxOE9fY2VsbHVsb3NlW1siZm89MC4zMyJdXVtbImdzPTAuMjUiXV1bUkgyXSwgcGNoPTIsIGNvbD0icmVkIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMl1bUkgyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuMzMiXV1bWyJncz0wLjUiXV1bUkgyXSwgY29sPSJyZWQiICkKCiAgcG9pbnRzKFJIX1NPVVJDRVssMl1bUkgyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjAxIl1dW1JIMl0sICBwY2g9MTksIGNvbD0iYmx1ZSIgKQogIHBvaW50cyhSSF9TT1VSQ0VbLDJdW1JIMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjQyIl1dW1siZ3M9MC4yNSJdXVtSSDJdLCBwY2g9MiwgY29sPSJibHVlIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMl1bUkgyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjUiXV1bUkgyXSwgY29sPSJibHVlIiApCiAgCgogIHBvaW50cyhSSF9TT1VSQ0VbLDJdW1JIMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC4wMSJdXVtSSDFdLCAgcGNoPTE5LCBjb2w9InJlZCIgKQogIHBvaW50cyhSSF9TT1VSQ0VbLDJdW1JIMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC4yNSJdXVtSSDFdLCBwY2g9MikKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC41NSJdXVtbImdzPTAuNSJdXVtSSDFdKQogIAogIAogIHBvaW50cyhSSF9TT1VSQ0VbLDJdW1JIMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC4wMSJdXVtSSDFdLCAgcGNoPTE5LCBjb2w9InJlZCIgKQogIHBvaW50cyhSSF9TT1VSQ0VbLDJdW1JIMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC4yNSJdXVtSSDFdLCBwY2g9MiwgY29sPSJyZWQiICkKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC4zMyJdXVtbImdzPTAuNSJdXVtSSDFdLCBjb2w9InJlZCIgKQoKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC40MiJdXVtbImdzPTAuMDEiXV1bUkgxXSwgIHBjaD0xOSwgY29sPSJibHVlIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMl1bUkgxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjI1Il1dW1JIMV0sIHBjaD0yLCBjb2w9ImJsdWUiICkKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC40MiJdXVtbImdzPTAuNSJdXVtSSDFdLCBjb2w9ImJsdWUiICkKICAKICAKYGBgCgpJbiB0aGlzIGZpbmFsIHN0ZXAsIHdlIHdpbGwgIHBsb3QgYWxsIGluIGZpZ3VyZSB3aXRoIGFsbCB0aGUgdmFsdWVzICBlc3RpbWF0ZWQgaW4gdGhpcyBleGVyY2lzZSBhIHRocmVlLWJ5LXRocmVlIHBhbmVsIHVzaW5nIGhlYXQgbWFwcyBvZiB0aGUgIFJILCBTb3VyY2UgdmVjdG9ycy4KCmBgYHtyfQojZ2VuZXJhdGlvbiBvZiB0aGUgOSBtYXRyaWNlcyB3aXRoIDE3IGRpZmZlcmVudCBSZWFsdGl2ZSBieSAxNiBkaWZmZXJlbnQgd2F0ZXJzCgpkMThPX19mbzAuNTVfZ3MwLjAxIDwtIG1hdHJpeCAoZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC4wMSJdXSwgbnJvdyA9IDE3LCBuY29sID0gMTYsIGJ5cm93ID0gRiwgZGltbmFtZXMgPSBsaXN0KGFzLmNoYXJhY3RlcihyZWxIKSxhcy5jaGFyYWN0ZXIod2F0ZXIpKSkKZDE4T19fZm8wLjU1X2dzMC4yNSA8LSBtYXRyaXggKGQxOE9fY2VsbHVsb3NlW1siZm89MC41NSJdXVtbImdzPTAuMjUiXV0sIG5yb3cgPSAxNywgbmNvbCA9IDE2LCBieXJvdyA9IEYsIGRpbW5hbWVzID0gbGlzdChhcy5jaGFyYWN0ZXIocmVsSCksYXMuY2hhcmFjdGVyKHdhdGVyKSkpCmQxOE9fX2ZvMC41NV9nczAuNSA8LSBtYXRyaXggKGQxOE9fY2VsbHVsb3NlW1siZm89MC41NSJdXVtbImdzPTAuNSJdXSwgbnJvdyA9IDE3LCBuY29sID0gMTYsIGJ5cm93ID0gRiwgZGltbmFtZXMgPSBsaXN0KGFzLmNoYXJhY3RlcihyZWxIKSxhcy5jaGFyYWN0ZXIod2F0ZXIpKSkKCmQxOE9fX2ZvMC4zM19nczAuMDEgPC0gbWF0cml4IChkMThPX2NlbGx1bG9zZVtbImZvPTAuMzMiXV1bWyJncz0wLjAxIl1dLCBucm93ID0gMTcsIG5jb2wgPSAxNiwgYnlyb3cgPSBGLCBkaW1uYW1lcyA9IGxpc3QoYXMuY2hhcmFjdGVyKHJlbEgpLGFzLmNoYXJhY3Rlcih3YXRlcikpKQpkMThPX19mbzAuMzNfZ3MwLjI1IDwtIG1hdHJpeCAoZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC4yNSJdXSwgbnJvdyA9IDE3LCBuY29sID0gMTYsIGJ5cm93ID0gRiwgZGltbmFtZXMgPSBsaXN0KGFzLmNoYXJhY3RlcihyZWxIKSxhcy5jaGFyYWN0ZXIod2F0ZXIpKSkKZDE4T19fZm8wLjMzX2dzMC41IDwtIG1hdHJpeCAoZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC41Il1dLCBucm93ID0gMTcsIG5jb2wgPSAxNiwgYnlyb3cgPSBGLCBkaW1uYW1lcyA9IGxpc3QoYXMuY2hhcmFjdGVyKHJlbEgpLGFzLmNoYXJhY3Rlcih3YXRlcikpKQoKZDE4T19fZm8wLjQyX2dzMC4wMSA8LW1hdHJpeCAoIGQxOE9fY2VsbHVsb3NlW1siZm89MC40MiJdXVtbImdzPTAuMDEiXV0sIG5yb3cgPSAxNywgbmNvbCA9IDE2LCBieXJvdyA9IEYsIGRpbW5hbWVzID0gbGlzdChhcy5jaGFyYWN0ZXIocmVsSCksYXMuY2hhcmFjdGVyKHdhdGVyKSkpCmQxOE9fX2ZvMC40Ml9nczAuMjUgPC0gbWF0cml4IChkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjI1Il1dLCBucm93ID0gMTcsIG5jb2wgPSAxNiwgYnlyb3cgPSBGLCBkaW1uYW1lcyA9IGxpc3QoYXMuY2hhcmFjdGVyKHJlbEgpLGFzLmNoYXJhY3Rlcih3YXRlcikpKQpkMThPX19mbzAuNDJfZ3MwLjUgPC0gbWF0cml4IChkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjUiXV0sIG5yb3cgPSAxNywgbmNvbCA9IDE2LCBieXJvdyA9IEYsIGRpbW5hbWVzID0gbGlzdChhcy5jaGFyYWN0ZXIocmVsSCksYXMuY2hhcmFjdGVyKHdhdGVyKSkpCgpDT0xJUyA8LSBjb2xvclJhbXBQYWxldHRlKGNvbG9ycyA9IGMoInJlZCIsICJibHVlIiwgImJsYWNrIikpCgoKYGBgCgpgYGB7cn0KCmNvbF9wYW5lbCA8LSBDT0xJUygxMCkKcmFuZ2VfbGltaXRzIDwtIHJhbmdlKHVubGlzdChkMThPX2NlbGx1bG9zZSkpCgpsYXlvdXQobWF0ID0gbWF0cml4KDE6OSxucm93ID0gMywgbmNvbCA9IDMsIGJ5cm93ID0gVCksIHdpZHRocyA9IDEsIGhlaWdodHMgPSAxLCByZXNwZWN0ID0gVCkKcGFyKG1hcj1jKDQsNCwwLjEsMC4xKSkKCmltYWdlKHggPSB3YXRlciwgeSA9IHJlbEgsIHogPSB0KGQxOE9fX2ZvMC4zM19nczAuMDEpLGNvbCA9IGNvbF9wYW5lbCwgemxpbSA9IHJhbmdlX2xpbWl0cykKaW1hZ2UoeCA9IHdhdGVyLCB5ID0gcmVsSCwgeiA9IHQoZDE4T19fZm8wLjMzX2dzMC4yNSksY29sID0gY29sX3BhbmVsLCB6bGltID0gcmFuZ2VfbGltaXRzKQppbWFnZSh4ID0gd2F0ZXIsIHkgPSByZWxILCB6ID0gdChkMThPX19mbzAuMzNfZ3MwLjUpLGNvbCA9IGNvbF9wYW5lbCwgemxpbSA9IHJhbmdlX2xpbWl0cykKaW1hZ2UoeCA9IHdhdGVyLCB5ID0gcmVsSCwgeiA9IHQoZDE4T19fZm8wLjQyX2dzMC4wMSksY29sID0gY29sX3BhbmVsLCB6bGltID0gcmFuZ2VfbGltaXRzKQppbWFnZSh4ID0gd2F0ZXIsIHkgPSByZWxILCB6ID0gdChkMThPX19mbzAuNDJfZ3MwLjI1KSxjb2wgPSBjb2xfcGFuZWwsIHpsaW0gPSByYW5nZV9saW1pdHMpCmltYWdlKHggPSB3YXRlciwgeSA9IHJlbEgsIHogPSB0KGQxOE9fX2ZvMC40Ml9nczAuNSksY29sID0gY29sX3BhbmVsLCB6bGltID0gcmFuZ2VfbGltaXRzKQppbWFnZSh4ID0gd2F0ZXIsIHkgPSByZWxILCB6ID0gdChkMThPX19mbzAuNTVfZ3MwLjAxKSxjb2wgPSBjb2xfcGFuZWwsIHpsaW0gPSByYW5nZV9saW1pdHMpCmltYWdlKHggPSB3YXRlciwgeSA9IHJlbEgsIHogPSB0KGQxOE9fX2ZvMC41NV9nczAuMjUpLGNvbCA9IGNvbF9wYW5lbCwgemxpbSA9IHJhbmdlX2xpbWl0cykKaW1hZ2UoeCA9IHdhdGVyLCB5ID0gcmVsSCwgeiA9IHQoZDE4T19fZm8wLjU1X2dzMC41KSxjb2wgPSBjb2xfcGFuZWwsIHpsaW0gPSByYW5nZV9saW1pdHMpCmBgYAoKIyMjIEV4ZXJjaXNlCkNvbnNpZGVyaW5nIHRoZSBzbG9wZXMgYmV0d2VlbiB0aGUgZDE4TyBpbiBjZWxsdWxvc2UgYW5kIGBgYHJlbEhgYGAgYW5kIGBgYHdhdGVyYGBgIGFuZCB0aGUgaHlwb3RoZXRpY2FsIHJhbmdlIG9mIHZhcmlhYmlsaXR5IG9uIGEgZ2l2ZW4gZW52aXJvbm1lbnQsIHdoYXQgdmFyaWFibGUgaXMgbW9zdCBsaWtlbHkgdG8gYmUgaW5mbHVlbmNpbmcgdGhlIGNlbGx1bG9zZSB2YWx1ZXMgdGhyb3VnaG91dCB0aGUgbGlmZSBzcGFuIG9mIGEgdHJlZT8gIFRha2UgaW50byBjb25zaWRlcmF0aW9uIHRoZSBzZWFzb25hbCBhbmQgaW50ZXJhbm51YWwgdmFyaWFiaWxpdHkuCgpDYXNlIDE6IFRoZSBzb3VyY2Ugd2F0ZXIgcmFuZ2VzIGZyb20gLTEwIHRvIC01LCBhbmQgdGhlIHJlbGF0aXZlIGh1bWlkaXR5IGZsdWN0dWF0ZXMgYmV0d2VlbiAyMCB0byA3MCUuIEhlcmUgd2Ugd2lsbCBiZSBhc3N1bWluZyB0aGF0IHRoZSBhdmVyYWdlIGdzIGlzIDAuMDEgYW5kIGEgNDIlIGV4Y2hhbmdlLgpgYGB7cn0KIyBoaW50LiBJbWFnaW5lIGEgIGJveCB0aGF0IGNvdmVycyB0aGUgcmFnZSBnaXZlbi4gVGhlbiB5b3UgY2FuIHByZWNpc2VseSBlc3RpbWF0ZSB0aGUgcG90ZW50aWFsIHJhZ2UgaW4gZDE4TyBieSB1c2luZyB0aGUgc2xvcGVzIGJldHdlZW4gdGhlIHZhcmlhYmxlcyBhbmQgZDE4TyBpbiBjZWxsdWxvc2UgYW5kIGNhbGN1bGF0ZSB0aGUgcmFuZ2Ugb2YgdmFyaWF0aW9uIGJldHdlZW4gdGhlIGdpdmVuIHJhbmdlIG9mIGVudmlyb25tZW50YWwgY29uZGl0aW9ucy4KCgpgYGAKCkNhc2UgMjogVGhlIHNvdXJjZSB3YXRlciB2YXJpZXMgZnJvbSAtMTAgdG8gLTgsIGFuZCB0aGUgcmVsYXRpdmUgaHVtaWRpdHkgZmx1Y3R1YXRlcyBiZXR3ZWVuIDgwJSB0byA5MCUuIEhlcmUgd2Ugd2lsbCBiZSBhc3N1bWluZyB0aGF0IHRoZSBhdmVyYWdlIGdzIGlzIDAuMDEsIGFuZCBhIDQyJSBleGNoYW5nZS4KCmBgYHtyfQoKYGBgCgpRdWVzdGlvbiAxOiB3aGF0IGlzIHRoZSBtb3N0IGltcG9ydGFudCB2YXJpYWJsZSBpbiBlYWNoIG9mIHRoZSBjYXNlcz8gQ2FuIHlvdSBzYXkgaG93IG11Y2ggdGhlIHNvdXJjZSBpbmZsdWVuY2VzIHRoZSBjZWxsdWxvc2UgYW5kIGhvdyBtdWNoIHRoZSByZWxhdGl2ZSBodW1pZGl0eSBhZmZlY3RzIHRoZSBvdXRjb21lIGluIGQxOE8gaW4gY2VsbHVsb3NlPwoKUXVlc3Rpb24gMjogaXMgdGhlcmUgYSBzaWduaWZpY2FudCBkaWZmZXJlbmNlIGJldHdlZW4gdGhlIGQxOE8gaW4gY2VsbHVsb3NlIHdoZW4gZ3MgdmFyaWVzIGZyb20gMC4wMSB0byAwLjU/IAogCiAKCgoKCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiU2Vuc2l0aXZpdHkgYW5hbHlzaXMgT3h5Z2VuIElzb3RvcGVzIGluIGNlbGx1bG9zZSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQojIyMjIyAgSXNvdG9wZSBEZW5kcm9jaHJvbm9sb2d5CiMjIyMjICBDT1VSU0U6IERJU0MsIExUUlIsIFVOSVZFUlNJVFkgT0YgQVJJWk9OQS4gSU5TVFJVQ1RPUlM6IFAuIFNaRUpORVIgJiBTLiBCRUxNRUNIRVJJCgojIyMgSW5zdHJ1Y3Rpb25zOgoKVGhlIGZvbGxvd2luZyBhY3Rpdml0aWVzIHNob3VsZCBmdXJ0aGVyIHlvdXIgZXhwZXJpZW5jZSB1bmRlcnN0YW5kaW5nIHRoZSBtZWNoYW5pc3RpYyBkcml2ZXJzIChwYXJhbWV0ZXJzLCB2YXJpYWJsZSkgb2YgdHJlZSByaW5nIDE4TyB2YXJpYWJpbGl0eSBpbiB0cmVlIHJpbmdzLiBUaGlzIGV4ZXJjaXNlIGNvbnNpc3RzIG9mIGEgc2Vuc2l0aXZpdHkgYW5hbHlzaXMgdG8gaW52ZXN0aWdhdGUgaG93IGRpZmZlcmVudCBlbnZpcm9ubWVudGFsIGZhY3RvcnMgYW5kIHBhcmFtZXRlcnMgYWZmZWN0IHRoZSB2YXJpYWJpbGl0eSBvZiAxOE8gaXNvdG9wZXMgaW4gdGhlIGNlbGx1bG9zZS4gVGhlIGZvbGxvd2luZyBjYWxjdWxhdGlvbnMsIGxpa2UgTm90ZWJvb2sgMiwgYXJlIGJhc2VkIG9uIHRoZSBDcmFpZyBHb3Jkb24gYW5kIHRoZSBSb2RlbiBtb2RlbHMuCgpZb3Ugd2lsbCBuZWVkIHRvIGRvd25sb2FkIG9yIGNsb25lIHRoZSBSIHByb2plY3QgZnJvbSBodHRwczovL2dpdGh1Yi5jb20vcGF1bHN6ZWpuZXIvRElTQ08tTm90ZWJvb2s0LmdpdAp0aGVuLCBlYWNoIG9mIHlvdSB3aWxsIGJlIGFibGUgdG8gc2V0IHlvdXIgd29ya2luZyBkaXJlY3RvcnkgdG8gcHJvY2VlZCB3aXRoIHRoaXMgZXhlcmNpc2VzLiBPbmNlIHlvdSBvcGVuIHRoZSBgYGBOb3RlYm9vayA0LlJwcm9qYGBgICB5b3UgY2FuIG9wZW4gdGhlIGBgYE5vdGVib29rIDQuUm1kYGBgIGZpbGUgdG8gcHJvY2VlZCB3aXRoIHRoZSBhY3Rpdml0eS4KCkluIHRoaXMgZXhlcmNpc2UsIHlvdSB3aWxsIG1vZGVsIHRoZSBveHlnZW4gaXNvdG9wZXMgaW4gY2VsbHVsb3NlIGBgYGQxOE9fY2VsbHVsb3NlYGBgLiBIb3dldmVyLCB0aGlzIGV4ZXJjaXNlIGlzIGludGVuZGVkIGZvciB5b3UgdG8gZXZhbHVhdGUgdGhlIHNlbnNpdGl2aXR5IG9mIHRoZSBkaWZmZXJlbnQgdmFyaWFibGVzLiBOYW1lbHksIGhvdyBjZWxsdWxvc2UgMThPIHdpbGwgdmFyeSBpZiB3ZSB2YXJ5IHRoZSByZWxhdGl2ZSBodW1pZGl0eSBgYGByZWxIYGBgLCAgdGhlIHNvdXJjZSB3YXRlciBgYGB3YXRlcmBgYCwgdGhlIHN0b21hdGFsIGNvbmR1Y3RhbmNlYGBgZ3NgYGAgYW5kIHRoZSBwZXJjZW50YWdlIG9mIGV4Y2hhbmdlIGR1cmluZyB0aGUgY2VsbHVsb3NlIHNpbnRoZXN5c2BgYEZfMGBgYAoKCiMjIFBBUlQgMTogVmFyaWFibGVzCgoqIEZpcnN0LCBjcmVhdGUgYSB2ZWN0b3IgW2BgYHJlbEhgYGAgXSBvZiByZWxhdGl2ZSBodW1pZGl0eSByYW5naW5nIGZyb20gMTAlIHRvIDkwJS4gICAKKiBTZWNvbmQsIGNyZWF0ZSBhIHZlY3RvciBbYGBgd2F0ZXJgYGBdIG9mIFNvdXJjZSB3YXRlciByYW5naW5nIGZyb20gLTI1IHBlcm1pbGwgdG8gNSBwZXJtaWxsLiAgCiogVGhpcmQsIGNyZWF0ZSBhIDIgY29sdW1uIG9iamVjdCBbYGBgUkhfU09VUkNFYGBgXSBjb21iaW5pbmcgIGBgYHJlbEhgYGAgIGFuZCBgYGB3YXRlcmBgYCB0aGF0IGNvcnJlc3BvbmQgdG8gYWxsIHBvc3NpYmxlIGNvbWJpbmF0aW9ucyBvZiByZWxhdGl2ZSBodW1pZGl0eSBhbmQgc291cmNlIHdhdGVyIDE4Ty4gCgoKYGBge3J9CgpyZWxIIDwtIHNlcSgxMCwgOTAsIGJ5PTUpICMgdGhpcyBpcyB0aGUgdmVjdG9yIG9mIDE3IGRpZmZlcmVudCBSZWxhdGl2ZSBodW1pZGl0aWVzCndhdGVyIDwtc2VxKCAtMjUsIDUsYnkgPSAyKSAjIHRoaXMgaXMgdGhlIHZlY3RvciB3aXRoICAxNiBzb3VyY2Ugd2F0ZXIgaXNvdG9waWMgdmFsdWVzLgoKUkhfU09VUkNFIDwtIG1lcmdlKHJlbEgsIHdhdGVyKSAjIGhlcmUgd2UgbWVyZ2UgdGhlIHR3byB2YXJpYWJsZXMgdG8gZmFjaWxpdGF0ZSB0aGUgY2FsY3VsYXRpb25zIGZvciBlYWNoIHJvdyBvZiB0aGlzIG9iamVjdC4KCiNTdWJzZXQgc291cmNlICBSSCBhbmQgc291cmNlIHdhdGVyIDE4TyBjb21iaW5hdGlvbnM6CgpSSCA8LSBSSF9TT1VSQ0VbLDFdClNvdXJjZV8xOE8gPC0gUkhfU09VUkNFWywyXQpgYGAKClBsb3QgUkggYW5kIFNvdXJjZSB3YXRlciAxOE8gaW4gb3JkZXIgdG8gdmlzdWFsaXplIGFsbCB0aGUgcG9zc2libGUgUkgtU291cmNlIHdhdGVyIDE4TyBjb21iaW5hdGlvbnMuICAgCkV4YW1wbGU6IGZvciBSSD0gMjAlIHRoZXJlIGFyZSAxNiBTb3VyY2Ugd2F0ZXIgMThPIHZhbHVlcyByYW5naW5nIGZyb20gLTI1IHRvIDUgcGVybWlsbC4KCmBgYHtyfQpwbG90KFJILCBTb3VyY2VfMThPKQpgYGAKClRoZXNlIFJILVNvdXJjZSB3YXRlciBjb21iaW5hdGlvbnMgd2lsbCBiZSB1c2VkIGFzIGlucHV0IGZvciB0cmVlIHJpbmcgY2VsbHVsb3NlIG1vZGVsLiBJbiBhZGRpdGlvbiwgb3RoZXIgdmFyaWFibGVzIHN1Y2ggYXMgc3RvbWF0YWwgY29uZHVjdGFuY2UgYGBgZ3NgYGAgYW5kICAgcGVyY2VudGFnZSBvZiAgaXNvdG9wZSBleGNoYW5nZSBkdXJpbmcgY2VsbHVsb3NlIHN5bnRoZXNpcyBgYGBGXzBgYGAgd2lsbCBhbHNvIGJlIHZhcmllZC4KCiMjIFBBUlQgMjogTW9kZWxpbmcgdGhlIE94eWdlbiBJc290b3BlcyBpbiB0aGUgdHJlZSByaW5nIGNlbGx1bG9zZQpUaGUgbGVhZiB3YXRlciBlbnJpY2htZW50IGFuZCBjZWxsdWxvc2UgMThPIHdpbGwgYmUgcHJlZGljdGVkIHVzaW5nIGEgd2lkZSByYW5nZSBvZiB2YXJpYWJpbGl0eSBvZiB0d28gZW52aXJvbm1lbnRhbCB2YXJpYWJsZXMgKHNvdXJjZSB3YXRlciwgUkgpIGFuZCB0d28gbW9kZWwgcGFyYW1ldGVycyAoZ3MgYW5kIEZfMCkuCgojIyMgVmFyeWluZyBSZWxhdGl2ZSBIdW1pZGl0eSAoUkgpIGFuZCBTb3VyY2Ugd2F0ZXIgZDE4TzoKClRoZSBmaXJzdCBwYXJ0IG9mIHRoZSAgbW9kZWwgd2lsbCBiZXJ1biB3aXRoIGEgY29tYmluYXRpb24gb2YgUkggYW5kIHNvdXJjZSB3YXRlciAxOE8gYXMgZm9sbG93czoKYGBge3J9CiMgQ29uc3RhbnRzCmJyIDwtMSAjIGJvdW5kYXJ5IGxheWVyIGNvbmR1Y3RhbmNlLiAobW9sIG0tMiBzLTEpLCBjb25zaWRlcmVkIHJlYXNvbmFibGUgdmFsdWUgYmV0d2VlbiAwLjAyIHRvIDMgaW4gUm9kZW4gcGFwZXIgYm91bmRhcnkgbGF5ZXIgcmVzaXN0YW5jZS4KYWsgPC0gMS4wMjg1CSMgIEZyYWN0aW9uYXRpb24gZmFjdG9yIHRoZSBsaXF1aWTigJN2YXBvciBlcXVpbGlicml1bSBmcmFjdGlvbmF0aW9uIGZhY3RvciBhbmQgdmFyaWVzIHdpdGggdGVtcGVyYXR1cmUgYWNjb3JkaW5nIHRvIHRoZSBlcXVhdGlvbnMgb2YgTWFqb3ViZSAoMTk3MSkuCmFrYiA8LSAxLjAxODkJIyAgRnJhY3Rpb25hdGlvbiBmYWN0b3IgYXNzb2NpYXRlZCB3aXRoIGRpZmZ1c2lvbiBpbiB0aGUgYm91bmRhcnkgbGF5ZXIuClN0b21hdGFsX2NvbmR1Y3RhbmNlIDwtIDAuNSAjIHN0b21hdGFsIGNvbmR1Y3RhbmNlIHRvIHdhdGVyIHZhcG9yLgojIE5PVEU6IHN0b21hdGFsIGNvbmR1Y3RhbmNlIGNhbiBiZSBmaXhlZCBvciB2YXJpZXMgd2l0aCByZXNwZWN0IHRvIFZQRC4KcHJlc3NfYmFyIDwtIDc3ICMgYmFyb21ldHJpYwlwcmVzc3VyZSAgKG1tYmFyKSAgClRhIDwtIDI1ICMgSW4gdGhpcyBleGVyY2lzZSwgd2UgYXJlIHVzaW5nIGEgY29uc3RhbnQgdGVtcGVyYXR1cmUsIGFpciB0ZW1wLiAowrBDKSB3aXRoIHRoZSBhc3N1bXB0aW9uIHRoYXQgVGxlYWY9IFRhaXIKYGBgCgpGaXJzdCwgd2UgZXN0aW1hdGUgdGhlIHRoZSBpc290b3BpYyB2YWx1ZSBvZiB0aGUgd2F0ZXIgdmFwb3I6CmBgYCB7cn0Kd2F0ZXJfdmFwb3IgPC1Tb3VyY2VfMThPICsoLTEqKDEuMTM3KigxMDAwMDAwLygoVGErMjczLjE1KV4yKSktMC40MTU2KigoMTAwMC8oVGErMjczLjE1KSktMi4wNjY3KSkpIApgYGAgCgpTZWNvbmQsIHdlIGVzdGltYXRlIHRoZSB2YXBvciBwcmVzc3VyZSBlfml+IGluIGludGVyY2VsbHVsYXIgYWlyIHNwYWNlIChLcGEpIGFzIGZvbGxvd3M6CmBgYCB7cn0KIyBlaSBpcyB0aGUgc2F0dXJhdGlvbiB2YXBvciBwcmVzc3VyZSAoa1BhKSB3aXRoIGFpciB0ZW1wLCBpbiB0aGlzIGNhc2UgYXQgMjUKZWk9KDEwMTMyNSpleHAoKCgoLTAuMTI5OSooMS0oMzczLjE2LygyNzMuMTUgKyBUYSkpKS0wLjY0NDUpKgogICAgICAgICAgICAgICAgICAgKDEtKDM3My4xNi8oMjczLjE1ICsgVGEpKSktMS45NzYpKigxLSgzNzMuMTYvKDI3My4xNSArIFRhKSkpKzEzLjMxODUpKigxLSgzNzMuMTYvKDI3My4xNSArIFRhKSkpKSkvMTAwMApgYGAgCgpUaGlyZCwgd2UgZXN0aW1hdGUgdGhlIHZhcG9yIHByZXNzdXJlIGV+YX4gaW4gYnVsayBhaXIgKEtwYSkgYXMgZm9sbG93czoKYGBgIHtyfQojIGVhIGlzIHRoZSBhbWJpZW50IHZhcG9yIHByZXNzdXJlIChrUGEpCmVhID0oUkgvMTAwKSplcwpgYGAKClF1ZXN0aW9uIDE6IFBsb3QgYW5kIGRlc2NyaWJlIHRoZSByZWxhdGlvbnNoaXAgYmV0d2VlbiB0aGUgUmVsYXRpdmUgaHVtaWRpdHkgKFJIKSBhbmQgdGhlIGFtYmllbnQgdmFwb3IgcHJlc3N1cmUgKGV+YX4pOgoKYGBgIHtyfQpwbG90KFJILGVhLCB4bGFiID0gIlJIICglKSIseWxhYiA9ICJlYSAoa1BhKSIgKQpgYGAKCiMjIyBWYXJ5aW5nIHN0b21hdGFsIGNvbmR1Y3RhbmNlOgoKSW4gdGhpcyBuZXh0IHBhcnQgb2YgdGhlIG1vZGVsLCB0aGUgc3RvbWF0YWwgY29uZHVjdGFuY2UgKGdzKSB3aWxsIGJlIHZhcmllZCB1c2luZyAzIHZhbHVlcyBmcm9tIDAuMDEtMC41OgpgYGAge3J9CmdzIDwtIGMoMC4wMSwwLjI1LCAwLjUpCgojIFRoZSB0b3RhbCBjb25kdWN0YW5jZSBpbmNsdWRlcyBzdG9tYXRhbCBjb25kdWN0YW5jZSB0byB3YXRlciB2YXBvciBhbmQgYm91bmRhcnkgbGF5ZXIgY29uZHVjdGFuY2U6CmcgPSAxLygxL2dzICsgMS9icikgIyBvciAxLyhycytyYikKCiMgRSBsZWFmIHRyYW5zcGlyYXRpb24gKG1vbCBtLTIgcy0xKSAjIEJhcmJvdXIgMjAwNAojIFRoaXMgbGlzdCBjb250YWlucyAzIGRpZmZlcmVudCBjb21iaW5hdGlvbnMgb2YgZ3MgZm9yIG1hbnkgUkggYW5kIFNvdXJjZSB3YXRlciBjb21iaW5hdGlvbi4KRSA8LSBsaXN0KCkKIyBUaGlzIGZvciBsb29wIHdpbGwgY2FsY3VsYXRlIHRoZSBsZWFmIHRyYW5zcGlyYXRpb24gRQpmb3IgKHN0byBpbiAxOjMpe0VbW3N0b11dPSgoZWktZWEpL3ByZXNzX2JhcikqZ1tzdG9dIH0KYGBgCgpDaGVjayB0aGUgc3RydWN0dXJlIG9mIHRoaXMgbmV3IG9iamVjdCBFIGJhc2VkIG4gMyBzdG9tYXRhbCBjb25kdWN0YW5jZSB2YWx1ZXM6CmBgYHtyfQpzdHIoRSkgCmBgYAoKUGxvdCB0aGUgcmVsYXRpb25zaGlwIGJldHdlZW4gdGhlIFJlbGF0aXZlIGh1bWlkaXR5IChSSCkgYW5kIGxlYWYgdHJhbnNwaXJhdGlvbiAoRSk6CmBgYCB7cn0KcGxvdChSSCxFW1sxXV0sdHlwZT0ibCIsIHhsaW0gPSBjKDEwLDkwKSwgcmFuZ2UoRSksIHlsYWI9IkUgKG1vbCBtLTIgcy0xKSIsIHhsYWI9IlJIICglKSIpCmxpbmVzKFJILEVbWzJdXSwgbHdkPTMpCmxpbmVzKFJILEVbWzNdXSwgbHdkPTYpCmxlZ2VuZCgidG9wcmlnaHQiLCBsZWdlbmQgPSBjKCJncz0wLjAxIiwiZ3M9MC4yNSIsImdzPTAuNSIgKSwgbHdkID0gYygxLDMsNikpCmBgYAoKUXVlc3Rpb24gMjogRGVzY3JpYmUgdGhlIHJlbGF0aW9uc2hpcCBiZXR3ZWVuIFJIIGFuZCBFIHVuZGVyIHRocmVlIGRpZmZlcmVudCBzdG9tYXRhbCBjb25kdWN0YW5jZSB2YWx1ZXMuIEhvdyBkbyB0aGUgc2xvcGVzIGRpZmZlcj8KCkNhbGN1bGF0ZSB0aGUgbGVhZiB3YXRlciBlbnJpY2htZW50OgpgYGAge3J9CiMgQ29udmVydCAgdmFwb3IgcHJlc3N1cmVzIHRvIG1vbGUgZnJhY3Rpb24gYXMgZm9sbG93czoKd2k9ZWkvcHJlc3NfYmFyIAp3YT0gZWEvcHJlc3NfYmFyIAoKIyBDYWxjdWxhdGUgbGVhZiBzdXJmYWNlIHdhdGVyIHZhcG9yICh3cykgbW9sZSBmcmFjdGlvbjogCiMgdGhpcyBsaXN0IGNvbnRhaW5zIDMgZGlmZmVyZW50IGNvbWJpbmF0aW9ucyBvZiBncyBmb3IgbWFueSBSSCBhbmQgU291cmNlIHdhdGVycy4Kd3MgPC0gbGlzdCgpCmZvcihzdG8gaW4gMTozKXt3c1tbc3RvXV0gPSgoZ3NbW3N0b11dKndpKS1FW1tzdG9dXSooMS13aS8yKSkvKGdzW1tzdG9dXSAtIEVbW3N0b11dLzIpfQoKIyBDYWxjdWxhdGUgdmFwb3IgcHJlc3N1cmUgYXQgbGVhZiBzdXJmYWNlIChlcykKZXM8LSBsaXN0KCkKZm9yKHN0byBpbiAxOjMpe2VzW1tzdG9dXT13c1tbc3RvXV0qcHJlc3NfYmFyfQoKIyBDYWxjdWxhdGUgdGhlIHRlbXBlcmF0dXJlIGRlcGVuZGVudCBlcXVpbGlicml1bSBmcmFjdGlvbmF0aW9uIGZhY3RvciBhbHBoYSoKYWxwaGFfc3RhciA9ZXhwKCgxLjEzNyoxMDAwLygyNzMuMTUrdGVtcGVyYXR1cmUpXjIpLSgwLjQxNTYvKDI3My4xNSt0ZW1wZXJhdHVyZSkpLTAuMDAyMDY2NykKCiMgQ29udmVydCBTb3VyY2Ugd2F0ZXIgMThPIHRvIFIgbm90YXRpb24KUnNvdXJjZT0gcnNtb3cqKDErU291cmNlXzE4Ty8xMDAwKQoKIyBDb252ZXJ0IHdhdGVyIHZhcG9yIDE4TyB0byBSIG5vdGF0aW9uClJhdG09IHJzbW93KigxK3dhdGVyX3ZhcG9yLzEwMDApCmBgYAoKTm93LCBlc3RpbWF0ZSBSIGxlYWYgZm9yIGFsbCBjb21iaW5hdGlvbnMgb2YgUkhtIFNvdXJjZSB3YXRlciAxOE8gYW5kIGdzOgpgYGAge3J9CgpSbGVhZjwtIGxpc3QoKQoKZm9yKHN0byBpbiAxOjMpewogIFJsZWFmW1tzdG9dXSA8LSBhbHBoYV9zdGFyKigoYWsqUnNvdXJjZSooKGVpLWVzW1tzdG9dXSkvZWkpKSsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKGFrYipSc291cmNlKigoZXNbW3N0b11dLWVhKS9laSkpKwogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoUmF0bSooZWEvZWkpKSkKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfQpgYGAKCkNvbnZlcnQgbGVhZiB3YXRlciBlbnJpY2htZW50IHRvIHBlcm1pbGwgdmFsdWVzIGFzIGZvbGxvd3M6CmBgYCB7cn0KCmQxOE9sZWFmIDwtIGxpc3QoKQoKZm9yKHN0byBpbiAxOjMpewogIGQxOE9sZWFmW1tzdG9dXT0oKFJsZWFmW1tzdG9dXS9yc21vdyktMSkqMTAwMCAKfQpgYGAKClBsb3QgbGVhZiB3YXRlciBlbnJpY2htZW50IHdpdGggdmFyeWluZyBzb3VyY2Ugd2F0ZXIgMThPOgpgYGAge3J9CgojIEV4YW1wbGU6IFsxOjEzXSBpcyBhbGwgUkhzIGFuZCAgd2l0aCBzb3VyY2Ugd2F0ZXIgb2YgLTI1IHBlcm1pbGwKCnBsb3QoUkhbMToxN10sICBkMThPbGVhZiBbWzFdXVsxOjE3XSwgdHlwZT0ibCIsIHlsaW0gPSBjKC0zMCwxMCkpCmxpbmVzKFJIWzE6MTddLCBkMThPbGVhZiBbWzJdXVsxOjE3XSwgbHdkPTMpCmxpbmVzKFJIWzE6MTddLCBkMThPbGVhZiBbWzNdXVsxOjE3XSwgbHdkPTYpCgpsZWdlbmQoInRvcHJpZ2h0IiwgbGVnZW5kID0gYygiZ3M9MC4wMSIsImdzPTAuMjUiLCJncz0wLjUiICksIGx3ZCA9IGMoMSwzLDYpKQpgYGAKClF1ZXN0aW9uIDM6IERlc2NyaWJlIGhvdyBsZWFmIHdhdGVyIGVucmljaG1lbnQgZGVwZW5kIG9uIFJILiBEb2VzIHRoaXMgcmVsYXRpb25zaGlwIChzbG9wZSkgdmFyeSBkZXBlbmRpbmcgb24gZ3MgdmFsdWVzPwoKIyMjIyBWYXJ5aW5nIHRoZSBwcm9wb3J0aW9uIG9mIGV4Y2hhbmdlcyB3aXRoIGxvY2FsIHdhdGVyIEZfMDoKVGhlIHByb3BvcnRpb24gKEZfMCkgb2YgY2FyYm9oeWRyYXRlIGQxOE8gc2lnbmFsIGZyb20gbGVhZiBjYXJib2h5ZHJhdGUgdGhhdCBleGNoYW5nZXMgd2l0aCBsb2NhbCB3YXRlciBkdXJpbmcgZm9ybWF0aW9uIG9mIHRyZWUtcmluZyBvciBsZWFmIGNlbGx1bG9zZSB3aWxsIGJlIHZhcmllZCB0byBlc3RpbWF0ZSBjZWxsdWxvc2UgZDE4TyBhcyBmb2xsb3dzOgoKYGBgIHtyfQpGXzAgPC0gYygwLjMzLDAuNDIsMC41NSkgIyB2YXJpYWJsZSBwZXJjZW50YWdlIG9mIEV4Y2hhbmdlIGR1cmluZyBDZWxsdWxvc2UgU3ludGhlc2lzCmVwc2lsb25fbyA8LSAgMjcgIyBCaW9sb2dpY2FsIGZyYWN0aW9uYXRpb24gZmFjdG9yIGZvciBveHlnZW4gaW4gZ29pbmcgZnJvbSBzdWdhcnMgdG8gY2VsbHVsb3NlCiMgaGVyZSBhIGRvdWJsZSBsb29wCgpkMThPX2NlbGx1bG9zZSA8LSBsaXN0KCkKZm9yKHN0byBpbiAxOjMpewogIGQxOE9jX0ZfMCA8LSBsaXN0KCkKICBmb3IgKHBlIGluIDE6Myl7ICMgdmFyaWFibGUgcGVyY2VudGFnZSBvZiBFeGNoYW5nZSBkdXJpbmcgQ2VsbHVsb3NlIFN5bnRoZXNpcwogICAgZDE4T2NfRl8wW1twZV1dIDwtIEZfMFtbcGVdXSooU291cmNlXzE4TyArIGVwc2lsb25fbykgKyAoMSAtIEZfMFtbcGVdXSkgKiAoZDE4T2xlYWZbW3N0b11dKyBlcHNpbG9uX28pIAogIH0KICBuYW1lcyhkMThPY19GXzApIDwtIGMoImdzPTAuMDEiLCJncz0wLjI1IiwiZ3M9MC41IiApCmQxOE9fY2VsbHVsb3NlW1tzdG9dXSA8LSBkMThPY19GXzAKfQpuYW1lcyhkMThPX2NlbGx1bG9zZSkgPC0gYygiZm89MC4zMyIsImZvPTAuNDIiLCJmbz0wLjU1IiApCmBgYAoKQ2hlY2sgdGhlIHN0cnVjdHVyZSBvZiB0aGUgZDE4T19jZWxsdWxvc2Ugb2JqZWN0LiBXZSBnZW5lcmF0ZWQgYSBsaXN0IG9mIDMgc3RvbWF0YWwgY29uZHVjdGFuY2UgdmFyaWF0aW9ucyBhbmQgZm9yIGVhY2ggc3RvbWF0YWwgY29uZHVjdGFuY2UgdmFsdWUsIHRocmVlIGRpZmZlcmVudCBQZXJjZW50YWdlIG9mIGV4Y2hhbmdlIGR1cmluZyBjZWxsdWxvc2Ugc3l0aGVzaXMuCmBgYCB7cn0Kc3RyKGQxOE9fY2VsbHVsb3NlKQpgYGAKCkVhY2ggdmVjdG9yICBvZiB0aGUgbGlzdCBjb3JyZXNwb25kcyB0byB0aGUgc3VpdGUgb2YgY29tYmluYXRpb25zIHdlIGhhZCBhdCB0aGUgc3RhcnQgb2YgdGhpcyBleGVyY2lzZSB3aGVyZSBgYGBSSF9TT1VSQ0VgYGAgaXMgdGhlIG1haW4gc3RydWN0dXJlIGZvciBhbGwgMTcgZGlmZmVyZW50IFJlbGF0aXZlIGh1bWlkaXR5IHZhbHVlcyBgYGBSSGBgYGFuZCB0aGUgMTYgZGlmZmVyZW50IHNvdXJjZSB3YXRlcnMgZDE4TyBgYGB3YXRlcmBgYCAKcHJvdmlkZXMgMjcyIHZhbHVlcyBvbiBlYWNoIHZlY3RvciBmcm9tIHRoZSBsaXN0LgoKIyMgUEFSVCAzOiBFc3RpbWF0ZSB0aGUgIHNsb3BlIGJldHdlZW4gIGRpZmVyZW50IHZhcmlhYmxlcyAgYW5kIHRoZSBJc290b3BpYyBlZmZlY3QgZXN0aW1hdGVkIGluIGNlbGx1bG9zZSAKSW4gdGhpcyBmaW5hbCBzdGVwLCB5b3Ugd2lsbCBlc3RpbWF0ZSB0aGUgZGlmZmVyZW50IHNlbnNpdGl2aXRpZXMgdGhlIGBgYGQxOE9fY2VsbHVsb3NlYGBgIGlzIGV4cG9zZWQgdG8gdW5kZXIgZGlmZmVyZW50IGVudmlyb25tZW50cyBhbmQgZGlmZmVyZW50IGZhY3RvcnMsIGFuZCB5b3Ugd2lsbCBuZWVkIHRvIGNvbmNsdWRlIHdoYXQgZmFjdG9ycyBhbmFseXplZCBpbiB0aGlzIGV4ZXJjaXNlIGFyZSB0aGUgbW9zdCBzZW5zaXRpdmUgYW5kIHdoeS4gCgpgYGB7cn0KCiMjIHNldCB0aGUgZnJhY3Rpb24gb2YgdGhlIHZlY3RvciB3ZSBsaWtldCB0byBwbG90ICAKc291cmNlMSA8LSBSSF9TT1VSQ0VbLDJdPT0tMjUgIyBpbiB0aGlzIGNhc2Ugd2Ugc2VsZWN0IHRoZSAgcG9zaXRpb25zICB0aGF0ICBoYXZlIGEgc29yY2Ugd2F0ZXIgb2YgLTI1IApzb3VyY2UyIDwtIFJIX1NPVVJDRVssMl09PTEjIGluIHRoaXMgY2FzZSB3ZSBzZWxlY3QgdGhlICBwb3NpdGlvbnMgIHRoYXQgIGhhdmUgYSBzb3JjZSB3YXRlciBvZiAxIAoKCnBsb3QoUkhfU09VUkNFWywxXVtzb3VyY2UyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNTUiXV1bWyJncz0wLjAxIl1dW3NvdXJjZTJdLCB4bGltID1yYW5nZShSSF9TT1VSQ0VbLDFdKSwgeWxpbSA9cmFuZ2UodW5saXN0KGQxOE9fY2VsbHVsb3NlKSksICBwY2g9MTksIHhsYWIgPSAiUkgiLCB5bGFiID0gImQxOE8iKSAKCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC4yNSJdXVtzb3VyY2UyXSwgcGNoPTIpCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC41Il1dW3NvdXJjZTJdKQogIAogIAogIHBvaW50cyhSSF9TT1VSQ0VbLDFdW3NvdXJjZTJdLGQxOE9fY2VsbHVsb3NlW1siZm89MC4zMyJdXVtbImdzPTAuMDEiXV1bc291cmNlMl0sICBwY2g9MTksIGNvbD0icmVkIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC4yNSJdXVtzb3VyY2UyXSwgcGNoPTIsIGNvbD0icmVkIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC41Il1dW3NvdXJjZTJdLCBjb2w9InJlZCIgKQoKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjAxIl1dW3NvdXJjZTJdLCAgcGNoPTE5LCBjb2w9ImJsdWUiICkKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjI1Il1dW3NvdXJjZTJdLCBwY2g9MiwgY29sPSJibHVlIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjQyIl1dW1siZ3M9MC41Il1dW3NvdXJjZTJdLCBjb2w9ImJsdWUiICkKCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC4wMSJdXVtzb3VyY2UxXSwgIHBjaD0xOSwgY29sPSJyZWQiICkKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNTUiXV1bWyJncz0wLjI1Il1dW3NvdXJjZTFdLCBwY2g9MikKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNTUiXV1bWyJncz0wLjUiXV1bc291cmNlMV0pCiAgCiAgcG9pbnRzKFJIX1NPVVJDRVssMV1bc291cmNlMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC4wMSJdXVtzb3VyY2UxXSwgIHBjaD0xOSwgY29sPSJyZWQiICkKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuMzMiXV1bWyJncz0wLjI1Il1dW3NvdXJjZTFdLCBwY2g9MiwgY29sPSJyZWQiICkKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuMzMiXV1bWyJncz0wLjUiXV1bc291cmNlMV0sIGNvbD0icmVkIiApCgogIHBvaW50cyhSSF9TT1VSQ0VbLDFdW3NvdXJjZTFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC40MiJdXVtbImdzPTAuMDEiXV1bc291cmNlMV0sICBwY2g9MTksIGNvbD0iYmx1ZSIgKQogIHBvaW50cyhSSF9TT1VSQ0VbLDFdW3NvdXJjZTFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC40MiJdXVtbImdzPTAuMjUiXV1bc291cmNlMV0sIHBjaD0yLCBjb2w9ImJsdWUiICkKICBwb2ludHMoUkhfU09VUkNFWywxXVtzb3VyY2UxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjUiXV1bc291cmNlMV0sIGNvbD0iYmx1ZSIgKQogIAogIApgYGAKCgoKCmBgYHtyfQpSSDEgPC0gUkhfU09VUkNFWywxXT09IDEwICMgaW4gdGhpcyBjYXNlIHdlIHNlbGVjdCB0aGUgIHBvc2l0aW9ucyAgdGhhdCAgaGF2ZSBhIHNvcmNlIHdhdGVyIG9mIC0yNSAKUkgyIDwtIFJIX1NPVVJDRVssMV09PTkwIyBpbiB0aGlzIGNhc2Ugd2Ugc2VsZWN0IHRoZSAgcG9zaXRpb25zICB0aGF0ICBoYXZlIGEgc29yY2Ugd2F0ZXIgb2YgMSAKCgpwbG90KFJIX1NPVVJDRVssMl1bUkgyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNTUiXV1bWyJncz0wLjAxIl1dW1JIMl0sIHhsaW0gPXJhbmdlKFJIX1NPVVJDRVssMl0pLCB5bGltID1yYW5nZSh1bmxpc3QoZDE4T19jZWxsdWxvc2UpKSwgIHBjaD0xOSwgeGxhYiA9ICJTb3VyY2Ugd2F0ZXIiLCB5bGFiID0gImQxOE8iKSAKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDJdLGQxOE9fY2VsbHVsb3NlW1siZm89MC41NSJdXVtbImdzPTAuMjUiXV1bUkgyXSwgcGNoPTIpCiAgcG9pbnRzKFJIX1NPVVJDRVssMl1bUkgyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNTUiXV1bWyJncz0wLjUiXV1bUkgyXSkKICAKICAKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDJdLGQxOE9fY2VsbHVsb3NlW1siZm89MC4zMyJdXVtbImdzPTAuMDEiXV1bUkgyXSwgIHBjaD0xOSwgY29sPSJyZWQiICkKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDJdLGQxOE9fY2VsbHVsb3NlW1siZm89MC4zMyJdXVtbImdzPTAuMjUiXV1bUkgyXSwgcGNoPTIsIGNvbD0icmVkIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMl1bUkgyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuMzMiXV1bWyJncz0wLjUiXV1bUkgyXSwgY29sPSJyZWQiICkKCiAgcG9pbnRzKFJIX1NPVVJDRVssMl1bUkgyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjAxIl1dW1JIMl0sICBwY2g9MTksIGNvbD0iYmx1ZSIgKQogIHBvaW50cyhSSF9TT1VSQ0VbLDJdW1JIMl0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjQyIl1dW1siZ3M9MC4yNSJdXVtSSDJdLCBwY2g9MiwgY29sPSJibHVlIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMl1bUkgyXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjUiXV1bUkgyXSwgY29sPSJibHVlIiApCiAgCgogIHBvaW50cyhSSF9TT1VSQ0VbLDJdW1JIMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC4wMSJdXVtSSDFdLCAgcGNoPTE5LCBjb2w9InJlZCIgKQogIHBvaW50cyhSSF9TT1VSQ0VbLDJdW1JIMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC4yNSJdXVtSSDFdLCBwY2g9MikKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC41NSJdXVtbImdzPTAuNSJdXVtSSDFdKQogIAogIAogIHBvaW50cyhSSF9TT1VSQ0VbLDJdW1JIMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC4wMSJdXVtSSDFdLCAgcGNoPTE5LCBjb2w9InJlZCIgKQogIHBvaW50cyhSSF9TT1VSQ0VbLDJdW1JIMV0sZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC4yNSJdXVtSSDFdLCBwY2g9MiwgY29sPSJyZWQiICkKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC4zMyJdXVtbImdzPTAuNSJdXVtSSDFdLCBjb2w9InJlZCIgKQoKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC40MiJdXVtbImdzPTAuMDEiXV1bUkgxXSwgIHBjaD0xOSwgY29sPSJibHVlIiApCiAgcG9pbnRzKFJIX1NPVVJDRVssMl1bUkgxXSxkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjI1Il1dW1JIMV0sIHBjaD0yLCBjb2w9ImJsdWUiICkKICBwb2ludHMoUkhfU09VUkNFWywyXVtSSDFdLGQxOE9fY2VsbHVsb3NlW1siZm89MC40MiJdXVtbImdzPTAuNSJdXVtSSDFdLCBjb2w9ImJsdWUiICkKICAKICAKYGBgCgpJbiB0aGlzIGZpbmFsIHN0ZXAsIHdlIHdpbGwgIHBsb3QgYWxsIGluIGZpZ3VyZSB3aXRoIGFsbCB0aGUgdmFsdWVzICBlc3RpbWF0ZWQgaW4gdGhpcyBleGVyY2lzZSBhIHRocmVlLWJ5LXRocmVlIHBhbmVsIHVzaW5nIGhlYXQgbWFwcyBvZiB0aGUgIFJILCBTb3VyY2UgdmVjdG9ycy4KCmBgYHtyfQojZ2VuZXJhdGlvbiBvZiB0aGUgOSBtYXRyaWNlcyB3aXRoIDE3IGRpZmZlcmVudCBSZWFsdGl2ZSBieSAxNiBkaWZmZXJlbnQgd2F0ZXJzCgpkMThPX19mbzAuNTVfZ3MwLjAxIDwtIG1hdHJpeCAoZDE4T19jZWxsdWxvc2VbWyJmbz0wLjU1Il1dW1siZ3M9MC4wMSJdXSwgbnJvdyA9IDE3LCBuY29sID0gMTYsIGJ5cm93ID0gRiwgZGltbmFtZXMgPSBsaXN0KGFzLmNoYXJhY3RlcihyZWxIKSxhcy5jaGFyYWN0ZXIod2F0ZXIpKSkKZDE4T19fZm8wLjU1X2dzMC4yNSA8LSBtYXRyaXggKGQxOE9fY2VsbHVsb3NlW1siZm89MC41NSJdXVtbImdzPTAuMjUiXV0sIG5yb3cgPSAxNywgbmNvbCA9IDE2LCBieXJvdyA9IEYsIGRpbW5hbWVzID0gbGlzdChhcy5jaGFyYWN0ZXIocmVsSCksYXMuY2hhcmFjdGVyKHdhdGVyKSkpCmQxOE9fX2ZvMC41NV9nczAuNSA8LSBtYXRyaXggKGQxOE9fY2VsbHVsb3NlW1siZm89MC41NSJdXVtbImdzPTAuNSJdXSwgbnJvdyA9IDE3LCBuY29sID0gMTYsIGJ5cm93ID0gRiwgZGltbmFtZXMgPSBsaXN0KGFzLmNoYXJhY3RlcihyZWxIKSxhcy5jaGFyYWN0ZXIod2F0ZXIpKSkKCmQxOE9fX2ZvMC4zM19nczAuMDEgPC0gbWF0cml4IChkMThPX2NlbGx1bG9zZVtbImZvPTAuMzMiXV1bWyJncz0wLjAxIl1dLCBucm93ID0gMTcsIG5jb2wgPSAxNiwgYnlyb3cgPSBGLCBkaW1uYW1lcyA9IGxpc3QoYXMuY2hhcmFjdGVyKHJlbEgpLGFzLmNoYXJhY3Rlcih3YXRlcikpKQpkMThPX19mbzAuMzNfZ3MwLjI1IDwtIG1hdHJpeCAoZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC4yNSJdXSwgbnJvdyA9IDE3LCBuY29sID0gMTYsIGJ5cm93ID0gRiwgZGltbmFtZXMgPSBsaXN0KGFzLmNoYXJhY3RlcihyZWxIKSxhcy5jaGFyYWN0ZXIod2F0ZXIpKSkKZDE4T19fZm8wLjMzX2dzMC41IDwtIG1hdHJpeCAoZDE4T19jZWxsdWxvc2VbWyJmbz0wLjMzIl1dW1siZ3M9MC41Il1dLCBucm93ID0gMTcsIG5jb2wgPSAxNiwgYnlyb3cgPSBGLCBkaW1uYW1lcyA9IGxpc3QoYXMuY2hhcmFjdGVyKHJlbEgpLGFzLmNoYXJhY3Rlcih3YXRlcikpKQoKZDE4T19fZm8wLjQyX2dzMC4wMSA8LW1hdHJpeCAoIGQxOE9fY2VsbHVsb3NlW1siZm89MC40MiJdXVtbImdzPTAuMDEiXV0sIG5yb3cgPSAxNywgbmNvbCA9IDE2LCBieXJvdyA9IEYsIGRpbW5hbWVzID0gbGlzdChhcy5jaGFyYWN0ZXIocmVsSCksYXMuY2hhcmFjdGVyKHdhdGVyKSkpCmQxOE9fX2ZvMC40Ml9nczAuMjUgPC0gbWF0cml4IChkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjI1Il1dLCBucm93ID0gMTcsIG5jb2wgPSAxNiwgYnlyb3cgPSBGLCBkaW1uYW1lcyA9IGxpc3QoYXMuY2hhcmFjdGVyKHJlbEgpLGFzLmNoYXJhY3Rlcih3YXRlcikpKQpkMThPX19mbzAuNDJfZ3MwLjUgPC0gbWF0cml4IChkMThPX2NlbGx1bG9zZVtbImZvPTAuNDIiXV1bWyJncz0wLjUiXV0sIG5yb3cgPSAxNywgbmNvbCA9IDE2LCBieXJvdyA9IEYsIGRpbW5hbWVzID0gbGlzdChhcy5jaGFyYWN0ZXIocmVsSCksYXMuY2hhcmFjdGVyKHdhdGVyKSkpCgpDT0xJUyA8LSBjb2xvclJhbXBQYWxldHRlKGNvbG9ycyA9IGMoInJlZCIsICJibHVlIiwgImJsYWNrIikpCgoKYGBgCgpgYGB7cn0KCmNvbF9wYW5lbCA8LSBDT0xJUygxMCkKcmFuZ2VfbGltaXRzIDwtIHJhbmdlKHVubGlzdChkMThPX2NlbGx1bG9zZSkpCgpsYXlvdXQobWF0ID0gbWF0cml4KDE6OSxucm93ID0gMywgbmNvbCA9IDMsIGJ5cm93ID0gVCksIHdpZHRocyA9IDEsIGhlaWdodHMgPSAxLCByZXNwZWN0ID0gVCkKcGFyKG1hcj1jKDQsNCwwLjEsMC4xKSkKCmltYWdlKHggPSB3YXRlciwgeSA9IHJlbEgsIHogPSB0KGQxOE9fX2ZvMC4zM19nczAuMDEpLGNvbCA9IGNvbF9wYW5lbCwgemxpbSA9IHJhbmdlX2xpbWl0cykKaW1hZ2UoeCA9IHdhdGVyLCB5ID0gcmVsSCwgeiA9IHQoZDE4T19fZm8wLjMzX2dzMC4yNSksY29sID0gY29sX3BhbmVsLCB6bGltID0gcmFuZ2VfbGltaXRzKQppbWFnZSh4ID0gd2F0ZXIsIHkgPSByZWxILCB6ID0gdChkMThPX19mbzAuMzNfZ3MwLjUpLGNvbCA9IGNvbF9wYW5lbCwgemxpbSA9IHJhbmdlX2xpbWl0cykKaW1hZ2UoeCA9IHdhdGVyLCB5ID0gcmVsSCwgeiA9IHQoZDE4T19fZm8wLjQyX2dzMC4wMSksY29sID0gY29sX3BhbmVsLCB6bGltID0gcmFuZ2VfbGltaXRzKQppbWFnZSh4ID0gd2F0ZXIsIHkgPSByZWxILCB6ID0gdChkMThPX19mbzAuNDJfZ3MwLjI1KSxjb2wgPSBjb2xfcGFuZWwsIHpsaW0gPSByYW5nZV9saW1pdHMpCmltYWdlKHggPSB3YXRlciwgeSA9IHJlbEgsIHogPSB0KGQxOE9fX2ZvMC40Ml9nczAuNSksY29sID0gY29sX3BhbmVsLCB6bGltID0gcmFuZ2VfbGltaXRzKQppbWFnZSh4ID0gd2F0ZXIsIHkgPSByZWxILCB6ID0gdChkMThPX19mbzAuNTVfZ3MwLjAxKSxjb2wgPSBjb2xfcGFuZWwsIHpsaW0gPSByYW5nZV9saW1pdHMpCmltYWdlKHggPSB3YXRlciwgeSA9IHJlbEgsIHogPSB0KGQxOE9fX2ZvMC41NV9nczAuMjUpLGNvbCA9IGNvbF9wYW5lbCwgemxpbSA9IHJhbmdlX2xpbWl0cykKaW1hZ2UoeCA9IHdhdGVyLCB5ID0gcmVsSCwgeiA9IHQoZDE4T19fZm8wLjU1X2dzMC41KSxjb2wgPSBjb2xfcGFuZWwsIHpsaW0gPSByYW5nZV9saW1pdHMpCmBgYAoKIyMjIEV4ZXJjaXNlCkNvbnNpZGVyaW5nIHRoZSBzbG9wZXMgYmV0d2VlbiB0aGUgZDE4TyBpbiBjZWxsdWxvc2UgYW5kIGBgYHJlbEhgYGAgYW5kIGBgYHdhdGVyYGBgIGFuZCB0aGUgaHlwb3RoZXRpY2FsIHJhbmdlIG9mIHZhcmlhYmlsaXR5IG9uIGEgZ2l2ZW4gZW52aXJvbm1lbnQsIHdoYXQgdmFyaWFibGUgaXMgbW9zdCBsaWtlbHkgdG8gYmUgaW5mbHVlbmNpbmcgdGhlIGNlbGx1bG9zZSB2YWx1ZXMgdGhyb3VnaG91dCB0aGUgbGlmZSBzcGFuIG9mIGEgdHJlZT8gIFRha2UgaW50byBjb25zaWRlcmF0aW9uIHRoZSBzZWFzb25hbCBhbmQgaW50ZXJhbm51YWwgdmFyaWFiaWxpdHkuCgpDYXNlIDE6IFRoZSBzb3VyY2Ugd2F0ZXIgcmFuZ2VzIGZyb20gLTEwIHRvIC01LCBhbmQgdGhlIHJlbGF0aXZlIGh1bWlkaXR5IGZsdWN0dWF0ZXMgYmV0d2VlbiAyMCB0byA3MCUuIEhlcmUgd2Ugd2lsbCBiZSBhc3N1bWluZyB0aGF0IHRoZSBhdmVyYWdlIGdzIGlzIDAuMDEgYW5kIGEgNDIlIGV4Y2hhbmdlLgpgYGB7cn0KIyBoaW50LiBJbWFnaW5lIGEgIGJveCB0aGF0IGNvdmVycyB0aGUgcmFnZSBnaXZlbi4gVGhlbiB5b3UgY2FuIHByZWNpc2VseSBlc3RpbWF0ZSB0aGUgcG90ZW50aWFsIHJhZ2UgaW4gZDE4TyBieSB1c2luZyB0aGUgc2xvcGVzIGJldHdlZW4gdGhlIHZhcmlhYmxlcyBhbmQgZDE4TyBpbiBjZWxsdWxvc2UgYW5kIGNhbGN1bGF0ZSB0aGUgcmFuZ2Ugb2YgdmFyaWF0aW9uIGJldHdlZW4gdGhlIGdpdmVuIHJhbmdlIG9mIGVudmlyb25tZW50YWwgY29uZGl0aW9ucy4KCgpgYGAKCkNhc2UgMjogVGhlIHNvdXJjZSB3YXRlciB2YXJpZXMgZnJvbSAtMTAgdG8gLTgsIGFuZCB0aGUgcmVsYXRpdmUgaHVtaWRpdHkgZmx1Y3R1YXRlcyBiZXR3ZWVuIDgwJSB0byA5MCUuIEhlcmUgd2Ugd2lsbCBiZSBhc3N1bWluZyB0aGF0IHRoZSBhdmVyYWdlIGdzIGlzIDAuMDEsIGFuZCBhIDQyJSBleGNoYW5nZS4KCmBgYHtyfQoKYGBgCgpRdWVzdGlvbiAxOiB3aGF0IGlzIHRoZSBtb3N0IGltcG9ydGFudCB2YXJpYWJsZSBpbiBlYWNoIG9mIHRoZSBjYXNlcz8gQ2FuIHlvdSBzYXkgaG93IG11Y2ggdGhlIHNvdXJjZSBpbmZsdWVuY2VzIHRoZSBjZWxsdWxvc2UgYW5kIGhvdyBtdWNoIHRoZSByZWxhdGl2ZSBodW1pZGl0eSBhZmZlY3RzIHRoZSBvdXRjb21lIGluIGQxOE8gaW4gY2VsbHVsb3NlPwoKUXVlc3Rpb24gMjogaXMgdGhlcmUgYSBzaWduaWZpY2FudCBkaWZmZXJlbmNlIGJldHdlZW4gdGhlIGQxOE8gaW4gY2VsbHVsb3NlIHdoZW4gZ3MgdmFyaWVzIGZyb20gMC4wMSB0byAwLjU/IAogCiAKCgoKCgo=</div>
 
 
 
