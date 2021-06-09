@@ -7,18 +7,18 @@ output: html_notebook
 
 ### Instructions:
 
-The following activities should further your experience understanding the mechanistic drivers (parameters, variable) of tree ring 18O variability in tree rings. This exercise consists of a sensitivity analysis to investigate how different environmental factors and parameters affect the variability of 18O isotopes in the cellulose. The following calculations, like Notebook 2, are based on the Craig Gordon and the Roden models.
+The following activities should further your experience understanding the mechanistic drivers (parameters, variable) of 18O variability in tree rings. This exercise consists of a sensitivity analysis to investigate how different environmental factors and parameters affect the variability of 18O isotopes in the cellulose. The following calculations, like Notebook 2, are based on the Craig Gordon and the Roden models.
 
 You will need to download or clone the R project from https://github.com/paulszejner/DISCO-Notebook4.git
 then, each of you will be able to set your working directory to proceed with this exercises. Once you open the ```Notebook 4.Rproj```  you can open the ```Notebook 4.Rmd``` file to proceed with the activity.
 
-In this exercise, you will model the oxygen isotopes in cellulose ```d18O_cellulose```. However, this exercise is intended for you to evaluate the sensitivity of the different variables. Namely, how cellulose 18O will vary if we vary the relative humidity ```relH```,  the source water ```water```, the stomatal conductance```gs``` and the percentage of exchange during the cellulose sinthesys```F_0```
+In the following, you will model the oxygen isotopes in cellulose ```d18O_cellulose```. However, this exercise is intended for you to evaluate the sensitivity of the different variables. Namely, how cellulose 18O will vary if we vary the relative humidity ```relH```,  the source water ```water```, the stomatal conductance```gs``` and the percentage of exchange during the cellulose synthesis```F_0```
 
 
 ## PART 1: Variables
 
 * First, create a vector [```relH``` ] of relative humidity ranging from 10% to 90%.   
-* Second, create a vector [```water```] of Source water ranging from -25 permill to 5 permill.  
+* Second, create a vector [```water```] of Source water ranging from -25 to 5 permill.  
 * Third, create a 2 column object [```RH_SOURCE```] combining  ```relH```  and ```water``` that correspond to all possible combinations of relative humidity and source water 18O. 
 
 
@@ -49,7 +49,7 @@ The leaf water enrichment and cellulose 18O will be predicted using a wide range
 
 ### Varying Relative Humidity (RH) and Source water d18O:
 
-The first part of the  model will berun with a combination of RH and source water 18O as follows:
+The first part of the  model will be run with a combination of RH and source water 18O as follows:
 ```{r}
 # Constants
 br <-1 # boundary layer conductance. (mol m-2 s-1), considered reasonable value between 0.02 to 3 in Roden paper boundary layer resistance.
@@ -152,7 +152,7 @@ Rsource= rsmow*(1+Source_18O/1000)
 Ratm= rsmow*(1+water_vapor/1000)
 ```
 
-Now, estimate R leaf for all combinations of RHm Source water 18O and gs:
+Now, estimate R leaf for all combinations of RH, Source water 18O and gs:
 ``` {r}
 
 Rleaf<- list()
@@ -218,8 +218,7 @@ Check the structure of the `d18O_cellulose` object. We generated a list of 3 sto
 str(d18O_cellulose)
 ```
 
-Each vector  of the list corresponds to the suite of combinations we had at the start of this exercise where ```RH_SOURCE``` is the main structure for all 17 different Relative humidity values ```RH```and the 16 different source waters d18O `water` 
-provides 272 values on each vector from the list.
+Each vector  of the list corresponds to the suite of combinations we had at the start of this exercise where ```RH_SOURCE``` is the main structure for all 17 different Relative humidity values ```RH```and the 16 different source waters d18O `water` which provides 272 values for each vector from the list.
 
 ## PART 3: Estimate the  slope between  diferent variables  and the Isotopic effect estimated in cellulose 
 This final step will estimate the different sensitivities the `d18O_cellulose` is exposed under different environments and different factors. Then, you will need to conclude what factors analyzed in this exercise are the most sensitive and why.
