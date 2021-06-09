@@ -263,7 +263,7 @@ plot(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.55"]][["gs=0.01"]][source2], x
 
 
 
-The following plot is a simple example of how to use the dataset we just generated so we can extract/use any data you chose. Now, in this example, we will select a subset of the data using two different relative humidities`RH`,  one subset with on 10%. The other using 90% and will plot the relationship between isotopic ratio of the source water  `water` and the recorded/modeled `d18O_cellulose`.
+The following plot is a simple example of how to use the dataset we just generated so we can extract/use any data you chose. Now, in this example, we will select a subset of the data using two different relative humidities`RH`,  one subset with on 10%. The other using 90% and will plot the relationship between the isotopic ratio of the source water  `water` and the recorded/modeled `d18O_cellulose`.
 
 ```{r}
 RH1 <- RH_SOURCE[,1]== 10 # in this case we select the  positions using a 10% 
@@ -329,22 +329,28 @@ COLIS <- colorRampPalette(colors = c("red", "blue", "black"))
 col_panel <- COLIS(10)
 range_limits <- range(unlist(d18O_cellulose))
 
-layout(mat = matrix(1:9,nrow = 3, ncol = 3, byrow = T), widths = 1, heights = 1, respect = T)
-par(mar=c(4,4,0.1,0.1))
+layout(mat = matrix(c(1:9,10,10,10),nrow = 4, ncol = 3, byrow = T), widths = c(1.4,1.4,1.4), heights = c(1,1,1,1), respect = T)
+par(mar=c(4,4,0.2,0))
 
-image(x = water, y = relH, z = t(d18O__fo0.33_gs0.01),col = col_panel, zlim = range_limits)
-image(x = water, y = relH, z = t(d18O__fo0.33_gs0.25),col = col_panel, zlim = range_limits)
-image(x = water, y = relH, z = t(d18O__fo0.33_gs0.5),col = col_panel, zlim = range_limits)
-image(x = water, y = relH, z = t(d18O__fo0.42_gs0.01),col = col_panel, zlim = range_limits)
-image(x = water, y = relH, z = t(d18O__fo0.42_gs0.25),col = col_panel, zlim = range_limits)
-image(x = water, y = relH, z = t(d18O__fo0.42_gs0.5),col = col_panel, zlim = range_limits)
-image(x = water, y = relH, z = t(d18O__fo0.55_gs0.01),col = col_panel, zlim = range_limits)
-image(x = water, y = relH, z = t(d18O__fo0.55_gs0.25),col = col_panel, zlim = range_limits)
-image(x = water, y = relH, z = t(d18O__fo0.55_gs0.5),col = col_panel, zlim = range_limits)
+image(x = water, y = relH, z = t(d18O__fo0.33_gs0.01),col = col_panel, zlim = c(0,60))
+image(x = water, y = relH, z = t(d18O__fo0.33_gs0.25),col = col_panel, zlim = c(0,60))
+image(x = water, y = relH, z = t(d18O__fo0.33_gs0.5),col = col_panel, zlim = c(0,60))
+image(x = water, y = relH, z = t(d18O__fo0.42_gs0.01),col = col_panel, zlim = c(0,60))
+image(x = water, y = relH, z = t(d18O__fo0.42_gs0.25),col = col_panel, zlim = c(0,60))
+image(x = water, y = relH, z = t(d18O__fo0.42_gs0.5),col = col_panel, zlim = c(0,60))
+image(x = water, y = relH, z = t(d18O__fo0.55_gs0.01),col = col_panel, zlim = c(0,60))
+image(x = water, y = relH, z = t(d18O__fo0.55_gs0.25),col = col_panel, zlim = c(0,60))
+image(x = water, y = relH, z = t(d18O__fo0.55_gs0.5),col = col_panel, zlim = c(0,60))
+
+## over comlicated way to plot a color bar///
+source("col_bar.R")
+par(mar=c(4,4,3,0))
+color.bar_h(col_panel, min = 0, max = 60, nticks = 11, title = "d18O cellulose") 
+
 ```
 
 ### Exercise
-Considering the slopes between the d18O in cellulose and ```relH``` and ```water``` and the hypothetical range of variability on a given environment, what variable is most likely to be influencing the cellulose values throughout the life span of a tree?  Take into consideration the seasonal and interannual variability.
+Considering the slopes between the d18O in cellulose and ```relH``` and ```water``` and the hypothetical range of variability on a given environment, what variable is most likely to be influencing the cellulose values throughout the life span of a tree?  Take into consideration the seasonal and interannual variability, and the environemntal characteristics provided in the following Case 1 and Case 2.
 
 Case 1: The source water ranges from -10 to -5, and the relative humidity fluctuates between 20 to 70%. Here we will be assuming that the average gs is 0.01 and a 42% exchange.
 ```{r}
