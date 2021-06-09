@@ -12,7 +12,7 @@ The following activities should further your experience understanding the mechan
 You will need to download or clone the R project from https://github.com/paulszejner/DISCO-Notebook4.git
 then, each of you will be able to set your working directory to proceed with this exercises. Once you open the ```Notebook 4.Rproj```  you can open the ```Notebook 4.Rmd``` file to proceed with the activity.
 
-In this exercise, you will model the oxygen isotopes in cellulose ```d18O_cellulose```. However, this exercise is intended for you to evaluate the sensitivity of the different variables. Namely, how cellulose 18O will vary if we vary the relative humidity ```relH```,  the source water ```water```, the stomatal conductance```gs``` and the percentage of exchange during the cellulose sinthesys```F_0```
+In this exercise, you will model the oxygen isotopes in cellulose ```d18O_cellulose```. However, this exercise is intended for you to evaluate the sensitivity of the different variables. Namely, how cellulose 18O will vary if we vary the relative humidity ```relH```,  the source water ```water```, the imatal conductance```gs``` and the percentage of exchange during the cellulose sinthesys```F_0```
 
 
 ## PART 1: Variables
@@ -104,7 +104,7 @@ g = 1/(1/gs + 1/br) # or 1/(rs+rb)
 # This list contains 3 different combinations of gs for many RH and Source water combination.
 E <- list()
 # This for loop will calculate the leaf transpiration E
-for (sto in 1:3){E[[sto]]=((ei-ea)/press_bar)*g[sto] }
+for (i in 1:3){E[[i]]=((ei-ea)/press_bar)*g[i] }
 ```
 
 Check the structure of this new object E based n 3 stomatal conductance values:
@@ -136,11 +136,11 @@ wa= ea/press_bar
 # Calculate leaf surface water vapor (ws) mole fraction: 
 # this list contains 3 different combinations of gs for many RH and Source waters.
 ws <- list()
-for(sto in 1:3){ws[[sto]] =((gs[[sto]]*wi)-E[[sto]]*(1-wi/2))/(gs[[sto]] - E[[sto]]/2)}
+for(i in 1:3){ws[[i]] =((gs[[i]]*wi)-E[[i]]*(1-wi/2))/(gs[[i]] - E[[i]]/2)}
 
 # Calculate vapor pressure at leaf surface (es)
 es<- list()
-for(sto in 1:3){es[[sto]]=ws[[sto]]*press_bar}
+for(i in 1:3){es[[i]]=ws[[i]]*press_bar}
 
 # Calculate the temperature dependent equilibrium fractionation factor alpha*
 alpha_star =exp((1.137*1000/(273.15+Ta)^2)-(0.4156/(273.15+Ta))-0.0020667)
@@ -157,9 +157,9 @@ Now, estimate R leaf for all combinations of RHm Source water 18O and gs:
 
 Rleaf<- list()
 
-for(sto in 1:3){
-  Rleaf[[sto]] <- alpha_star*((ak*Rsource*((ei-es[[sto]])/ei))+
-                              (akb*Rsource*((es[[sto]]-ea)/ei))+
+for(i in 1:3){
+  Rleaf[[i]] <- alpha_star*((ak*Rsource*((ei-es[[i]])/ei))+
+                              (akb*Rsource*((es[[i]]-ea)/ei))+
                               (Ratm*(ea/ei)))
                               }
 ```
@@ -169,8 +169,8 @@ Convert leaf water enrichment to permill values as follows:
 
 d18Oleaf <- list()
 
-for(sto in 1:3){
-  d18Oleaf[[sto]]=((Rleaf[[sto]]/rsmow)-1)*1000 
+for(i in 1:3){
+  d18Oleaf[[i]]=((Rleaf[[i]]/rsmow)-1)*1000 
 }
 ```
 
@@ -202,13 +202,13 @@ epsilon_o <-  27 # Biological fractionation factor for oxygen in going from suga
 # here a double loop
 
 d18O_cellulose <- list()
-for(sto in 1:3){
+for(i in 1:3){
   d18Oc_F_0 <- list()
-  for (pe in 1:3){ # variable percentage of Exchange during Cellulose Synthesis
-    d18Oc_F_0[[pe]] <- F_0[[pe]]*(Source_18O + epsilon_o) + (1 - F_0[[pe]]) * (d18Oleaf[[sto]]+ epsilon_o) 
+  for (z in 1:3){ # variable percentage of Exchange during Cellulose Synthesis
+    d18Oc_F_0[[z]] <- F_0[[z]]*(Source_18O + epsilon_o) + (1 - F_0[[z]]) * (d18Oleaf[[i]]+ epsilon_o) 
   }
   names(d18Oc_F_0) <- c("gs=0.01","gs=0.25","gs=0.5" )
-d18O_cellulose[[sto]] <- d18Oc_F_0
+d18O_cellulose[[i]] <- d18Oc_F_0
 }
 names(d18O_cellulose) <- c("fo=0.33","fo=0.42","fo=0.55" )
 ```
@@ -358,12 +358,15 @@ Case 2: The source water varies from -10 to -8, and the relative humidity fluctu
 ```{r}
 
 solpes <- 
+
 ```
 
 Question 1: what is the most important variable in each of the cases? Can you say how much the source influences the cellulose and how much the relative humidity affects the outcome in d18O in cellulose?
 
 Question 2: is there a significant difference between the d18O in cellulose when gs varies from 0.01 to 0.5? 
- 
+
+
+### Fin 
  
 
 
