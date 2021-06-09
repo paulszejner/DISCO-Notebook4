@@ -12,11 +12,7 @@ The following activities should further your experience understanding the mechan
 You will need to download or clone the R project from https://github.com/paulszejner/DISCO-Notebook4.git
 then, each of you will be able to set your working directory to proceed with this exercises. Once you open the ```Notebook 4.Rproj```  you can open the ```Notebook 4.Rmd``` file to proceed with the activity.
 
-<<<<<<< HEAD
-In this exercise, you will model the oxygen isotopes in cellulose ```d18O_cellulose```. However, this exercise is intended for you to evaluate the sensitivity of the different variables. Namely, how cellulose 18O will vary if we vary the relative humidity ```relH```,  the source water ```water```, the stomatal conductance```gs``` and the percentage of exchange during the cellulose sinthesys```F_0```
-=======
 In the following, you will model the oxygen isotopes in cellulose ```d18O_cellulose```. However, this exercise is intended for you to evaluate the sensitivity of the different variables. Namely, how cellulose 18O will vary if we vary the relative humidity ```relH```,  the source water ```water```, the stomatal conductance```gs``` and the percentage of exchange during the cellulose synthesis```F_0```
->>>>>>> a089edbb9a3224794e0d2b9f170171b4ad1b6320
 
 
 ## PART 1: Variables
