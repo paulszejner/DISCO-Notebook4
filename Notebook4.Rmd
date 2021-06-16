@@ -341,19 +341,40 @@ color.bar_h(col_panel, min = 0, max = 60, nticks = 11, title = "d18O cellulose")
 ### Exercise
 Considering the slopes between the d18O in cellulose and ```relH``` and ```water``` and the hypothetical range of variability on a given environment, what variable is most likely to be influencing the cellulose values throughout the life span of a tree?  Take into consideration the seasonal and interannual variability, and the environemntal characteristics provided in the following Case 1 and Case 2.
 
-Case 1: The source water ranges from -10 to -5, and the relative humidity fluctuates between 20 to 70%. Here we will be assuming that the average gs is 0.01 and a 42% exchange.  
+Case 1: The source water ranges from -9 to -5, and the relative humidity fluctuates between 20 to 70%. Here we will be assuming that the average gs is 0.01 and a 42% exchange.  
 
 ```{r}
 #hint. Imagine a  box that covers the rage given. Then you can precisely estimate the potential rage in d18O by using the slopes between the variables and d18O in cellulose and calculate the range of variation between the given range of environmental conditions.
 
-solpes <- 
+RH1 <- RH_SOURCE[,1]== 20 # in this case we select the  positions using a 20% 
+RH2 <- RH_SOURCE[,1]==70# in this case we select the  positions using a 70% 
+
+source1 <- RH_SOURCE[,2]==-9 # in this case we select the  positions  that  have a sorce water of -9 
+source2 <- RH_SOURCE[,2]==-5# in this case we select the  positions  that  have a sorce water of -5
+
+plot(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][RH1], xlim =range(RH_SOURCE[,2]), ylim =range(unlist(d18O_cellulose)),  pch=19, xlab = "Source water", ylab = "d18O") 
+  points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][RH2], pch=2)
+  
+plot(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][source1], xlim =range(RH_SOURCE[,1]), ylim =range(unlist(d18O_cellulose)),  pch=19, xlab = "RH", ylab = "d18O") 
+  points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][source2], pch=2)
+
 ```
 
-Case 2: The source water varies from -10 to -8, and the relative humidity fluctuates between 80% to 90%. Here we will be assuming that the average gs is 0.01, and a 42% exchange.
+Case 2: The source water varies from -13 to -7, and the relative humidity fluctuates between 80% to 90%. Here we will be assuming that the average gs is 0.01, and a 42% exchange.
 
 ```{r}
+RH1 <- RH_SOURCE[,1]== 80
+RH2 <- RH_SOURCE[,1]==90
 
-solpes <- 
+source1 <- RH_SOURCE[,2]==-13 
+source2 <- RH_SOURCE[,2]==-7
+
+plot(RH_SOURCE[,2][RH1],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][RH1], xlim =range(RH_SOURCE[,2]), ylim =range(unlist(d18O_cellulose)),  pch=19, xlab = "Source water", ylab = "d18O") 
+  points(RH_SOURCE[,2][RH2],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][RH2], pch=2)
+  
+plot(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][source1], xlim =range(RH_SOURCE[,1]), ylim =range(unlist(d18O_cellulose)),  pch=19, xlab = "RH", ylab = "d18O") 
+  points(RH_SOURCE[,1][source2],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][source2], pch=2)
+
 
 ```
 
