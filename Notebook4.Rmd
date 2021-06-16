@@ -191,6 +191,22 @@ Question 3: Describe how leaf water enrichment depend on RH. Does this relations
 -
 -
 
+Now lets plot delta 18O and gs on the situations under low and high relative humidity   
+```{r}
+
+low_rh <- c(d18Oleaf[[1]][1],d18Oleaf[[2]][1],d18Oleaf[[3]][1]) #leaf enrichment  unde low rh
+high_rh <- c(d18Oleaf[[1]][17],d18Oleaf[[2]][17],d18Oleaf[[3]][17])#leaf enrichment  unde high rh
+mean_rh <- c(d18Oleaf[[1]][8],d18Oleaf[[2]][8],d18Oleaf[[3]][8])#leaf enrichment  unde high rh
+
+plot(low_rh, gs, type = "l", lwd=1, xlab ="leaf water enrichment d18O_leaf", ylim = range(gs), xlim = range(c(low_rh, high_rh)))
+lines(mean_rh, gs, lwd=3)
+lines(high_rh, gs, lwd=6)
+legend("top", legend = c("low RH (10%)","mean RH(45%)", "high RH(90%)" ), lwd = c(1,3,6))
+
+
+```
+
+
 #### Varying the proportion of exchanges with local water F_0:
 The proportion (F_0) of carbohydrate d18O signal from leaf carbohydrate that exchanges with local water during formation of tree-ring or leaf cellulose will be varied to estimate cellulose d18O as follows:
 
