@@ -394,9 +394,9 @@ plot(RH_SOURCE[,1][source1],d18O_cellulose[["fo=0.42"]][["gs=0.01"]][source1], x
 
 ```
 
-Question 1: what is the most important variable in each of the cases? Can you say how much the source influences the cellulose and how much the relative humidity affects the outcome in d18O in cellulose?
+Question 4: what is the most important variable in each of the cases? Can you say how much the source influences the cellulose and how much the relative humidity affects the outcome in d18O in cellulose?
 
-Question 2: is there a significant difference between the d18O in cellulose when gs varies from 0.01 to 0.5? 
+Question 5: is there a significant difference between the d18O in cellulose when gs varies from 0.01 to 0.5? 
 
 
 ### Fin 
